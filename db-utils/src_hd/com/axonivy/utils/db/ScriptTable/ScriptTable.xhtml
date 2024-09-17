@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite" xmlns:ic="http://ivyteam.ch/jsf/component" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+<cc:interface componentType="IvyComponent">
+</cc:interface>
+
+<cc:implementation>
+	<p:dataTable value="#{data.ctrl.scripts}" var="script" lazy="false" stripedRows="true">
+		<p:column headerText="Name">
+			<h:outputText id="scriptName" value="#{script.name}" style="font-size:small"/>
+			<p:tooltip for="scriptName" escape="false" value="#{data.ctrl.format(script.script, 10000)}" position="top" hideEvent="mouseleave click"/>
+		</p:column>
+		<p:column headerText="Execution Date" style="width: 20em">
+			<h:outputText value="#{data.ctrl.formatInstant(script.executedAt)}" />
+		</p:column>
+		<p:column headerText="Error">
+			<h:outputText id="errorText" escape="false" value="#{data.ctrl.format(script.errorCause, 1000)}" style="font-size:small"/>
+			<p:tooltip for="errorText" escape="false" value="#{script.error eq null ? 'Run Script' : data.ctrl.format(script.error, 10000)}" position="top" hideEvent="mouseleave click"/>
+		</p:column>
+		<p:column headerText="Status" style="width:2em">
+			<h:panelGroup rendered="#{script.status == 'DONE'}">
+				<i class="fa fa-check-circle done"/>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{script.status == 'ERROR'}">
+				<i class="fa fa-times-circle error" />
+			</h:panelGroup>
+		</p:column>
+		<p:column headerText="Action" style="width: 14em">
+			<p:commandLink id="refresh" rendered="#{data.ctrl.available}" update="@form" action="#{data.ctrl.refresh(script)}" value="" class="fa fa-refresh" />
+			<p:tooltip for="refresh" escape="false" value="Refresh script from file." position="top" hideEvent="mouseleave click"/>
+			<p:spacer width="20"/>
+			<p:commandLink id="run" update="@form" action="#{data.ctrl.run(script)}" value="" class="fa fa-play" disabled="#{!script.enabled}"/>
+			<p:tooltip for="run" escape="false" value="Refresh and run script." position="top" hideEvent="mouseleave click"/>
+			<p:spacer width="20"/>
+			<p:commandLink id="enable" rendered="#{!script.enabled}" update="@form" action="#{data.ctrl.enable(script)}" value="" class="fa fa-square-o" />
+			<p:tooltip for="enable" rendered="#{!script.enabled}" escape="false" value="Refresh and enable script." position="top" hideEvent="mouseleave click"/>
+			<p:commandLink id="disable" rendered="#{script.canBeDisabled()}" update="@form" action="#{data.ctrl.disable(script)}" value="" class="fa fa-check-square-o" ariaLabel="Disable"/>
+			<p:tooltip for="disable" rendered="#{script.canBeDisabled()}" escape="false" value="Disable script." position="top" hideEvent="mouseleave click"/>
+			<p:spacer width="20"/>
+			<p:commandLink id="setdone" rendered="#{script.canBeDisabled()}" update="@form" action="#{data.ctrl.setDone(script)}" value="" class="fa fa-thumbs-o-up" ariaLabel="Set to done"/>
+			<p:tooltip for="setdone" rendered="#{script.canBeDisabled()}" escape="false" value="Set the script to done manually." position="top" hideEvent="mouseleave click"/>
+			<p:spacer width="20"/>
+			<p:commandLink id="fastforward" rendered="#{data.ctrl.available and script.canBeDisabled()}" update="@form" action="#{data.ctrl.fastForward(script)}" value="" class="fa fa-angles-down" ariaLabel="Fast forward including this.">
+				<p:confirm header="Set scripts to successfully done manually?"
+						message="Are you sure you want to set this script and all previous script to successfully run manually?"
+						icon="pi pi-exclamation-triangle" />
+			</p:commandLink>
+			<p:tooltip for="delete" rendered="#{!data.ctrl.available}" escape="false" value="Delete script." position="top" hideEvent="mouseleave click"/>
+			<p:commandLink id="delete" rendered="#{!data.ctrl.available}" update="@form" action="#{data.ctrl.delete(script)}" value="" class="fa fa-trash-can" ariaLabel="Delete script.">
+				<p:confirm header="Delete script?"
+						message="Are you sure you want to delete this script?"
+						icon="pi pi-exclamation-triangle" />
+			</p:commandLink>
+			<p:tooltip for="fastforward" rendered="#{data.ctrl.available and script.canBeDisabled()}" escape="false" value="Set this and all previous scripts to done manually." position="top" hideEvent="mouseleave click"/>
+		</p:column>
+	</p:dataTable>
+
+</cc:implementation>
+
+</html>

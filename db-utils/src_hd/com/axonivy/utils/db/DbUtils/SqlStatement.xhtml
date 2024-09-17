@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:tab title="SQL Statement"
+			rendered="#{data.ctrl.sqlStatementTabEnabled}">
+			<div class="card work">
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<h:panelGroup id="sqlStatementHeadline">
+							<h1>SQL Statement</h1>
+						</h:panelGroup>
+						<p:tooltip for="sqlStatementHeadline"
+							value="Execute an SQL Statement directly." my="left"
+							at="left top" />
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<p:inputTextarea id="sqlStatement"
+							value="#{data.ctrl.sqlStatement}" autoResize="true"
+							class="input" />
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-11" />
+					<div class="col-12 md:col-12 lg:col-1 text-right">
+						<p:outputLabel value="Max results" />
+						<br />
+						<p:inputNumber value="#{data.ctrl.maxResults}" decimalPlaces="0"
+							minValue="0" size="6" />
+					</div>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col-12 md:col-12 lg:col-11" />
+				<div class="col-12 md:col-12 lg:col-1">
+					<p:commandButton id="executSqlStatement"
+						actionListener="#{data.ctrl.executeSqlStatement}"
+						process="@parent" value="Execute" update="@form"
+						icon="pi pi-refresh" />
+				</div>
+			</div>
+		</p:tab>
+	</ui:composition>
+</h:body>
+</html>

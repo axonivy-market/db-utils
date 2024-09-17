@@ -1,0 +1,3 @@
+DROP TABLE Brand
+
+DROP TABLE Hero

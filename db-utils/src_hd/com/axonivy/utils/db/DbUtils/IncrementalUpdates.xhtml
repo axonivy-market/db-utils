@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:tab title="Incremental updates"
+			rendered="#{data.ctrl.incrementalTabEnabled}">
+			<div class="card work">
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<h:panelGroup id="availableHeadline">
+							<h1>Available scripts</h1>
+							<small><h:outputText
+									value="Scripts URL: #{data.ctrl.dbUtilsResolver.scriptsUrl}" /></small>
+						</h:panelGroup>
+						<p:tooltip for="availableHeadline"
+							value="These are scripts which are saved in the database and also exist as files."
+							my="left" at="left top" />
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<ic:com.axonivy.utils.db.ScriptTable
+							ctrl="#{data.ctrl.availableController}" />
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12"></div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<h:panelGroup id="unavailableHeadline">
+							<h1>Unavailable scripts</h1>
+							<small><h:outputText
+									value="Scripts not found under scripts URL" /></small>
+						</h:panelGroup>
+						<p:tooltip for="unavailableHeadline"
+							value="These are scripts, saved in the database but no longer as files."
+							my="left" at="left top" />
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<ic:com.axonivy.utils.db.ScriptTable
+							ctrl="#{data.ctrl.unavailableController}" />
+					</div>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col-12 md:col-12 lg:col-9" />
+				<div class="col-12 md:col-12 lg:col-1">
+					<p:commandButton id="runNecessary"
+						actionListener="#{data.ctrl.runNecessary}" process="@this"
+						value="Run Necessary" update="@form" icon="pi pi-refresh">
+						<p:confirm header="Run scripts?"
+							message="Are you sure you want to run all scripts which do not have a positive result yet?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+					<p:tooltip for="runNecessary"
+						value="Run all available scripts which are not yet ok." my="left"
+						at="left top" />
+				</div>
+				<div class="col-12 md:col-12 lg:col-1">
+					<p:commandButton id="forceNecessary"
+						actionListener="#{data.ctrl.forceNecessary}" process="@this"
+						value="Force Necessary" update="@form" icon="pi pi-refresh">
+						<p:confirm header="Run scripts forced?"
+							message="Are you sure you want to force run all scripts which do not have a positive result yet?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+					<p:tooltip for="forceNecessary"
+						value="Force run all available scripts which are not yet ok." my="left"
+						at="left top" />
+				</div>
+				<div class="col-12 md:col-12 lg:col-1">
+					<p:commandButton id="refreshAll"
+						actionListener="#{data.ctrl.refreshAll}" process="@this"
+						value="Refresh All" update="@form" icon="pi pi-refresh" />
+				</div>
+			</div>
+		</p:tab>
+	</ui:composition>
+</h:body>
+</html>

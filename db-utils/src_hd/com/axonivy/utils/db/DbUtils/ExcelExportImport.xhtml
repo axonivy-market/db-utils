@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:tab title="Excel Export/Import"
+			rendered="#{data.ctrl.incrementalTabEnabled}">
+			<div class="card work">
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<h:panelGroup id="excelExportHeadline">
+							<h1>Excel Export</h1>
+						</h:panelGroup>
+						<p:tooltip for="excelExportHeadline"
+							value="Export to a single Excel file or to a ZIP file containing Excel and Blob files."
+							my="left" at="left top" />
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-6 lg:col-8"/>
+					<div class="col-12 md:col-6 lg:col-2">
+						<p:commandButton value="Export Excel" ajax="true" update="@form"
+							actionListener="#{data.ctrl.prepareExport}">
+							<p:fileDownload value="#{data.ctrl.exportedExcel}" />
+						</p:commandButton>
+					</div>
+					<div class="col-12 md:col-6 lg:col-2">
+						<p:commandButton value="Export ZIP with Excel and Blob Files"
+							ajax="true" update="@form"
+							actionListener="#{data.ctrl.prepareExportZip}">
+							<p:fileDownload value="#{data.ctrl.exportedZip}" />
+						</p:commandButton>
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12"/>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<h:panelGroup id="excelImportHeadline">
+							<h1>Excel Import</h1>
+						</h:panelGroup>
+						<p:tooltip for="excelImportHeadline"
+							value="Import Excel into database."
+							my="left" at="left top" />
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col-12 md:col-6 lg:col-7 text-right">
+						<p:outputLabel for="@next" value="Clean DB before loading?" />
+						<br />
+						<p:toggleSwitch id="clean"
+							value="#{data.ctrl.cleanBeforeExcelImport}">
+							<p:ajax update="@form" />
+						</p:toggleSwitch>
+						<br />
+						<p:outputLabel id="excelClasspathLabel" for="@next" value="Handle classpath blobs?" />
+						<br />
+						<p:toggleSwitch id="excelClasspath"
+							value="#{data.ctrl.handleClasspathResourcesInExcelImport}">
+							<p:ajax update="@form" />
+						</p:toggleSwitch>
+						<p:tooltip for="excelClasspathLabel"
+							value="Handle text fields which start with 'classpath:' as classpath URLs to load blobs from the classpath and insert them into the corresponding database column? ."
+							my="left" at="left top" />
+					</div>
+					<div class="col-12 md:col-6 lg:col-1"/>
+					<div class="col-12 md:col-6 lg:col-4">
+						<p:fileUpload id="excelUpload" mode="advanced" auto="true"
+							multiple="false" label="Load Excel"
+							uploadLabel="Load an Excel" allowTypes="/(\.|\/)xlsx?$/"
+							listener="#{data.ctrl.loadExcelData}" process="@form"
+							update="@form" />
+					</div>
+				</div>
+			</div>
+		</p:tab>
+	</ui:composition>
+</h:body>
+</html>
