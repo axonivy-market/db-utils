@@ -32,10 +32,11 @@ public class XlsTableBlob extends XlsTable {
 					if(input != null) {
 						return input.readAllBytes();
 					}
+					LOG.error("Could not find classpath for row: %d column: %s classpath: %s".formatted(row, column, value));
 				} catch (IOException e) {
-					LOG.error("Could not read classpath for row: %d column: %s classpath: %d".formatted(row, column, value), e);
+					LOG.error("Could not read classpath for row: %d column: %s classpath: %s".formatted(row, column, value), e);
 				}
-				return null;
+				return stringValue;
 			}
 		}
 		return value;
