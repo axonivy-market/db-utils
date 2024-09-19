@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
+import com.axonivy.utils.db.TestBase;
 import com.axonivy.utils.db.services.db.BaseDAO;
 import com.axonivy.utils.db.services.enums.Status;
 import com.axonivy.utils.db.test.dbutils.DbUtilsResolver;
@@ -11,7 +12,7 @@ import com.axonivy.utils.db.test.dbutils.DbUtilsResolver;
 import ch.ivyteam.ivy.environment.IvyTest;
 
 @IvyTest
-public class ScriptServiceTest {
+public class ScriptServiceTest extends TestBase {
 
 	@Test
 	public void test() throws Exception {

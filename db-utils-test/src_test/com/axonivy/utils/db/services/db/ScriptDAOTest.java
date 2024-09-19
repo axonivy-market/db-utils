@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import com.axonivy.utils.db.TestBase;
 import com.axonivy.utils.db.services.enums.Status;
 import com.axonivy.utils.db.test.dbutils.DbUtilsResolver;
 
@@ -14,7 +15,7 @@ import ch.ivyteam.ivy.environment.IvyTest;
 
 @IvyTest
 @TestMethodOrder(OrderAnnotation.class)
-public class ScriptDAOTest {
+public class ScriptDAOTest extends TestBase {
 
 	@Test
 	@Order(1)

@@ -1,5 +1,5 @@
 Databases:
-  comicworld:
+  comicworld_hsqldb:
     Url: jdbc:hsqldb:mem:comicworld
     Driver: org.hsqldb.jdbc.JDBCDriver
     UserName: comicworld
