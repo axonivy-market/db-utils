@@ -141,6 +141,7 @@ public class ScriptService {
 				scriptRunner.runScript(new StringReader(script.getScript()));
 				connection.commit();
 
+				script.setErrorCause(null);
 				script.setError(null);
 				script.setStatus(Status.DONE);
 			} catch (Exception e) {
