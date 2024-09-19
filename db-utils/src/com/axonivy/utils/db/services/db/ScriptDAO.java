@@ -3,7 +3,6 @@ package com.axonivy.utils.db.services.db;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -19,22 +18,17 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.message.MessageFormatMessageFactory;
 
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
-import com.axonivy.utils.db.services.DatabaseService;
 import com.axonivy.utils.db.services.enums.Status;
 
 /**
  * Data Access Object for script table.
  */
-public class ScriptDAO {
+public class ScriptDAO extends BaseDAO {
 	private static final Logger LOG = LogManager.getLogger(new MessageFormatMessageFactory());
 	private static final Map<DbUtilsResolver, ScriptDAO> INSTANCES = new ConcurrentHashMap<>();
 
-	private DbUtilsResolver dbUtilsResolver;
-	private DatabaseService databaseService;
-
-	private ScriptDAO(DbUtilsResolver dbUtilsResolver) {
-		this.dbUtilsResolver = dbUtilsResolver;
-		databaseService = DatabaseService.get(dbUtilsResolver);
+	protected ScriptDAO(DbUtilsResolver dbUtilsResolver) {
+		super(dbUtilsResolver);
 	}
 
 	/**
@@ -44,12 +38,12 @@ public class ScriptDAO {
 	 * @return
 	 */
 	public static synchronized ScriptDAO get(DbUtilsResolver dbUtilsResolver) {
-		var scriptDao = INSTANCES.get(dbUtilsResolver);
-		if(scriptDao == null) {
-			scriptDao = new ScriptDAO(dbUtilsResolver);
-			INSTANCES.put(dbUtilsResolver, scriptDao);
+		var dao = INSTANCES.get(dbUtilsResolver);
+		if(dao == null) {
+			dao = new ScriptDAO(dbUtilsResolver);
+			INSTANCES.put(dbUtilsResolver, dao);
 		}
-		return scriptDao;
+		return dao;
 	}
 
 	/**
@@ -253,16 +247,5 @@ public class ScriptDAO {
 			preparedStatement.executeUpdate();
 			return null;
 		});
-	}
-
-	protected <R> R statement(SQLFunction<Connection, R> function) {
-		try (Connection connection = databaseService.getDatabaseConnection()) {
-			return function.apply(connection);
-		} catch (Exception e) {
-			throw new RuntimeException("Error during statement.", e);
-		}
-	}
-	public interface SQLFunction<T, R> {
-		R apply(T t) throws Exception;
 	}
 }
