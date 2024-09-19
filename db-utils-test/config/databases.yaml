@@ -1,1 +1,6 @@
 Databases:
+  dbutilstest:
+    Url: jdbc:hsqldb:mem:dbutilstest
+    Driver: org.hsqldb.jdbc.JDBCDriver
+    UserName: dbutilstest
+    Password: ${decrypt:}

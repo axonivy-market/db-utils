@@ -125,6 +125,7 @@
       "type" : "ProgramStart",
       "name" : "DbUtils Autostart MSSQL",
       "config" : {
+        "outLink" : "eventLink2.ivp",
         "outerBean" : "com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsStartEventBean"
       },
       "visual" : {

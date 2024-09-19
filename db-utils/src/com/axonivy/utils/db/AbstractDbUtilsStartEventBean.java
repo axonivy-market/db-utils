@@ -12,15 +12,43 @@ import ch.ivyteam.log.Logger;
 
 public abstract class AbstractDbUtilsStartEventBean extends AbstractProcessStartEventBean {
 
-	public AbstractDbUtilsStartEventBean() {
-		super(AbstractDbUtilsStartEventBean.class.getSimpleName(), "DbUtils startup bean");
+	private DbUtilsResolver dbUtilsResolver;
+
+	/**
+	 * Construct a start event bean with a unique name.
+	 * 
+	 * @param _name unique name for this singleton of the start even bean (you could use the canonical name of your class)
+	 * @param dbUtilsResolver the resolver to use
+	 */
+	public AbstractDbUtilsStartEventBean(String _name, DbUtilsResolver dbUtilsResolver) {
+		super(_name, "DbUtils startup bean for database '%s'".formatted(dbUtilsResolver.getDatabaseName()));
+		this.dbUtilsResolver = dbUtilsResolver;
 	}
 
-	public AbstractDbUtilsStartEventBean(String _name, String _description) {
-		super(_name, _description);
+	/**
+	 * Construct a start event bean with a unique name.
+	 * 
+	 * @param clazz to identify this unique type of {@link AbstractDbUtilsStartEventBean}
+	 * @param dbUtilsResolver the resolver to use
+	 */
+	public AbstractDbUtilsStartEventBean(Class<? extends AbstractDbUtilsStartEventBean> clazz, DbUtilsResolver dbUtilsResolver) {
+		super(clazz.getCanonicalName(), "DbUtils startup bean for database '%s'".formatted(dbUtilsResolver.getDatabaseName()));
+		this.dbUtilsResolver = dbUtilsResolver;
 	}
 
-	public abstract DbUtilsResolver	getDbUtilsResolver();
+	/**
+	 * Construct a start event bean.
+	 * 
+	 * @param dbUtilsResolver the resolver to use
+	 */
+	public AbstractDbUtilsStartEventBean(DbUtilsResolver dbUtilsResolver) {
+		super("DbUtilStartEventBean-%s".formatted(dbUtilsResolver.getDatabaseName()), "DbUtils startup bean for database '%s'".formatted(dbUtilsResolver.getDatabaseName()));
+		this.dbUtilsResolver = dbUtilsResolver;
+	}
+
+	public DbUtilsResolver getDbUtilsResolver() {
+		return dbUtilsResolver;
+	}
 
 	@Override
 	public void initialize(IProcessStartEventBeanRuntime eventRuntime, String configuration) {

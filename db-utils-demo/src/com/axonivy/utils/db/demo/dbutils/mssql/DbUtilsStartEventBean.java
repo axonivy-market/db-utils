@@ -7,8 +7,7 @@ import com.axonivy.utils.db.AbstractDbUtilsStartEventBean;
  */
 public class DbUtilsStartEventBean extends AbstractDbUtilsStartEventBean {
 
-	@Override
-	public DbUtilsResolver getDbUtilsResolver() {
-		return DbUtilsResolver.get();
+	public DbUtilsStartEventBean() {
+		super(DbUtilsResolver.get());
 	}
 }

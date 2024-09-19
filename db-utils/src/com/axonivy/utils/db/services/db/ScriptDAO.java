@@ -245,6 +245,16 @@ public class ScriptDAO {
 		});
 	}
 
+	protected void dropScriptTable() {
+		statement(c -> {
+			var sqlQuery = dbUtilsResolver.getScriptTableDropStatement();
+			var preparedStatement = c.prepareStatement(sqlQuery);
+			LOG.info("Executing prepared statement: {0}", sqlQuery);
+			preparedStatement.executeUpdate();
+			return null;
+		});
+	}
+
 	protected <R> R statement(SQLFunction<Connection, R> function) {
 		try (Connection connection = databaseService.getDatabaseConnection()) {
 			return function.apply(connection);

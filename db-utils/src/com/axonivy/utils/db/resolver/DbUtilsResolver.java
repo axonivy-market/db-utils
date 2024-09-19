@@ -127,6 +127,15 @@ public interface DbUtilsResolver {
 	String getScriptTableCreateStatement();
 
 	/**
+	 * DDL to drop script table, should use names defined in resolver.
+	 *
+	 * @return
+	 */
+	default String getScriptTableDropStatement() {
+		return "DROP TABLE %s".formatted(getScriptTableName());
+	}
+
+	/**
 	 * Get the SQL statement delimiter.
 	 *
 	 * @return
