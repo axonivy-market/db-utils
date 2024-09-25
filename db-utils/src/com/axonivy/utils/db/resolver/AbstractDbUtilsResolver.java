@@ -27,6 +27,8 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.message.MessageFormatMessageFactory;
+import org.dbunit.dataset.Column;
+import org.dbunit.dataset.datatype.DataType;
 
 import com.axonivy.utils.db.services.db.Script;
 import com.axonivy.utils.db.services.enums.Status;
@@ -86,6 +88,16 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	@Override
 	public String getDelimiter() {
 		return DELIMITER;
+	}
+
+	@Override
+	public boolean isExcelExportLob(Column column) {
+		return column.getDataType() == DataType.VARBINARY;
+	}
+
+	@Override
+	public String[] getExportExcludeTableNames() {
+		return new String[] {getScriptTableName()};
 	}
 
 	/**
