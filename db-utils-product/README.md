@@ -22,15 +22,33 @@ The most important feature of DB-Utils is probably the automatic update of your 
 
 ### Incremental Updates
 
-DB-Utils can be used to maintain a list of incremental SQL script files and their execution status together with your project. These files can be stored in a files or resources directory. As a convention, SQL scripts are executed in alphabetical order of their file-names. It is recommended to follow a common pattern when naming your scripts, e.g. `YYYYMMDD-HHMM-Ticket-Short-Description.sql`. DB-Utils creates it's own table to remember, which of these files were executed and provides a GUI to display the list of scripts together with their status. Scripts can be executed and maintained in this GUI.
+DB-Utils works by maintaining a list of incremental SQL script files and their execution status together with your project and your project#s database. These files can be stored in a file-system folder or in a resources directory (which is the preferred way). As a convention, SQL scripts are sorted, displayed and executed in alphabetical order of their file-names. It is recommended to follow a common pattern when naming your scripts, e.g.
+
+`YYYYMMDD-HHMM-Ticket-Short-Description.sql`
+
+DB-Utils creates it's own table to remember, which of these files were executed and provides a GUI to display the list of scripts together with their status. Scripts can be executed, skipped and generally maintained in this GUI.
 
 Additionally you can define a `ch.ivyteam.ivy.process.eventstart.IProcessStartEventBean` to execute all scripts needed
-directly at the start of your application. This `ch.ivyteam.ivy.process.eventstart.IProcessStartEventBean` can be created easily by simply inheriting from `com.axonivy.utils.db.AbstractDbUtilsStartEventBean`. It is important, that this bean is defined in the context of your application, since it has to "know" about (have a dependency to) the resources of your project.
-
+automatically during the start of your application. This `ch.ivyteam.ivy.process.eventstart.IProcessStartEventBean` can be created easily by simply inheriting from `com.axonivy.utils.db.AbstractDbUtilsStartEventBean`. Note, that this bean has to be defined in the context of your application, since it has to "know" about (have a dependency to) the resources of your project.
 
 ### SQL Queries
 
+DB-Utils offers a simple GUI to execute SQL scripts. Note, that these scripts are executed "as-is" without any checks with the
+permission of the configured user. The GUI is rudimentary and the idea is to use it for quick lookups or fixes.
+
 ### Excel Export and Import
+
+DB-Utils offers an export and import functionality for Execl files and even binary BLOBS. This feature is implemented by DB-Unit.
+
+Exporting can be done in two ways:
+
+* *Export Excel*: Export an Excel with one sheet per table
+* *Export ZIP*: Export an Excel with one sheet per table, but additionally export all columns representing a binary large object (BLOB) as an own file. The Excel and all exported files are stored in a ZIP file.
+
+Importing can be done with or without cleaning the database first. Note, that this is a potentially dangerous operation as deletion of entries cannot be undone. Importing data should probably onyl be used during tests to put a database into a defined test state or for an initial setup of your project on a new machine.
+
+* *Load Excel*: Load an Excel in the same format as the Export creates.
+* *Load Excel and handle classpath blobs*: Currently, a previously exported ZIP file cannot be imported but a solution is provided which proved useful in our tests. The Import loads an Excel in the same format as Export ZIP creates but handle classpath references in Excel columns. Whenever a column contains a classpath reference, the file is looked up in the *data resources* defined for DB-Utils and the file will be inserted as a Blob. The assumption is, that you will only have a few seldomly changing BLOBs in your project for testing and don't want to create ZIP files for every column change in the imported Excel during development.
 
 ### Support for multiple databases
 
