@@ -6,15 +6,26 @@ When you create your very valuable documentation, please be aware that this Read
 
 # DB-Utils
 
+<!--
+The explanations under "MY-RRODUCT-NAME" are displayed  e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-description   
+-->
+
 DB-Utils is a collection of tools to help with typical database-tasks in your project.
 It comes with support to implement incremental auto-update of tables, export and import
 of data and a simple query GUI.
 Support for MS SQL and HSQLDB is provided out of the box, but it is easy to extend the
 component for other database types.
 
-<!--
-The explanations under "MY-RRODUCT-NAME" are displayed  e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-description   
--->
+## Features
+
+### Incremental Updates
+
+### SQL Queries
+
+### Excel Export and Import
+
+### Support for multiple databases
+
 
 ## Demo
 
