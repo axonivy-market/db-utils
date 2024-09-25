@@ -62,6 +62,12 @@ Multiple databases are supported. Every database would need it's own resolver an
 
 The demo shows how to integrate Db-Utils in your project.
 
+![Incremental updates](images/incremental.png)
+![Excel Export and Import](images/eximport.png)
+![SQL Statements](images/sql.png)
+![Settings](images/settings.png)
+
+
 <!--
 We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-demo  
 -->
@@ -77,6 +83,15 @@ For other databases, you can start by inheriting from `com.axonivy.utils.db.reso
 the Microsoft or HSQLDB implementations. Your implementation must mainly care about
 creation of the table used to store script information.
 
+### GUI Integration
+
+![GUI Integration](images/gui.png)
+
+### Process Start Event Bean
+
+![Process Start Event Bean](images/starteventbean.png)
+
+
 Classes inherting from `com.axonivy.utils.db.resolver.AbstractDbUtilsResolver` can be
 configured by global variables. This configuration can be overridden in your implementation
 (e.g. you can get cour configuration differently, if you have more than one database to
@@ -86,6 +101,9 @@ If you go with the default implementation, the most important global variables (
 * Name of database as defined in the Ivy database configuration.
 * URL to find incremental SQL scripts. These scripts can be in the file-system, but a more convenient way is to put them into your project as a resource, by using the `classpath` scheme. In this way, they will automatically be deployed and always upd-to-date with your project.
 * Data URL. This is the resource path used to search for binary files which can be reference in Excel imports.
+```
+@variables.yaml@
+```
 
 ### Security
 
@@ -98,6 +116,3 @@ Note, that features like quering the database or performing DDL operations are d
 The entries under the heading "Setup" are filled in this tab, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-setup. 
 -->
 
-```
-@variables.yaml@
-```
