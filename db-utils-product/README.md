@@ -18,7 +18,16 @@ component for other database types.
 
 ## Features
 
+By defining a resolver to provide your project setup, some settings in global variables and potentially a
+process start event bean, you can make use of all features of DB-Utils.
+
 ### Incremental Updates
+
+DB-Utils can be used to maintain a list of incremental SQL script files and their execution status together with your project. These files can be stored in a files or resources directory. As a convention, SQL scripts are executed in alphabetical order of their file-names. It is recommended to follow a common pattern when naming your scripts, e.g. `YYYYMMDD-HHMM-Ticket-Short-Description.sql`. DB-Utils creates it's own table to remember, which of these files were executed and provides a GUI to display the list of scripts together with their status. Scripts can be executed and maintained in this GUI.
+
+Additionally you can define a `ch.ivyteam.ivy.process.eventstart.IProcessStartEventBean` to execute all scripts needed
+directly at the start of your application. This `ch.ivyteam.ivy.process.eventstart.IProcessStartEventBean` can be created easily by simply inheriting from `com.axonivy.utils.db.AbstractDbUtilsStartEventBean`. It is important, that this bean is defined in the context of your application, since it has to "know" about (have a dependency to) the resources of your project.
+
 
 ### SQL Queries
 
@@ -37,7 +46,7 @@ We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g
 
 ## Setup
 
-To use the tools, you must provide a class implementing the interface `com.axonivy.utils.db.resolver.DbUtilsResolver`. It is important, that this class is implemented in a project of your application. Ready to use (inherit from) resolvers
+To use the tools, you must provide a class implementing the interface `com.axonivy.utils.db.resolver.DbUtilsResolver`. It is important, that this class is implemented in a project of your application, sonce it has to "know" about (have a dependency to) your database and resources. Ready to use (inherit from) resolvers
 are provided for
 * Microsoft SQL: `com.axonivy.utils.db.resolver.MSSQL2005DbUtilsResolver`
 * HSQLDB: `com.axonivy.utils.db.resolver.HSQLDbUtilsResolver`
