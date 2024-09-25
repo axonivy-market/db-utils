@@ -18,8 +18,7 @@ component for other database types.
 
 ## Features
 
-By defining a resolver to provide your project setup, some settings in global variables and potentially a
-process start event bean, you can make use of all features of DB-Utils.
+The most important feature of DB-Utils is probably the automatic update of your database whenever you deploy. Additionally, data can be easily exported or imported into Excel or Zip files and simple queires can be executed directly within your application. By defining a resolver to provide your project setup, some settings in global variables and potentially a process start event bean, you can make use of all features of DB-Utils.
 
 ### Incremental Updates
 
@@ -64,7 +63,14 @@ If you go with the default implementation, the most important global variables (
 * Name of database as defined in the Ivy database configuration.
 * URL to find incremental SQL scripts. These scripts can be in the file-system, but a more convenient way is to put them into your project as a resource, by using the `classpath` scheme. In this way, they will automatically be deployed and always upd-to-date with your project.
 * Data URL. This is the resource path used to search for binary files which can be reference in Excel imports.
- 
+
+### Security
+
+Since you decide where to use the GUI, it is also in your responsibility to secure the starting process with
+a special DB administrative role. Additionally, the tabs of the DB GUI can be switched on and off by configuration.
+
+Note, that features like quering the database or performing DDL operations are done with the user defined in your database configuration, so they are restricted by the permissions this user has been given. In some scenarios you could consider defining extra database connections with more permissions only for use by DB-Utils and not the application.
+
 <!--
 The entries under the heading "Setup" are filled in this tab, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-setup. 
 -->
