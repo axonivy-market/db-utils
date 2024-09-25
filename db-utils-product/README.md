@@ -26,7 +26,7 @@ We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g
 
 ## Setup
 
-To use the tools, you must provide a class implementing the interface `com.axonivy.utils.db.resolver.DbUtilsResolver`. Ready to use (inherit from) resolvers
+To use the tools, you must provide a class implementing the interface `com.axonivy.utils.db.resolver.DbUtilsResolver`. It is important, that this class is implemented in a project of your application. Ready to use (inherit from) resolvers
 are provided for
 * Microsoft SQL: `com.axonivy.utils.db.resolver.MSSQL2005DbUtilsResolver`
 * HSQLDB: `com.axonivy.utils.db.resolver.HSQLDbUtilsResolver`
@@ -40,7 +40,11 @@ configured by global variables. This configuration can be overridden in your imp
 (e.g. you can get cour configuration differently, if you have more than one database to
 maintain in your project).
 
-The following global variables exist:
+If you go with the default implementation, the most important global variables (settings) are:
+* Name of database as defined in the Ivy database configuration.
+* URL to find incremental SQL scripts. These scripts can be in the file-system, but a more convenient way is to put them into your project as a resource, by using the `classpath` scheme. In this way, they will automatically be deployed and always upd-to-date with your project.
+* Data URL. This is the resource path used to search for binary files which can be reference in Excel imports.
+ 
 <!--
 The entries under the heading "Setup" are filled in this tab, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-setup. 
 -->
