@@ -49,9 +49,14 @@ Importing can be done with or without cleaning the database first. Note, that th
 
 * *Load Excel*: Load an Excel in the same format as the Export creates.
 * *Load Excel and handle classpath blobs*: Currently, a previously exported ZIP file cannot be imported but a solution is provided which proved useful in our tests. The Import loads an Excel in the same format as Export ZIP creates but handle classpath references in Excel columns. Whenever a column contains a classpath reference, the file is looked up in the *data resources* defined for DB-Utils and the file will be inserted as a Blob. The assumption is, that you will only have a few seldomly changing BLOBs in your project for testing and don't want to create ZIP files for every column change in the imported Excel during development.
+ 
+### Settings
+
+The settings page shows some basic database settings to find out, which database is in use. It might later be extended.
 
 ### Support for multiple databases
 
+Multiple databases are supported. Every database would need it's own resolver and it's own process start event bean. Of course, the default mechanism to get configuration from global variables can only be used for one database. If you provide multiple resolvers, also implement handling of different configurations (by using constants, global variables,...).
 
 ## Demo
 
