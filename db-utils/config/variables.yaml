@@ -22,4 +22,6 @@ Variables:
           incrementaltab: true
           # should the tab to execute SQL commands be shown?
           sqlstatementtab: true
+          # should the tab to execute Excel export/import be shown?
+          excelexportimporttab: true
     

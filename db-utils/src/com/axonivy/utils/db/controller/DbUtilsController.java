@@ -81,28 +81,6 @@ public class DbUtilsController {
 	}
 
 	/**
-	 * Is incremental tab enabled?
-	 *
-	 * This is a small workaround as JSF does not seem to find interface default functions.
-	 *
-	 * @return
-	 */
-	public boolean isIncrementalTabEnabled() {
-		return dbUtilsResolver.isIncrementalTabEnabled();
-	}
-
-	/**
-	 * Is SQL statement tab enabled?
-	 *
-	 * This is a small workaround as JSF does not seem to find interface default functions.
-	 *
-	 * @return
-	 */
-	public boolean isSqlStatementTabEnabled() {
-		return dbUtilsResolver.isSqlStatementTabEnabled();
-	}
-
-	/**
 	 * Refresh all scripts.
 	 *
 	 * @param event

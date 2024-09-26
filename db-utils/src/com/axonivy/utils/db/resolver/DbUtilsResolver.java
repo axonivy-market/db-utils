@@ -57,6 +57,13 @@ public interface DbUtilsResolver {
 	boolean isSqlStatementTabEnabled();
 
 	/**
+	 * Is the Excel Tab enabled?
+	 *
+	 * @return
+	 */
+	boolean isExcelExportImportTabEnabled();
+
+	/**
 	 * Get the name to use for the script table.
 	 *
 	 * @return

@@ -86,6 +86,11 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	}
 
 	@Override
+	public boolean isExcelExportImportTabEnabled() {
+		return getBoolean("excelexportimporttab", true);
+	}
+
+	@Override
 	public String getDelimiter() {
 		return DELIMITER;
 	}
