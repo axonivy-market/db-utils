@@ -64,7 +64,7 @@ The demo shows how to integrate Db-Utils in your project. It contains the simple
 
 ### Db-Utils GUI
 
-Most of the demo can be seen in the Db-Utils GUI. The GUI has tabs for different operations and a common message area to show results.
+Most of the demo can be seen in the Db-Utils GUI. The GUI has tabs for different operations and a common message area to show results. To use the GUI use the `dbadmin` user or create a user having the role `DbUtilsAdministrator`.
 
 ### Incremental Updates
 
