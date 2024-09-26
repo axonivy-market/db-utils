@@ -21,7 +21,7 @@ The most important feature of DB-Utils is probably the automatic update of your 
 
 ### Incremental Updates
 
-Db-Utils works by maintaining a list of incremental SQL scripts and their execution status together with your project and your project’s database. Files can be executed manually from the Db-Utils GUI or automatically whenever your application starts. The SQL scripts can be stored in a file-system folder or in a resources (classpath) directory (which is the preferred way). As a convention, SQL scripts are sorted, displayed and executed in the alphabetical order of their filenames. It is recommended to put the project’s incremental files into the classpath of your project e.g. a subfolder of the `src` folder of your project (e.g. `src/resources/sql/incremental`) and follow a common pattern when naming your scripts, e.g.
+Db-Utils works by maintaining a list of incremental SQL scripts and their execution status together with your project and your project’s database. When Db-Utils is run for the first time (either through the GUI or automatically by a program start), it will create a table to maintains this list. The table name can be overridden in your `DbUtilsResolver` but the default name is `DbUtilsScripts`. Files can be executed manually from the Db-Utils GUI or automatically whenever your application starts. The SQL scripts can be stored in a file-system folder or in a resources (classpath) directory (which is the preferred way). As a convention, SQL scripts are sorted, displayed and executed in the alphabetical order of their filenames. It is recommended to put the project’s incremental files into the classpath of your project e.g. a subfolder of the `src` folder of your project (e.g. `src/resources/sql/incremental`) and follow a common pattern when naming your scripts, e.g.
 
 `YYYYMMDD-HHMM-Ticket-Short-Description.sql`
 
@@ -44,6 +44,8 @@ Db-Utils offers an export and import functionality for Excel files and even bina
 **Import of data** can be done with or without cleaning the database first. Note, that this is a potentially dangerous operation as deletion of entries cannot be undone. Importing data should probably only be used during tests to put a database into a defined test state or for an initial setup of your project database on a new machine.
 * *Load Excel* Load an Excel in the same format as the Export creates.
 * *Load Excel* and handle classpath blobs: Currently, a previously exported ZIP file cannot be imported but a solution is provided which proved useful in project developments. The Import loads an Excel in the same format as Export ZIP creates but handle classpath references in Excel columns. If a column contains a classpath reference (`classpath:/path`), the file is looked up in the data resources defined for DB-Utils and the file will be inserted as a Blob. It is recommended to put the BLOB files in a subfolder of the src folder of your project (e.g. `src/data`). The assumption is, that you will only have a few seldomly changing BLOB test files in your project for testing and don't want to create ZIP files for every column change in the imported Excel during development.
+
+To see an example of resources stored in your project, please examine the demo project `src/resources` folder and compare to the settings in global variables (or `DbUtilsResolver` for the MS SQL Server part).
 
 Note, that for importing, the sheets in your Excel must be in the right order to not break any constraints. To get the right order, it is best to export the database first. Export will create an Excel with the right sheet order.
 
@@ -85,6 +87,19 @@ The **SQL Statements** tab can be used to execute simple SQL statements against 
 ### Excel Export/Import
 
 The **Excel Export/Import** tab is used to export the whole database to an Excel or ZIP file or to import the whole database (or parts) from an Excel file. When importing, you can select to clean the database before importing. Note: this cleanup will clean all tables mentioned in the imported Excel unconditionally. It is possible to import incremental, if you do not break any database constraints.
+
+The demo Db-Utils scripts create three demo tables and populate them with data. To try out the export/import functionality, you can export the existing data into an excel file, then go to the SQL Statements tab and delete all data in the three demo tables with the statements shown below and then import the previous Excel again. After that, the data should be there again.
+
+```
+delete from logo;
+delete from hero;
+delete from brand;
+```
+
+Two Excel files are included for testing.
+
+* `export-with-blobs.xls` An Excel file containing data for all tables and binary data of a blob directly
+* `export-with-blobs-from-classpath.xls` An Excel file containing data for all tables but referencing binary data from the projects resources (classpath)
 
 ![Excel Export and Import](images/eximport.png)
 
@@ -136,6 +151,8 @@ Classes extending `AbstractDbUtilsResolver` can be configured by global variable
 * The Script URL to find incremental SQL scripts. These scripts can be in the file-system, but a more convenient way is to put them into your project as a resource, by using the classpath scheme in the URL. In this way, they will automatically be deployed and always up-to-date with your project.
 * The Data URL used for other data, e.g. for binary files which can be used in Excel BLOB imports.
 * Additional Settings to configure automatic updates and enable or disable GUI tabs
+
+Please examine the demo project to better understand the classpath mechanism used for SQL scripts and Blob files.
 
 ```
 @variables.yaml@
