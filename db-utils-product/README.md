@@ -39,7 +39,7 @@ Db-Utils offers an export and import functionality for Excel files and even bina
 
 **Export of data** can be done in two ways:
 * *Export Excel* Export an Excel with one sheet per table
-* *Export ZIPÜ Export an Excel with one sheet per table, but additionally export all columns representing a binary large object (BLOB) into their own file. The Excel and all exported files are stored in a ZIP file. in the ZIP file, BLOB column files are put into subfolders with the naming convention `lob/<TABLE>/<COLUMN>/file.ext`.
+* *Export ZIP* Export an Excel with one sheet per table, but additionally export all columns representing a binary large object (BLOB) into their own file. The Excel and all exported files are stored in a ZIP file. in the ZIP file, BLOB column files are put into subfolders with the naming convention `lob/<TABLE>/<COLUMN>/file.ext`.
 
 **Import of data** can be done with or without cleaning the database first. Note, that this is a potentially dangerous operation as deletion of entries cannot be undone. Importing data should probably only be used during tests to put a database into a defined test state or for an initial setup of your project database on a new machine.
 * *Load Excel* Load an Excel in the same format as the Export creates.
