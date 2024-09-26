@@ -21,7 +21,7 @@ The most important feature of DB-Utils is probably the automatic update of your 
 
 ### Incremental Updates
 
-Db-Utils works by maintaining a list of incremental SQL scripts and their execution status together with your project and your project’s database. Files can be executed manually from the Db-Utils GUI or automatically whenever your application starts. The SQL scripts can be stored in a file-system folder or in a resources directory (which is the preferred way). As a convention, SQL scripts are sorted, displayed and executed in the alphabetical order of their filenames. It is recommended to put the projet’s incremental files into the classpath of your project e.g. a subfolder of the src folder of your project (e.g. src/resources/sql/incremental) and follow a common pattern when naming your scripts, e.g.
+Db-Utils works by maintaining a list of incremental SQL scripts and their execution status together with your project and your project’s database. Files can be executed manually from the Db-Utils GUI or automatically whenever your application starts. The SQL scripts can be stored in a file-system folder or in a resources (classpath) directory (which is the preferred way). As a convention, SQL scripts are sorted, displayed and executed in the alphabetical order of their filenames. It is recommended to put the project’s incremental files into the classpath of your project e.g. a subfolder of the `src` folder of your project (e.g. `src/resources/sql/incremental`) and follow a common pattern when naming your scripts, e.g.
 
 `YYYYMMDD-HHMM-Ticket-Short-Description.sql`
 
@@ -35,7 +35,7 @@ Db-Utils offers a simple GUI to execute SQL scripts. Note, that these scripts ar
 
 ### Excel Export and Import
 
-Db-Utils offers an export and import functionality for Excel files and even binary BLOBS. This feature is implemented by https://www.dbunit.org/.
+Db-Utils offers an export and import functionality for Excel files and even binary BLOBS. This feature is implemented by [DbUnit](https://www.dbunit.org/).
 
 **Export of data** can be done in two ways:
 * *Export Excel* Export an Excel with one sheet per table
