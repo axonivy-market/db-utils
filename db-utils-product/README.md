@@ -104,7 +104,7 @@ To integrate and use DB-Utils in your project, you must (for every database you 
 * create a program start using the `DbUtilsStartEventBean`
 * check configuration
 * check security
-* 
+
 In the demo project, you will find examples for a simple setup (HSQLDB part) and a slightly more complex, adapted setup (Microsoft SQL Server part). Please compare the following description to these examples.
 
 ### Provide `DbUtilsResolver`
