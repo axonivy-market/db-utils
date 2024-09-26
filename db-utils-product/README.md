@@ -46,6 +46,8 @@ Db-Utils offers an export and import functionality for Excel files and even bina
 * *Load Excel* and handle classpath blobs: Currently, a previously exported ZIP file cannot be imported but a solution is provided which proved useful in project developments. The Import loads an Excel in the same format as Export ZIP creates but handle classpath references in Excel columns. If a column contains a classpath reference (`classpath:/path`), the file is looked up in the data resources defined for DB-Utils and the file will be inserted as a Blob. It is recommended to put the BLOB files in a subfolder of the src folder of your project (e.g. `src/data`). The assumption is, that you will only have a few seldomly changing BLOB test files in your project for testing and don't want to create ZIP files for every column change in the imported Excel during development.
 
 Note, that for importing, the sheets in your Excel must be in the right order to not break any constraints. To get the right order, it is best to export the database first. Export will create an Excel with the right sheet order.
+
+Note, that Excel has restrictions on the maximum size of columns and sheets. This feature can be helpful for testing or for initial database setup but it should not be used for database backups and similary "serious" database tasks.
  
 ### Settings
 
