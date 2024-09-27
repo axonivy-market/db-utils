@@ -64,7 +64,9 @@ Multiple databases are supported. Every database would need its own resolver, an
 We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-demo  
 -->
 
-The demo shows how to integrate Db-Utils in your project. It contains the simplest possible configuration for a HSQLDB and a little bit more elaborated configuration for a MS SQL Server database. For the MS SQL Server part you need to have access to an MS SQL Server database (unpack the project to configure for your database). Note, that Db-Utils will unconditionally execute SQL statements against this database!
+**In the Axon Ivy Designer, the Demo project will only work when it is unpacked. Please unpack the project for testing!**
+
+The demo shows how to integrate Db-Utils in your project. It contains the simplest possible configuration for a HSQLDB and a little bit more elaborated configuration for a MS SQL Server database. For the MS SQL Server part you need to have access to an MS SQL Server database and configure its credentials. Note, that Db-Utils will unconditionally execute SQL statements against this database!
 
 ### Db-Utils GUI
 
