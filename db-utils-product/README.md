@@ -12,7 +12,7 @@ The explanations under "MY-RRODUCT-NAME" are displayed  e.g. for the Connector A
 
 Db-Utils is a collection of tools to help with typical database-tasks in your project.
 It comes with support for automatic, incremental SQL updates of database tables, export
-and import of data and a simple database query window. Support for MS SQL and HSQLDB is
+and import of data and a simple database query window. Support for Microsoft SQL and HSQLDB is
 provided out of the box, but it is easy to extend the component for other database types.
 
 ## Concepts
@@ -45,7 +45,7 @@ Db-Utils offers an export and import functionality for Excel files and even bina
 * *Load Excel* Load an Excel in the same format as the Export creates.
 * *Load Excel* and handle classpath blobs: Currently, a previously exported ZIP file cannot be imported but a solution is provided which proved useful in project developments. The Import loads an Excel in the same format as Export ZIP creates but handle classpath references in Excel columns. If a column contains a classpath reference (`classpath:/path`), the file is looked up in the data resources defined for DB-Utils and the file will be inserted as a Blob. It is recommended to put the BLOB files in a subfolder of the src folder of your project (e.g. `src/data`). The assumption is, that you will only have a few seldomly changing BLOB test files in your project for testing and don't want to create ZIP files for every column change in the imported Excel during development.
 
-To see an example of resources stored in your project, please examine the demo project `src/resources` folder and compare to the settings in global variables (or `DbUtilsResolver` for the MS SQL Server part).
+To see an example of resources stored in your project, please examine the demo project `src/resources` folder and compare to the settings in global variables (or `DbUtilsResolver` for the Microsoft SQL Server part).
 
 Note, that for importing, the sheets in your Excel must be in the right order to not break any constraints. To get the right order, it is best to export the database first. Export will create an Excel with the right sheet order.
 
@@ -64,13 +64,15 @@ Multiple databases are supported. Every database would need its own resolver, an
 We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-demo  
 -->
 
-**In the Axon Ivy Designer, the Demo project will only work when it is unpacked. Please unpack the project for testing!**
+**Note: The Demo project must be unpacked to run in the Axon Ivy Designer.**
 
-The demo shows how to integrate Db-Utils in your project. It contains the simplest possible configuration for a HSQLDB and a little bit more elaborated configuration for a MS SQL Server database. For the MS SQL Server part you need to have access to an MS SQL Server database and configure its credentials. Note, that Db-Utils will unconditionally execute SQL statements against this database!
+![Unpack the Demo](images/unpack.png)
+
+The Demo shows how to integrate Db-Utils in your project. It contains the simplest possible configuration for an HSQLDB and a little bit more elaborated configuration for a Microsoft SQL Server database. The HSQLDB part will run out of the box without additional configuration. For the Microsoft SQL Server part you need to have access to a Microsoft SQL Server database and configure its credentials. Note, that Db-Utils will unconditionally execute SQL statements against this database!
 
 ### Db-Utils GUI
 
-Most of the demo can be seen in the Db-Utils GUI. The GUI has tabs for different operations and a common message area to show results. To use the GUI use the `dbadmin` user or create a user having the role `DbUtilsAdministrator`.
+Most of the Demo can be seen in the Db-Utils GUI. The GUI has tabs for different operations and a common message area to show results. To use the GUI use the `dbadmin` user or create a user having the role `DbUtilsAdministrator`.
 
 ### Incremental Updates
 
@@ -124,7 +126,7 @@ To integrate and use DB-Utils in your project, you must (for every database you 
 * check configuration
 * check security
 
-In the demo project, you will find examples for a simple setup (HSQLDB part) and a slightly more complex, adapted setup (Microsoft SQL Server part). Please compare the following description to these examples.
+In the Demo project, you will find examples for a simple setup (HSQLDB part) and a slightly more complex, adapted setup (Microsoft SQL Server part). Please compare the following description to these examples.
 
 ### Provide `DbUtilsResolver`
 
@@ -154,7 +156,7 @@ Classes extending `AbstractDbUtilsResolver` can be configured by global variable
 * The Data URL used for other data, e.g. for binary files which can be used in Excel BLOB imports.
 * Additional Settings to configure automatic updates and enable or disable GUI tabs
 
-Please examine the demo project to better understand the classpath mechanism used for SQL scripts and Blob files.
+Please examine the Demo project to better understand the classpath mechanism used for SQL scripts and Blob files.
 
 ```
 @variables.yaml@
