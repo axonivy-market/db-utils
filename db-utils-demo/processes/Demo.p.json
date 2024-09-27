@@ -14,6 +14,7 @@
         "outLink" : "hsqlDbUtils.ivp",
         "wfuser" : "1",
         "startName" : "DbUtils HSQLDB",
+        "tags" : "demo",
         "case" : { }
       },
       "visual" : {
@@ -51,7 +52,8 @@
       "type" : "ProgramStart",
       "name" : "DbUtils Autostart HSQLDB",
       "config" : {
-        "outerBean" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsStartEventBean"
+        "outerBean" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsStartEventBean",
+        "tags" : "demo"
       },
       "visual" : {
         "at" : { "x" : 128, "y" : 192 },
@@ -88,6 +90,7 @@
         "outLink" : "dbUtilsMSSQL.ivp",
         "wfuser" : "1",
         "startName" : "DbUtils MSSQL",
+        "tags" : "demo",
         "case" : { }
       },
       "visual" : {
@@ -126,7 +129,8 @@
       "name" : "DbUtils Autostart MSSQL",
       "config" : {
         "outLink" : "eventLink2.ivp",
-        "outerBean" : "com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsStartEventBean"
+        "outerBean" : "com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsStartEventBean",
+        "tags" : "demo"
       },
       "visual" : {
         "at" : { "x" : 128, "y" : 384 },
