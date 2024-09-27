@@ -64,7 +64,7 @@ Multiple databases are supported. Every database would need its own resolver, an
 We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-demo  
 -->
 
-**Note: The Demo project will not work inside of the Axon Ivy Designer if it is packed. Please unpack it if you want to run it in Axon Ivy Designer.**
+**Note: The Demo project must be unpacked to run in the Axon Ivy Designer.**
 
 ![Unpack the Demo](images/unpack.png)
 
