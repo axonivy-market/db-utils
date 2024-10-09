@@ -75,7 +75,7 @@ Der größte Teil der Demo kann in der Db-Utils GUI betrachtet werden. Die GUI h
 
 ### Inkrementelle Updates
 
-Die Registerkarte **Inkrementelle Updates** zeigt eine Übersicht der verfügbaren SQL-Skripte und eine Übersicht der Skripte, die einmal vorhanden waren, aber nicht mehr als Ressourcen verfügbar sind. Für jedes Skript werden das Ausführungsdatum, Fehler und ein Status angezeigt. Skripte können manuell ausgeführt, aktualisiert, deaktiviert, ignoriert oder gelöscht werden (nur für nicht verfügbare Skripte verfügbar).
+Die Registerkarte **Incremental Updates** zeigt eine Übersicht der verfügbaren SQL-Skripte und eine Übersicht der Skripte, die einmal vorhanden waren, aber nicht mehr als Ressourcen verfügbar sind. Für jedes Skript werden das Ausführungsdatum, Fehler und ein Status angezeigt. Skripte können manuell ausgeführt, aktualisiert, deaktiviert, ignoriert oder gelöscht werden (nur für nicht verfügbare Skripte verfügbar).
 
 Es stehen Verknüpfungen zur Verfügung, um alle Skripte auszuführen, die noch nicht erfolgreich ausgeführt wurden, und um im Falle von Fehlern die Fortsetzung zu erzwingen.
 
@@ -83,7 +83,7 @@ Es stehen Verknüpfungen zur Verfügung, um alle Skripte auszuführen, die noch 
 
 ### SQL-Anweisungen
 
-Auf der Registerkarte **SQL-Anweisungen** können Sie einfache SQL-Anweisungen für die Datenbank ausführen. Die Ergebnisse werden im Nachrichtenbereich angezeigt.
+Auf der Registerkarte **SQL Statements** können Sie einfache SQL-Anweisungen für die Datenbank ausführen. Die Ergebnisse werden im Nachrichtenbereich angezeigt.
 
 ![SQL-Anweisungen](images/sql.png)
 
