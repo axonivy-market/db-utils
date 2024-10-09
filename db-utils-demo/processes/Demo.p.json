@@ -1,0 +1,166 @@
+{
+  "format" : "10.0.0",
+  "id" : "19200651E5C5DD67",
+  "config" : {
+    "data" : "com.axonivy.utils.db.demo.Data"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "hsqlDbUtils.ivp",
+      "config" : {
+        "callSignature" : "hsqlDbUtils",
+        "responsible" : "DbUtilsAdministrator",
+        "outLink" : "hsqlDbUtils.ivp",
+        "wfuser" : "1",
+        "startName" : "DbUtils HSQLDB",
+        "tags" : "demo",
+        "case" : { }
+      },
+      "visual" : {
+        "at" : { "x" : 128, "y" : 304 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 384, "y" : 304 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "DialogCall",
+      "name" : "DbUtils",
+      "config" : {
+        "dialogId" : "com.axonivy.utils.db.DbUtils",
+        "startMethod" : "start(com.axonivy.utils.db.resolver.DbUtilsResolver)",
+        "call" : {
+          "params" : [
+            { "name" : "dbUtilsResolver", "type" : "com.axonivy.utils.db.resolver.DbUtilsResolver" }
+          ],
+          "map" : {
+            "param.dbUtilsResolver" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsResolver.get()"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 256, "y" : 304 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f5",
+      "type" : "ProgramStart",
+      "name" : "DbUtils Autostart HSQLDB",
+      "config" : {
+        "outerBean" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsStartEventBean",
+        "tags" : "demo"
+      },
+      "visual" : {
+        "at" : { "x" : 128, "y" : 192 },
+        "labelOffset" : { "x" : 13, "y" : 33 },
+        "color" : "Start Event"
+      },
+      "connect" : { "id" : "f8", "to" : "f7" }
+    }, {
+      "id" : "f7",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 384, "y" : 192 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "ProcessAnnotation",
+      "name" : [
+        "1. Inherit from the DB Utils resolver to provide a resolver with basic information of your setup",
+        "2. Inherit from the DB Utils program start even bean and use the bean in a start event to enable auto-update on application start",
+        "3. Use the DB Utils dialog to provide a GUI for DB operations"
+      ],
+      "visual" : {
+        "at" : { "x" : 430, "y" : 88 },
+        "size" : { "width" : 732, "height" : 80 },
+        "color" : "Note"
+      }
+    }, {
+      "id" : "f9",
+      "type" : "RequestStart",
+      "name" : "dbUtilsMSSQL.ivp",
+      "config" : {
+        "callSignature" : "dbUtilsMSSQL",
+        "responsible" : "DbUtilsAdministrator",
+        "outLink" : "dbUtilsMSSQL.ivp",
+        "wfuser" : "1",
+        "startName" : "DbUtils MSSQL",
+        "tags" : "demo",
+        "case" : { }
+      },
+      "visual" : {
+        "at" : { "x" : 128, "y" : 496 }
+      },
+      "connect" : { "id" : "f14", "to" : "f11" }
+    }, {
+      "id" : "f10",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 384, "y" : 496 }
+      }
+    }, {
+      "id" : "f11",
+      "type" : "DialogCall",
+      "name" : "DbUtils",
+      "config" : {
+        "dialogId" : "com.axonivy.utils.db.DbUtils",
+        "startMethod" : "start(com.axonivy.utils.db.resolver.DbUtilsResolver)",
+        "call" : {
+          "params" : [
+            { "name" : "dbUtilsResolver", "type" : "com.axonivy.utils.db.resolver.DbUtilsResolver" }
+          ],
+          "map" : {
+            "param.dbUtilsResolver" : "com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsResolver.get()"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 256, "y" : 496 }
+      },
+      "connect" : { "id" : "f15", "to" : "f10" }
+    }, {
+      "id" : "f12",
+      "type" : "ProgramStart",
+      "name" : "DbUtils Autostart MSSQL",
+      "config" : {
+        "outLink" : "eventLink2.ivp",
+        "outerBean" : "com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsStartEventBean",
+        "tags" : "demo"
+      },
+      "visual" : {
+        "at" : { "x" : 128, "y" : 384 },
+        "labelOffset" : { "x" : 13, "y" : 33 },
+        "color" : "Start Event"
+      },
+      "connect" : { "id" : "f16", "to" : "f13" }
+    }, {
+      "id" : "f13",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 384, "y" : 384 }
+      }
+    } ],
+  "layout" : {
+    "lanes" : [ {
+        "name" : "HSQLDB",
+        "offset" : 160,
+        "size" : 192,
+        "color" : "HSSQLDB"
+      }, {
+        "name" : "MSSQL",
+        "size" : 192,
+        "color" : "MSSQL"
+      } ],
+    "colors" : {
+      "Start Event" : "#00608a",
+      "Note" : "#fecc16",
+      "HSSQLDB" : "#8000ff",
+      "MSSQL" : "#00a3cc"
+    }
+  }
+}

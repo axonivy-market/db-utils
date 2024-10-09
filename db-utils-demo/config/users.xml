@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userConfig>
+    <user>
+        <username>dbadmin</username>
+        <password>password</password>
+        <role>DbUtilsAdministrator</role>
+    </user>
+</userConfig>

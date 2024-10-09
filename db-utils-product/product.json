@@ -6,8 +6,8 @@
       "data": {
         "projects": [
           {
-            "groupId": "MY-GROUP-ID",
-            "artifactId": "MY-PRODUCT-NAME-demo",
+            "groupId": "com.axonivy.utils.db",
+            "artifactId": "db-utils-demo",
             "version": "${version}",
             "type": "iar"
           }
@@ -28,8 +28,8 @@
       "data": {
         "dependencies": [
           {
-            "groupId": "MY-GROUP-ID",
-            "artifactId": "MY-PRODUCT-NAME",
+            "groupId": "com.axonivy.utils.db",
+            "artifactId": "db-utils",
             "version": "${version}",
             "type": "iar"
           }
@@ -44,27 +44,6 @@
           }
         ]
       }
-    }, 
-    {
-      "id": "maven-dropins",
-      "data": {
-        "dependencies": [
-          {
-            "groupId": "MY-GROUP-ID",
-            "artifactId": "MY-PRODUCT-NAME",
-            "version": "${version}"
-          }
-        ],
-        "repositories": [
-          {
-            "id": "maven.axonivy.com",
-            "url": "https://maven.axonivy.com",
-            "snapshots": {
-              "enabled": "true"
-            }
-          }
-        ]
-      }
-    }
+    } 
   ]
 }

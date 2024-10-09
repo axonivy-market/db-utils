@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition template="/layouts/dbutils.xhtml">
+		<ui:define name="title">DbUtils</ui:define>
+		<ui:define name="content">
+			<h:outputStylesheet name="DbUtils.css" />
+			<h:form id="form">
+				<p:growl id="growl" />
+				<h1>Database Utils<br/>
+				<div class="subtitle">#{data.ctrl.dbFootprint}</div>
+				</h1>
+				<div class="ui-fluid">
+					<p:tabView multiViewState="true">
+						<ui:include src="IncrementalUpdates.xhtml" />
+						<ui:include src="SqlStatement.xhtml" />
+						<ui:include src="ExcelExportImport.xhtml" />
+						<ui:include src="Settings.xhtml" />
+					</p:tabView>
+					<div class="card messages">
+						<div class="grid">
+							<div class="col-12 md:col-12 lg:col-12">
+								<h:panelGroup id="messagesHeadline">
+									<h1>Messages</h1>
+								</h:panelGroup>
+								<p:tooltip for="messagesHeadline"
+									value="Shows any output collected by db utils functions."
+									my="left" at="left top" />
+							</div>
+						</div>
+						<div class="grid">
+							<div class="col-12 md:col-12 lg:col-12">
+								<p:inputTextarea id="message" value="#{data.ctrl.log.message}"
+									autoResize="true" readonly="true" class="output" />
+							</div>
+						</div>
+						<div class="grid">
+							<div class="col-12 md:col-12 lg:col-11"></div>
+							<div class="col-12 md:col-12 lg:col-1">
+								<div class="command-btns">
+									<p:commandButton actionListener="#{data.ctrl.log.clearLog}"
+										value="Clear" update="message" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="command-btns">
+						<p:commandLink id="close"
+							actionListener="#{ivyWorkflowView.cancel()}" process="@this"
+							value="Close" />
+					</div>
+				</div>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					widgetVar="confirm">
+					<p:commandButton value="Confirm" type="button"
+						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					<p:commandButton value="Cancel" type="button"
+						styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				</p:confirmDialog>
+			</h:form>
+			<script>
+				window.isHideCaseInfo = true;
+				window.isHideTaskAction = true;
+				window.isHideTaskName = true;
+				window.isWorkingOnATask = false;
+			</script>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

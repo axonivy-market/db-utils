@@ -1,0 +1,27 @@
+# == Variables ==
+# 
+# You can define here your project Variables.
+# If you want to define/override a Variable for a specific Environment, 
+# add an additional ‘variables.yaml’ file in a subdirectory in the ‘Config’ folder: 
+# '<project>/Config/_<environment>/variables.yaml
+#
+Variables:
+  com:
+    axonivy:
+      utils:
+        db:
+          # name of database
+          database: ""
+          # URL to find scripts (supported are file: and classpath: URLs)
+          scriptsurl: "classpath:/resources/sql/incremental"
+          # URL to find blob data files (supported are classpath: URLs)
+          dataurl: "classpath:/resources/data"
+          # should the update scripts be automatically updated and executed at application start?
+          autoupdate: true
+          # should the tab to run incremental scripts be shown?
+          incrementaltab: true
+          # should the tab to execute SQL commands be shown?
+          sqlstatementtab: true
+          # should the tab to execute Excel export/import be shown?
+          excelexportimporttab: true
+    

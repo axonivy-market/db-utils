@@ -1,0 +1,37 @@
+{
+  "format" : "10.0.0",
+  "id" : "18F39A5A52B3465C",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "com.axonivy.utils.db.DbUtils.DbUtilsData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start(DbUtilsResolver)",
+      "config" : {
+        "callSignature" : "start",
+        "input" : {
+          "params" : [
+            { "name" : "dbUtilsResolver", "type" : "com.axonivy.utils.db.resolver.DbUtilsResolver" }
+          ],
+          "code" : [
+            "import com.axonivy.utils.db.controller.DbUtilsController;",
+            "",
+            "out.ctrl = new DbUtilsController(param.dbUtilsResolver);"
+          ]
+        },
+        "guid" : "18F39A5A52CF1BF8"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      }
+    } ]
+}

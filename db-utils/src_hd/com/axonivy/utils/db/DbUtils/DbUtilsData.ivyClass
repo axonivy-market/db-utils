@@ -1,0 +1,4 @@
+DbUtilsData #class
+com.axonivy.utils.db.DbUtils #namespace
+ctrl com.axonivy.utils.db.controller.DbUtilsController #field
+ctrl PERSISTENT #fieldModifier
