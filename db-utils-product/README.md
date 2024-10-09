@@ -27,7 +27,7 @@ Db-Utils works by maintaining a list of incremental SQL scripts and their execut
 
 Db-Utils creates a table to remember, which of these SQL scripts were executed and provides a GUI to display the list of scripts together with their status. Scripts can be executed, skipped and generally maintained in this GUI.
 
-Additionally, you can define a IProcessStartEventBean to execute needed (not yet executed) SQL scripts automatically in the correct order during the start of your application. This IProcessStartEventBean can be created easily by simply extending AbstractDbUtilsStartEventBean. Note, that this bean must be defined in the context of your application (or depend on your projectes), since it must have access to the classpath of your projects.
+Additionally, you can define a `IProcessStartEventBean` to execute needed (not yet executed) SQL scripts automatically in the correct order during the start of your application. This `IProcessStartEventBean` can be created easily by simply extending `AbstractDbUtilsStartEventBean`. Note, that this bean must be defined in the context of your application (or depend on your projectes), since it must have access to the classpath of your projects.
 
 ### SQL Queries
 
@@ -43,7 +43,7 @@ Db-Utils offers an export and import functionality for Excel files and even bina
 
 **Import of data** can be done with or without cleaning the database first. Note, that this is a potentially dangerous operation as deletion of entries cannot be undone. Importing data should probably only be used during tests to put a database into a defined test state or for an initial setup of your project database on a new machine.
 * *Load Excel* Load an Excel in the same format as the Export creates.
-* *Load Excel* and handle classpath blobs: Currently, a previously exported ZIP file cannot be imported but a solution is provided which proved useful in project developments. The Import loads an Excel in the same format as Export ZIP creates but handle classpath references in Excel columns. If a column contains a classpath reference (`classpath:/path`), the file is looked up in the data resources defined for DB-Utils and the file will be inserted as a Blob. It is recommended to put the BLOB files in a subfolder of the src folder of your project (e.g. `src/data`). The assumption is, that you will only have a few seldomly changing BLOB test files in your project for testing and don't want to create ZIP files for every column change in the imported Excel during development.
+* *Load Excel and handle classpath blobs* Currently, a previously exported ZIP file cannot be imported but a solution is provided which proved useful in project developments. The Import loads an Excel in the same format as Export ZIP creates but handle classpath references in Excel columns. If a column contains a classpath reference (`classpath:/path`), the file is looked up in the data resources defined for DB-Utils and the file will be inserted as a Blob. It is recommended to put the BLOB files in a subfolder of the src folder of your project (e.g. `src/data`). The assumption is, that you will only have a few seldomly changing BLOB test files in your project for testing and don't want to create ZIP files for every column change in the imported Excel during development.
 
 To see an example of resources stored in your project, please examine the demo project `src/resources` folder and compare to the settings in global variables (or `DbUtilsResolver` for the Microsoft SQL Server part).
 
