@@ -28,27 +28,27 @@ Db-Utils erstellt eine Tabelle, in der gespeichert wird, welche dieser SQL-Skrip
 
 Zusätzlich kannst du ein `IProcessStartEventBean` definieren, um bei Start deiner Anwendung die benötigten (noch nicht ausgeführten) SQL-Skripte automatisch in der richtigen Reihenfolge auszuführen. Dieses `IProcessStartEventBean` kann einfach erstellt werden, indem du die `AbstractDbUtilsStartEventBean` erweiterst. Beachte, dass dieses Bean im Kontext deiner Anwendung (oder projektabhängig) definiert werden muss, da es Zugriff auf den Classpath deiner Projekte haben muss.
 
-### SQL Abfragen
+### SQL-Abfragen
 
-Db-Utils bietet eine einfache GUI zur Ausführung von SQL-Skripten. Beachten Sie, dass diese Skripte ohne jegliche Prüfung und mit den Rechten des für Ihre Datenbank konfigurierten Benutzers ausgeführt werden. Die GUI zeigt die Ergebnisse in einem einfachen Textfenster an. Sie ist für schnelle kleine Nachforschungen oder Online-Korrekturen gedacht und nicht mit einem echten Datenbankwerkzeug zu vergleichen.
+Db-Utils bietet eine einfache GUI zum Ausführen von SQL-Skripten. Beachte, dass diese Skripte "wie sie sind" ohne Überprüfung ausgeführt werden und mit den Berechtigungen des für deine Datenbank konfigurierten Benutzers. Die GUI zeigt die Ergebnisse in einem einfachen Textfenster an. Sie ist für schnelle kleine Abfragen oder Online-Korrekturen gedacht und kann mit einem echten Datenbanktool nicht verglichen werden.
 
 ### Excel-Export und -Import
 
-Db-Utils bietet eine Export- und Importfunktion für Excel-Dateien und sogar binäre BLOBS. Diese Funktion wird von [DbUnit](https://www.dbunit.org/) implementiert.
+Db-Utils bietet eine Export- und Importfunktion für Excel-Dateien und sogar binäre BLOBS. Diese Funktion wird von [DbUnit](https://www.dbunit.org/) bereitgestellt.
 
-Der **Export von Daten** kann auf zwei Arten erfolgen:
-* *Export Excel* Export einer Excel-Datei mit einem Blatt pro Tabelle
-* *Export ZIP* Export einer Excel-Datei mit einem Blatt pro Tabelle, aber zusätzlich Export aller Spalten, die ein binäres großes Objekt (BLOB) darstellen, in eine eigene Datei. Das Excel und alle exportierten Dateien werden in einer ZIP-Datei gespeichert. In der ZIP-Datei werden die BLOB-Spalten-Dateien in Unterordnern mit der Namenskonvention `lob/<TABLE>/<COLUMN>/file.ext` abgelegt.
+**Der Export von Daten** kann auf zwei Arten durchgeführt werden:
+* *Excel-Export*: Exportiert eine Excel-Datei mit einem Blatt pro Tabelle.
+* *ZIP-Export*: Exportiert eine Excel-Datei mit einem Blatt pro Tabelle, zusätzlich werden alle Spalten, die ein binäres großes Objekt (BLOB) darstellen, in eine eigene Datei exportiert. Die Excel-Datei und alle exportierten Dateien werden in einer ZIP-Datei gespeichert. In der ZIP-Datei werden die BLOB-Spaltendateien in Unterordnern mit dem Namensschema `lob/<TABELLE>/<SPALTE>/file.ext` abgelegt.
 
-Der **Datenimport** kann mit oder ohne vorherige Bereinigung der Datenbank erfolgen. Beachten Sie, dass dies eine potentiell gefährliche Operation ist, da das Löschen von Einträgen nicht rückgängig gemacht werden kann. Das Importieren von Daten sollte wahrscheinlich nur während Tests verwendet werden, um eine Datenbank in einen definierten Testzustand zu versetzen oder für eine Ersteinrichtung Ihrer Projektdatenbank auf einem neuen Rechner.
-* *Excel laden* Laden Sie ein Excel im gleichen Format wie der Export erzeugt.
-* *Excel laden und Klassenpfad-Blobs behandeln* Derzeit kann eine zuvor exportierte ZIP-Datei nicht importiert werden, aber es wird eine Lösung angeboten, die sich bei Projektentwicklungen als nützlich erwiesen hat. Der Import lädt eine Excel-Datei im gleichen Format wie der ZIP-Export, behandelt aber Klassenpfad-Referenzen in Excel-Spalten. Wenn eine Spalte eine Klassenpfadreferenz (`classpath:/path`) enthält, wird die Datei in den für DB-Utils definierten Datenressourcen nachgeschlagen und die Datei als Blob eingefügt. Es wird empfohlen, die BLOB-Dateien in einem Unterordner des src-Ordners Ihres Projekts abzulegen (z.B. `src/data`). Die Annahme ist, dass Sie nur einige wenige, sich selten ändernde BLOB-Testdateien in Ihrem Projekt zum Testen haben werden und nicht für jede Spaltenänderung im importierten Excel während der Entwicklung ZIP-Dateien erstellen wollen.
+**Der Import von Daten** kann mit oder ohne vorherige Bereinigung der Datenbank erfolgen. Beachte, dass dies eine potenziell gefährliche Operation ist, da das Löschen von Einträgen nicht rückgängig gemacht werden kann. Der Datenimport sollte vermutlich nur während Tests verwendet werden, um die Datenbank in einen definierten Testzustand zu versetzen, oder für die Erstkonfiguration der Projekt-Datenbank auf einem neuen Rechner.
+* *Excel laden*: Lädt eine Excel-Datei im gleichen Format, das der Export erzeugt.
+* *Excel laden und Classpath-Blobs handhaben*: Derzeit kann eine zuvor exportierte ZIP-Datei nicht importiert werden, aber es gibt eine Lösung, die sich in der Projektentwicklung als nützlich erwiesen hat. Der Import lädt eine Excel-Datei im gleichen Format wie der ZIP-Export, verarbeitet jedoch Classpath-Referenzen in den Excel-Spalten. Wenn eine Spalte eine Classpath-Referenz (`classpath:/path`) enthält, wird die Datei in den für DB-Utils definierten Datenressourcen gesucht und als Blob eingefügt. Es wird empfohlen, die BLOB-Dateien in einem Unterordner des `src`-Ordners deines Projekts abzulegen (z.B. `src/data`). Dabei wird angenommen, dass du nur wenige sich selten ändernde BLOB-Testdateien in deinem Projekt hast und keine ZIP-Dateien für jede Spaltenänderung in der importierten Excel-Datei während der Entwicklung erstellen möchtest.
 
-Um ein Beispiel für die in Ihrem Projekt gespeicherten Ressourcen zu sehen, untersuchen Sie bitte den Ordner `src/resources` des Demoprojekts und vergleichen Sie die Einstellungen in den globalen Variablen (oder `DbUtilsResolver` für den Microsoft SQL Server Teil).
+Um ein Beispiel für in deinem Projekt gespeicherte Ressourcen zu sehen, schaue dir bitte den `src/resources`-Ordner des Demo-Projekts an und vergleiche die Einstellungen mit den globalen Variablen (oder dem `DbUtilsResolver` für den Microsoft SQL Server-Teil).
 
-Beachten Sie, dass beim Importieren die Blätter in Excel in der richtigen Reihenfolge sein müssen, damit keine Einschränkungen verletzt werden. Um die richtige Reihenfolge zu erhalten, ist es am besten, die Datenbank zuerst zu exportieren. Durch den Export wird eine Excel-Datei mit der richtigen Blattreihenfolge erstellt.
+Beachte, dass beim Import die Blätter in deiner Excel-Datei in der richtigen Reihenfolge sein müssen, um keine Einschränkungen zu verletzen. Um die richtige Reihenfolge zu erhalten, ist es am besten, die Datenbank zuerst zu exportieren. Der Export erstellt eine Excel-Datei mit der richtigen Blattreihenfolge.
 
-Beachten Sie, dass Excel Beschränkungen hinsichtlich der maximalen Größe von Spalten und Blättern hat. Diese Funktion kann für Tests oder die Ersteinrichtung von Datenbanken hilfreich sein, sollte aber nicht für Datenbanksicherungen und ähnliche „ernsthafte“ Datenbankaufgaben verwendet werden.
+Beachte, dass Excel Einschränkungen hinsichtlich der maximalen Größe von Spalten und Blättern hat. Diese Funktion kann für Tests oder für die initiale Datenbankeinrichtung nützlich sein, sollte jedoch nicht für Datenbanksicherungen oder ähnliche „ernste“ Datenbankaufgaben verwendet werden.
 
 ### Einstellungen
 
