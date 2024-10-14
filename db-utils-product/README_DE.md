@@ -12,20 +12,15 @@ aber es ist nicht schwer, die Komponente für andere Datenbanktypen zu erweitern
 Die wichtigste Funktion von DB-Utils ist wahrscheinlich das automatische Update deiner Datenbank,
 wann immer du ein Deployment durchführst. Zusätzlich können Daten aus deinen Datenbanken einfach
 in Excel- oder Zip-Dateien exportiert oder importiert werden, und einfache Abfragen können direkt
-über ein Db-Utils-GUI in deiner Anwendung ausgeführt werden. Durch die Definition eines Resolvers,
-um Ihr Projektsetup bereitzustellen, einige Einstellungen in globalen Variablen und möglicherweise
-eine Process Start Event Bean können Sie alle Funktionen von DB-Utils nutzen.
+über ein Db-Utils-GUI in deiner Anwendung ausgeführt werden.
+
+Durch die Definition eines Resolvers, der dein Projekt-Setup bereitstellt, sowie einigen Einstellungen in globalen Variablen und möglicherweise einem Prozessstart-Event-Bean, kannst du alle Funktionen von DB-Utils nutzen.
 
 ### Inkrementelle Updates
 
-Db-Utils arbeitet, indem es eine Liste von inkrementellen SQL-Skripten und deren Ausführungsstatus
-zusammen mit Ihrem Projekt und der Datenbank Ihres Projekts verwaltet. Wenn Db-Utils zum ersten Mal
-ausgeführt wird (entweder über die GUI oder automatisch beim Programmstart), wird eine Tabelle
-erstellt, um diese Liste zu verwalten. Der Tabellenname kann in Ihrem `DbUtilsResolver` überschrieben
-werden, der Standardname ist `DbUtilsScripts`. Dateien können manuell über die Db-Utils-GUI oder
-automatisch bei jedem Start Ihrer Anwendung ausgeführt werden. Die SQL-Skripte können in einem
-Dateisystemordner oder in einem Ressourcenverzeichnis (Classpath) gespeichert werden, wobei letzteres
-die bevorzugte Methode ist. Als Konvention werden SQL-Skript in alphabetischer Reihenfolge sortiert, angezeigt und ausgeführt. Es wird empfohlen, die inkrementellen Projekt Skripte in den Classpath des Projektes zu lege, z.B. in einen Unterordner des `src` Ordners Ihres Projketes (z.B. `src/resources/sql/incremental`) und einen Namenskonvention zu folgen, z.B.
+Db-Utils arbeitet, indem es eine Liste inkrementeller SQL-Skripte sowie deren Ausführungsstatus zusammen mit deinem Projekt und der zugehörigen Datenbank verwaltet. Wenn Db-Utils zum ersten Mal ausgeführt wird (entweder über die GUI oder automatisch beim Start deiner Anwendung), wird eine Tabelle erstellt, um diese Liste zu verwalten. Der Tabellenname lässt sich in deinem `DbUtilsResolver` anpassen, wobei der Standardname `DbUtilsScripts` lautet. Die SQL-Skripte können manuell über die Db-Utils-GUI oder automatisch bei jedem Start deiner Anwendung ausgeführt werden. Sie können entweder in einem Dateisystemordner oder in einem Ressourcenverzeichnis (Classpath) gespeichert werden – letzteres ist die bevorzugte Methode.
+
+Als Konvention werden SQL-Skript in alphabetischer Reihenfolge sortiert, angezeigt und ausgeführt. Es wird empfohlen, die inkrementellen Projekt Skripte in den Classpath des Projektes zu lege, z.B. in einen Unterordner des `src` Ordners Ihres Projketes (z.B. `src/resources/sql/incremental`) und einen Namenskonvention zu folgen, z.B.
 
 `YYYYMMDD-HHMM-Ticket-Short-Description.sql`
 
