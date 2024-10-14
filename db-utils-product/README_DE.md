@@ -110,47 +110,47 @@ Die Registerkarte **Settings** zeigt die aktuellen Einstellungen, die von Db-Uti
 
 ![Einstellungen](images/settings.png)
 
-## Einstellungen
+## Setup
 
-Um DB-Utils in Ihr Projekt zu integrieren und zu nutzen, müssen Sie (für jede Datenbank, die Sie unterstützen wollen)
-* eine projektlokale Klasse `DBUtilsResolver` bereitstellen
-* eine projektlokale Klasse `DbUtilsStartEventBean` bereitstellen
-* eine Startprozess erstellen, der die DB-Utils GUI aufruft
-* einen Programmstart erstellen unter Verwendung der `DbUtilsStartEventBean` Klasse
-* die Konfiguration prüfen
-* die Sicherheit prüfen
+Um Db-Utils in dein Projekt zu integrieren und zu verwenden, musst du (für jede Datenbank, die du unterstützen möchtest)
+* eine projektlokale `DBUtilsResolver`-Klasse bereitstellen
+* eine projektlokale `DbUtilsStartEventBean`-Klasse bereitstellen
+* einen Startprozess erstellen, der die Db-Utils GUI aufruft
+* einen Programmstart erstellen, der das `DbUtilsStartEventBean` verwendet
+* die Konfiguration überprüfen
+* die Sicherheit überprüfen
 
-Im Demoprojekt finden Sie Beispiele für ein einfaches Setup (HSQLDB Teil) und ein etwas komplexeres, angepasstes Setup (Microsoft SQL Server Teil). Bitte vergleichen Sie die folgende Beschreibung mit diesen Beispielen.
+Im Demoprojekt findest du Beispiele für eine einfache Einrichtung (HSQLDB-Teil) und eine etwas komplexere, angepasste Einrichtung (Microsoft SQL Server-Teil). Bitte vergleiche die folgende Beschreibung mit diesen Beispielen.
 
 ### Bereitstellung von `DbUtilsResolver`
 
-Der DbUtilsResolver wird verwendet, um alle Konfigurationsinformationen für eine der in Ihrem Projekt definierten Datenbanken zu speichern (z.B. Name, Ressourcenpfade, DBUtilsScript Tabellendefinition...). Es ist wichtig, dass diese Klasse in einem Projekt implementiert wird, das entweder ein Projekt definiert oder eine Abhängigkeit zu einem Projekt hat, das Ihre Datenbank- und Skriptressourcen definiert. Sie kann durch Erweiterung der Klasse `AbstractDbUtilsResolver`, die von DB-Utils bereitgestellt wird, implementiert werden. Implementierungen für Microsoft SQL Server (`MSSQL2005DbUtilsResolver`) und HSQLDB (`HSQLDbUtilsResolver`) werden direkt von DB-Utils bereitgestellt.
+Der DbUtilsResolver wird verwendet, um alle Konfigurationsinformationen für eine der in deinem Projekt definierten Datenbanken zu verwalten (z. B. Name, Ressourcenpfade, DBUtilsScript-Tabellendefinition usw.). Es ist wichtig, dass diese Klasse in einem Projekt implementiert wird, das entweder deine Datenbank und Skriptressourcen definiert oder eine Abhängigkeit zu einem solchen Projekt hat. Sie kann durch Erweitern der von DB-Utils bereitgestellten Klasse `AbstractDbUtilsResolver` implementiert werden. Implementierungen für Microsoft SQL Server (`MSSQL2005DbUtilsResolver`) und HSQLDB (`HSQLDbUtilsResolver`) werden direkt von DB-Utils bereitgestellt.
 
 ### DbUtilsStartEventBean bereitstellen
 
-Die `DbUtilsStartEventBean` wird als Java-Klasse in einem Ereignisprozessstart verwendet. Sie sollte `AbstractDbUtilsStartEventBean`, die von DB-Utils bereitgestellt wird, erweitern und einen Standardkonstruktor implementieren, der den `DbUtilsResolver` des Projekts setzen muss.
+Das `DbUtilsStartEventBean` wird als Java-Klasse in einem Event-Prozess-Start verwendet. Es sollte die von DB-Utils bereitgestellte Klasse `AbstractDbUtilsStartEventBean` erweitern und einen Standardkonstruktor implementieren, der den projektspezifischen `DbUtilsResolver` setzt.
 
 ### Db-Utils GUI Prozessstart erstellen
 
-Erstellen Sie einen Startprozess, der die Db-Utils GUI (und das Projekt `DbUtilsResolver`) verwendet, die vom Db-Utils Projekt bereitgestellt wird (siehe unten). Beachten Sie, dass Sie diesen Start durch eine autorisierte Rolle des Projekts absichern sollten!
+Erstelle einen Startprozess, der die Db-Utils GUI (und den projektspezifischen `DbUtilsResolver`) verwendet, die vom Db-Utils-Projekt bereitgestellt wird (siehe unten). Beachte, dass dieser Start durch eine autorisierte Rolle des Projekts gesichert werden sollte!
 
 ![GUI Integration](images/gui.png)
 
 ### Programmstart erstellen
 
-Erstellen Sie einen Programmstart, der das Projekt `DbUtilsStartEventBean` verwendet (siehe unten).
+Erstelle einen Programmstart, der das projektspezifische `DbUtilsStartEventBean` verwendet (siehe unten).
 
 ![Process Start Event Bean](images/starteventbean.png)
 
 ### Konfiguration
 
-Klassen, die `AbstractDbUtilsResolver` erweitern, können durch globale Variablen konfiguriert werden. Die wichtigsten globalen Variablen (Einstellungen) sind:
+Klassen, die `AbstractDbUtilsResolver` erweitern, können über globale Variablen konfiguriert werden. Die wichtigsten globalen Variablen (Einstellungen) sind:
 * Name der Datenbank, wie in der Ivy-Datenbankkonfiguration definiert.
-* Die Skript-URL, um inkrementelle SQL-Skripte zu finden. Diese Skripte können sich im Dateisystem befinden, aber ein bequemerer Weg ist es, sie als Ressource in Ihr Projekt zu integrieren, indem Sie das Klassenpfadschema in der URL verwenden. Auf diese Weise werden sie automatisch bereitgestellt und sind immer auf dem neuesten Stand mit Ihrem Projekt.
-* Die Daten-URL wird für andere Daten verwendet, z. B. für Binärdateien, die in Excel-BLOB-Importen verwendet werden können.
-* Zusätzliche Einstellungen, um automatische Updates zu konfigurieren und GUI-Registerkarten zu aktivieren oder zu deaktivieren
+* Die Skript-URL, um inkrementelle SQL-Skripte zu finden. Diese Skripte können im Dateisystem liegen, aber eine bequemere Methode ist es, sie als Ressource in dein Projekt zu legen, indem du das Classpath-Schema in der URL verwendest. Auf diese Weise werden sie automatisch bereitgestellt und sind immer auf dem neuesten Stand mit deinem Projekt.
+* Die Daten-URL, die für andere Daten verwendet wird, z. B. für Binärdateien, die in Excel-BLOB-Imports verwendet werden können.
+* Zusätzliche Einstellungen, um automatische Updates zu konfigurieren und GUI-Registerkarten ein- oder auszuschalten.
 
-Bitte sehen Sie sich das Demo-Projekt an, um den Klassenpfad-Mechanismus für SQL-Skripte und Blob-Dateien besser zu verstehen.
+Bitte prüfe das Demoprojekt, um den verwendeten Classpath-Mechanismus für SQL-Skripte und Blob-Dateien besser zu verstehen.
 
 ```
 @variables.yaml@
@@ -158,11 +158,11 @@ Bitte sehen Sie sich das Demo-Projekt an, um den Klassenpfad-Mechanismus für SQ
 
 ### Sicherheit
 
-Db-Utils können verwendet werden, um beliebige SQL-Skripte ohne weitere Prüfung direkt auf der konfigurierten Datenbank mit den Rechten des konfigurierten Benutzers auszuführen. Es ist daher wichtig, den Start der Db-Utils GUI mit einer besonderen Rolle in Ihrem Projekt abzusichern (`DbUtilsAdmin` oder ähnlich). Zusätzlich ist es möglich, jede Registerkarte (Funktionalität) in Db-Utils GUI durch Konfiguration abzuschalten.
+Db-Utils kann verwendet werden, um beliebige SQL-Skripte ohne weitere Prüfungen direkt auf die konfigurierte Datenbank mit den Berechtigungen des konfigurierten Benutzers auszuführen. Es ist daher wichtig, den Db-Utils-GUI-Start mit einer erhöhten Rolle in deinem Projekt (`DbUtilsAdmin` oder ähnlich) zu sichern. Außerdem ist es möglich, jede Registerkarte (Funktionalität) in der Db-Utils GUI per Konfiguration zu deaktivieren.
 
-Um die automatische Aktualisierungsfunktion von Db-Utils zu nutzen, benötigt der konfigurierte Datenbankbenutzer höchstwahrscheinlich erweiterte Datenbankrechte (z.B. zum Ändern von Tabellendefinitionen), die Sie in Ihrer Anwendung vielleicht nicht haben wollen.
+Um die automatische Update-Funktion von Db-Utils zu verwenden, benötigt der konfigurierte Datenbankbenutzer höchstwahrscheinlich erweiterte Datenbankberechtigungen (z. B. zum Ändern von Tabellendefinitionen), die du möglicherweise nicht in deiner Anwendung haben möchtest.
 
-In diesem Fall könnte es eine Idee sein, ein separates Projekt (z.B. ein Tools-Projekt) in Abhängigkeit von Ihren Projekten zu erstellen und alle Db-Utils-spezifischen Implementierungen und eine spezielle, erweiterte Datenbankkonfiguration in dieses separate Projekt zu legen.
+In diesem Fall könnte es eine Idee sein, ein separates Projekt (z. B. ein Tools-Projekt) zu erstellen, das von deinen Projekten abhängt und alle Db-Utils-spezifischen Implementierungen und eine spezielle, erweiterte Datenbankkonfiguration in diesem separaten Projekt unterbringt.
 
 
 
