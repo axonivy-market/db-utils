@@ -26,7 +26,7 @@ Es wird empfohlen, die inkrementellen Dateien deines Projekts im Classpath deine
 
 Db-Utils erstellt eine Tabelle, in der gespeichert wird, welche dieser SQL-Skripte ausgeführt wurden, und bietet eine grafische Benutzeroberfläche, in der die Liste der Skripte zusammen mit ihrem Status angezeigt wird. In dieser GUI können Skripte ausgeführt, übersprungen und allgemein verwaltet werden.
 
-Zusätzlich können Sie eine `IProcessStartEventBean` definieren, um benötigte (noch nicht ausgeführte) SQL-Skripte automatisch in der richtigen Reihenfolge beim Start Ihrer Anwendung auszuführen. Diese `IProcessStartEventBean` kann einfach durch Erweiterung von `AbstractDbUtilsStartEventBean` erstellt werden. Beachten Sie, dass diese Bean im Kontext Ihrer Anwendung definiert werden muss (oder von Ihren Projekten abhängt), da sie Zugriff auf den Klassenpfad Ihrer Projekte haben muss.
+Zusätzlich kannst du ein `IProcessStartEventBean` definieren, um bei Start deiner Anwendung die benötigten (noch nicht ausgeführten) SQL-Skripte automatisch in der richtigen Reihenfolge auszuführen. Dieses `IProcessStartEventBean` kann einfach erstellt werden, indem du die `AbstractDbUtilsStartEventBean` erweiterst. Beachte, dass dieses Bean im Kontext deiner Anwendung (oder projektabhängig) definiert werden muss, da es Zugriff auf den Classpath deiner Projekte haben muss.
 
 ### SQL Abfragen
 
