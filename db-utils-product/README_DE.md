@@ -20,7 +20,7 @@ Durch die Definition eines Resolvers, der dein Projekt-Setup bereitstellt, sowie
 
 Db-Utils arbeitet, indem es eine Liste inkrementeller SQL-Skripte sowie deren Ausführungsstatus zusammen mit deinem Projekt und der zugehörigen Datenbank verwaltet. Wenn Db-Utils zum ersten Mal ausgeführt wird (entweder über die GUI oder automatisch beim Start deiner Anwendung), wird eine Tabelle erstellt, um diese Liste zu verwalten. Der Tabellenname lässt sich in deinem `DbUtilsResolver` anpassen, wobei der Standardname `DbUtilsScripts` lautet. Die SQL-Skripte können manuell über die Db-Utils-GUI oder automatisch bei jedem Start deiner Anwendung ausgeführt werden. Sie können entweder in einem Dateisystemordner oder in einem Ressourcenverzeichnis (Classpath) gespeichert werden – letzteres ist die bevorzugte Methode.
 
-Als Konvention werden SQL-Skript in alphabetischer Reihenfolge sortiert, angezeigt und ausgeführt. Es wird empfohlen, die inkrementellen Projekt Skripte in den Classpath des Projektes zu lege, z.B. in einen Unterordner des `src` Ordners Ihres Projketes (z.B. `src/resources/sql/incremental`) und einen Namenskonvention zu folgen, z.B.
+Es wird empfohlen, die inkrementellen Dateien deines Projekts im Classpath deines Projekts abzulegen, zum Beispiel in einem Unterordner des `src`-Verzeichnisses (z.B. `src/resources/sql/incremental`). Außerdem solltest du ein einheitliches Namensschema für deine Skripte verwenden, wie z.B. 
 
 `YYYYMMDD-HHMM-Ticket-Short-Description.sql`
 
