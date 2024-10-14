@@ -1,16 +1,18 @@
 # DB-Utils
 
-Db-Utils ist eine Sammlung von Werkzeugen, die bei typischen Datenbankaufgaben in Ihrem Projekt helfen.
+Db-Utils ist eine Sammlung von Werkzeugen, die bei typischen Datenbankaufgaben in deinem Projekt helfen.
 Es unterstützt automatische, inkrementelle SQL-Updates von Datenbanktabellen, den Export und Import von Daten
-sowie ein einfaches Datenbankabfragefenster. Unterstützung für Microsoft SQL und HSQLDB ist out-of-the-box verfügbar,
-aber es ist einfach, die Komponente für andere Datenbanktypen zu erweitern.
+sowie ein einfaches Datenbankabfragefenster. 
+
+Aktuell gibe es Unterstützung für Microsoft SQL und HSQLDB out-of-the-box,
+aber es ist nicht schwer, die Komponente für andere Datenbanktypen zu erweitern.
 
 ## Konzepte
 
-Die wichtigste Funktion von DB-Utils ist wahrscheinlich das automatische Update Ihrer Datenbank,
-wann immer Sie ein Deployment durchführen. Zusätzlich können Daten aus Ihren Datenbanken einfach
+Die wichtigste Funktion von DB-Utils ist wahrscheinlich das automatische Update deiner Datenbank,
+wann immer du ein Deployment durchführst. Zusätzlich können Daten aus deinen Datenbanken einfach
 in Excel- oder Zip-Dateien exportiert oder importiert werden, und einfache Abfragen können direkt
-über ein Db-Utils-GUI in Ihrer Anwendung ausgeführt werden. Durch die Definition eines Resolvers,
+über ein Db-Utils-GUI in deiner Anwendung ausgeführt werden. Durch die Definition eines Resolvers,
 um Ihr Projektsetup bereitzustellen, einige Einstellungen in globalen Variablen und möglicherweise
 eine Process Start Event Bean können Sie alle Funktionen von DB-Utils nutzen.
 
