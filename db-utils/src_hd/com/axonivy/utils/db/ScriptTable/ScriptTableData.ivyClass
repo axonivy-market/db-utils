@@ -1,4 +1,0 @@
-ScriptTableData #class
-com.axonivy.utils.db.ScriptTable #namespace
-ctrl com.axonivy.utils.db.controller.ScriptTableController #field
-ctrl PERSISTENT #fieldModifier

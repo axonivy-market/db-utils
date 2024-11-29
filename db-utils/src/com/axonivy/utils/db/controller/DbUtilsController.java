@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 import java.util.Comparator;
-import java.util.Map.Entry;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
@@ -29,6 +28,7 @@ import com.axonivy.utils.db.services.DatabaseService;
 import com.axonivy.utils.db.services.ScriptService;
 
 import ch.ivyteam.ivy.db.Database;
+import ch.ivyteam.ivy.db.DatabaseProperty;
 import ch.ivyteam.ivy.db.IExternalDatabase;
 
 /**
@@ -308,8 +308,8 @@ public class DbUtilsController {
 				w.println("  User:          %s".formatted(cfg.user()));
 				w.println("  Properties:");
 
-				cfg.properties().entrySet().stream().sorted(Comparator.comparing(Entry::getKey)).forEach(e -> {
-					w.println("    %-20s %s".formatted(e.getKey() + ":", e.getValue()));
+				cfg.properties().stream().sorted(Comparator.comparing(DatabaseProperty::key)).forEach(e -> {
+					w.println("    %-20s %s".formatted(e.key() + ":", e.value()));
 				});
 			}
 

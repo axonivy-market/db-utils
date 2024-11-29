@@ -1,0 +1,11 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "ScriptTableData",
+  "namespace" : "com.axonivy.utils.db.ScriptTable",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "ctrl",
+    "type" : "com.axonivy.utils.db.controller.ScriptTableController",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}
