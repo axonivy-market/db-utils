@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -179,7 +178,7 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	public List<Script> findFileScripts(TypedPath typedPath) {
 		var result = new ArrayList<Script>();
 		try {
-			var url = new URL(typedPath.url());
+			var url = URI.create(typedPath.url()).toURL();
 			var baseDir = new File(url.getPath());
 			if(!baseDir.isDirectory()) {
 				throw new RuntimeException("Script URL is not a directory: '%s'".formatted(url.getPath()));
@@ -292,7 +291,7 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	 */
 	protected List<String> findScriptNamesInClasspathZip(String scriptsUrl, String urlPath) throws IOException {
 		var result = new ArrayList<String>();
-		var iarUrl = new URL(urlPath);
+		var iarUrl = URI.create(urlPath).toURL();
 		var iarResourcePath = iarUrl.getPath();
 		LOG.info("iar resource: ''{0}''", iarResourcePath);
 		var parts = iarResourcePath.split("!", 2);

@@ -1,5 +1,0 @@
-INSERT INTO Test VALUES(1, 'Kent')
-
-INSERT INTO Test VALUES(2, 'Wayne')
-
-INSERT INTO Test VALUES(3, 'Parker')

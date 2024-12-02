@@ -8,9 +8,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.message.MessageFormatMessageFactory;
 
 import com.axonivy.utils.db.controller.DbUtilsController.JsfLogger;
 import com.axonivy.utils.db.services.ScriptService;
@@ -21,7 +18,6 @@ import com.axonivy.utils.db.services.enums.Status;
  * Controller for a script table.
  */
 public class ScriptTableController {
-	private static final Logger LOG = LogManager.getLogger(new MessageFormatMessageFactory());
 	private boolean available;
 	private List<Script> scripts = new ArrayList<>();
 	private ScriptService scriptService;
