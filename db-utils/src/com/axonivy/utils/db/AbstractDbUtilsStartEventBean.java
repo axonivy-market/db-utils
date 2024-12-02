@@ -7,6 +7,7 @@ import com.axonivy.utils.db.services.ScriptService;
 
 import ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean;
 import ch.ivyteam.ivy.process.eventstart.IProcessStartEventBeanRuntime;
+import ch.ivyteam.ivy.process.extension.ProgramConfig;
 import ch.ivyteam.ivy.service.ServiceException;
 import ch.ivyteam.log.Logger;
 
@@ -17,7 +18,8 @@ public abstract class AbstractDbUtilsStartEventBean extends AbstractProcessStart
 	/**
 	 * Construct a start event bean with a unique name.
 	 * 
-	 * @param _name unique name for this singleton of the start even bean (you could use the canonical name of your class)
+	 * @param _name           unique name for this singleton of the start even bean
+	 *                        (you could use the canonical name of your class)
 	 * @param dbUtilsResolver the resolver to use
 	 */
 	public AbstractDbUtilsStartEventBean(String _name, DbUtilsResolver dbUtilsResolver) {
@@ -28,11 +30,14 @@ public abstract class AbstractDbUtilsStartEventBean extends AbstractProcessStart
 	/**
 	 * Construct a start event bean with a unique name.
 	 * 
-	 * @param clazz to identify this unique type of {@link AbstractDbUtilsStartEventBean}
+	 * @param clazz           to identify this unique type of
+	 *                        {@link AbstractDbUtilsStartEventBean}
 	 * @param dbUtilsResolver the resolver to use
 	 */
-	public AbstractDbUtilsStartEventBean(Class<? extends AbstractDbUtilsStartEventBean> clazz, DbUtilsResolver dbUtilsResolver) {
-		super(clazz.getCanonicalName(), "DbUtils startup bean for database '%s'".formatted(dbUtilsResolver.getDatabaseName()));
+	public AbstractDbUtilsStartEventBean(Class<? extends AbstractDbUtilsStartEventBean> clazz,
+			DbUtilsResolver dbUtilsResolver) {
+		super(clazz.getCanonicalName(),
+				"DbUtils startup bean for database '%s'".formatted(dbUtilsResolver.getDatabaseName()));
 		this.dbUtilsResolver = dbUtilsResolver;
 	}
 
@@ -42,7 +47,8 @@ public abstract class AbstractDbUtilsStartEventBean extends AbstractProcessStart
 	 * @param dbUtilsResolver the resolver to use
 	 */
 	public AbstractDbUtilsStartEventBean(DbUtilsResolver dbUtilsResolver) {
-		super("DbUtilStartEventBean-%s".formatted(dbUtilsResolver.getDatabaseName()), "DbUtils startup bean for database '%s'".formatted(dbUtilsResolver.getDatabaseName()));
+		super("DbUtilStartEventBean-%s".formatted(dbUtilsResolver.getDatabaseName()),
+				"DbUtils startup bean for database '%s'".formatted(dbUtilsResolver.getDatabaseName()));
 		this.dbUtilsResolver = dbUtilsResolver;
 	}
 
@@ -51,10 +57,10 @@ public abstract class AbstractDbUtilsStartEventBean extends AbstractProcessStart
 	}
 
 	@Override
-	public void initialize(IProcessStartEventBeanRuntime eventRuntime, String configuration) {
+	public void initialize(IProcessStartEventBeanRuntime eventRuntime, ProgramConfig configuration) {
 		super.initialize(eventRuntime, configuration);
 		log().debug("Initializing with configuration: {0}", configuration);
-		eventRuntime.setPollTimeInterval(0);
+		eventRuntime.poll().disable();
 	}
 
 	@Override
@@ -62,11 +68,11 @@ public abstract class AbstractDbUtilsStartEventBean extends AbstractProcessStart
 		log().info("Starting Db Utils for database ''{0}''.", getDbUtilsResolver().getDatabaseName());
 
 		try {
-			if(getDbUtilsResolver().isAutoupdateEnabled()) {
+			if (getDbUtilsResolver().isAutoupdateEnabled()) {
 				log().info("Auto-Update is enabled for scripts URL ''{0}''.", getDbUtilsResolver().getScriptsUrl());
-				ScriptService.get(getDbUtilsResolver()).runNecessary(false, s -> log().info("Executing: {0}", s.getName()));
-			}
-			else {
+				ScriptService.get(getDbUtilsResolver()).runNecessary(false,
+						s -> log().info("Executing: {0}", s.getName()));
+			} else {
 				log().info("Auto-Update is disabled.");
 			}
 		} catch (Exception e) {

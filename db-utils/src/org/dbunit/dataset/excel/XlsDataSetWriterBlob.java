@@ -16,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.message.MessageFormatMessageFactory;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -159,7 +158,6 @@ public class XlsDataSetWriterBlob extends XlsDataSetWriter {
 		}
 		long timeMillis = value.getTime();
 		cell.setCellValue( timeMillis );
-		cell.setCellType(CellType.NUMERIC);
 		cell.setCellStyle(dateCellStyle);
 	}
 }

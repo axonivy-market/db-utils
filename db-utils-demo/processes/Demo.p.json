@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
   "id" : "19200651E5C5DD67",
   "config" : {
     "data" : "com.axonivy.utils.db.demo.Data"
@@ -9,18 +9,24 @@
       "type" : "RequestStart",
       "name" : "hsqlDbUtils.ivp",
       "config" : {
-        "callSignature" : "hsqlDbUtils",
-        "responsible" : "DbUtilsAdministrator",
-        "outLink" : "hsqlDbUtils.ivp",
-        "wfuser" : "1",
-        "startName" : "DbUtils HSQLDB",
-        "tags" : "demo",
-        "case" : { }
+        "signature" : "hsqlDbUtils",
+        "request" : {
+          "name" : "DbUtils HSQLDB"
+        },
+        "permission" : {
+          "anonymous" : false,
+          "role" : "DbUtilsAdministrator"
+        }
       },
+      "tags" : [
+        "demo"
+      ],
       "visual" : {
         "at" : { "x" : 128, "y" : 304 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -32,12 +38,8 @@
       "type" : "DialogCall",
       "name" : "DbUtils",
       "config" : {
-        "dialogId" : "com.axonivy.utils.db.DbUtils",
-        "startMethod" : "start(com.axonivy.utils.db.resolver.DbUtilsResolver)",
+        "dialog" : "com.axonivy.utils.db.DbUtils:start(com.axonivy.utils.db.resolver.DbUtilsResolver)",
         "call" : {
-          "params" : [
-            { "name" : "dbUtilsResolver", "type" : "com.axonivy.utils.db.resolver.DbUtilsResolver" }
-          ],
           "map" : {
             "param.dbUtilsResolver" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsResolver.get()"
           }
@@ -46,21 +48,28 @@
       "visual" : {
         "at" : { "x" : 256, "y" : 304 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f5",
       "type" : "ProgramStart",
       "name" : "DbUtils Autostart HSQLDB",
       "config" : {
-        "outerBean" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsStartEventBean",
-        "tags" : "demo"
+        "javaClass" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsStartEventBean",
+        "link" : "eventLink.ivp"
       },
+      "tags" : [
+        "demo"
+      ],
       "visual" : {
         "at" : { "x" : 128, "y" : 192 },
         "labelOffset" : { "x" : 13, "y" : 33 },
         "color" : "Start Event"
       },
-      "connect" : { "id" : "f8", "to" : "f7" }
+      "connect" : [
+        { "id" : "f8", "to" : "f7" }
+      ]
     }, {
       "id" : "f7",
       "type" : "TaskEnd",
@@ -85,18 +94,24 @@
       "type" : "RequestStart",
       "name" : "dbUtilsMSSQL.ivp",
       "config" : {
-        "callSignature" : "dbUtilsMSSQL",
-        "responsible" : "DbUtilsAdministrator",
-        "outLink" : "dbUtilsMSSQL.ivp",
-        "wfuser" : "1",
-        "startName" : "DbUtils MSSQL",
-        "tags" : "demo",
-        "case" : { }
+        "signature" : "dbUtilsMSSQL",
+        "request" : {
+          "name" : "DbUtils MSSQL"
+        },
+        "permission" : {
+          "anonymous" : false,
+          "role" : "DbUtilsAdministrator"
+        }
       },
+      "tags" : [
+        "demo"
+      ],
       "visual" : {
         "at" : { "x" : 128, "y" : 496 }
       },
-      "connect" : { "id" : "f14", "to" : "f11" }
+      "connect" : [
+        { "id" : "f14", "to" : "f11" }
+      ]
     }, {
       "id" : "f10",
       "type" : "TaskEnd",
@@ -108,12 +123,8 @@
       "type" : "DialogCall",
       "name" : "DbUtils",
       "config" : {
-        "dialogId" : "com.axonivy.utils.db.DbUtils",
-        "startMethod" : "start(com.axonivy.utils.db.resolver.DbUtilsResolver)",
+        "dialog" : "com.axonivy.utils.db.DbUtils:start(com.axonivy.utils.db.resolver.DbUtilsResolver)",
         "call" : {
-          "params" : [
-            { "name" : "dbUtilsResolver", "type" : "com.axonivy.utils.db.resolver.DbUtilsResolver" }
-          ],
           "map" : {
             "param.dbUtilsResolver" : "com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsResolver.get()"
           }
@@ -122,22 +133,28 @@
       "visual" : {
         "at" : { "x" : 256, "y" : 496 }
       },
-      "connect" : { "id" : "f15", "to" : "f10" }
+      "connect" : [
+        { "id" : "f15", "to" : "f10" }
+      ]
     }, {
       "id" : "f12",
       "type" : "ProgramStart",
       "name" : "DbUtils Autostart MSSQL",
       "config" : {
-        "outLink" : "eventLink2.ivp",
-        "outerBean" : "com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsStartEventBean",
-        "tags" : "demo"
+        "javaClass" : "com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsStartEventBean",
+        "link" : "eventLink2.ivp"
       },
+      "tags" : [
+        "demo"
+      ],
       "visual" : {
         "at" : { "x" : 128, "y" : 384 },
         "labelOffset" : { "x" : 13, "y" : 33 },
         "color" : "Start Event"
       },
-      "connect" : { "id" : "f16", "to" : "f13" }
+      "connect" : [
+        { "id" : "f16", "to" : "f13" }
+      ]
     }, {
       "id" : "f13",
       "type" : "TaskEnd",

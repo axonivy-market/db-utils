@@ -2,6 +2,7 @@ package org.dbunit.dataset.excel;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +30,7 @@ public class XlsDataSetBlob extends AbstractDataSet {
 
 	/**
 	 * Creates a new XlsDataSet object that loads the specified Excel document.
+	 * 
 	 * @param dbUtilsResolver
 	 */
 	public XlsDataSetBlob(InputStream in, DbUtilsResolver dbUtilsResolver) throws IOException, DataSetException {
@@ -56,7 +58,9 @@ public class XlsDataSetBlob extends AbstractDataSet {
 		if (LOG.isDebugEnabled())
 			LOG.debug("createIterator(reversed={}) - start", String.valueOf(reversed));
 
-		ITable[] tables = (ITable[]) _tables.orderedValues().toArray(new ITable[0]);
+		Collection<?> ordered = _tables.orderedValues();
+
+		ITable[] tables = (ITable[]) ordered.toArray(ITable[]::new);
 		return new DefaultTableIterator(tables, reversed);
 	}
 }
