@@ -44,8 +44,10 @@ import ch.ivyteam.ivy.environment.Ivy;
  * </p>
  * 
  * <p>
- * @apiNote Resources will be loaded in the context (classloader) of the
- *          class which is extending this class!
+ * @apiNote Resources like SQL scriptts will be loaded in the context (classloader) of the
+ *          class which is extending this class! This means, that you must
+ *          <b>override the class in the project which defines your resources!</b>
+ *          
  * </p>
  */
 public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
