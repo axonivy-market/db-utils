@@ -60,7 +60,9 @@ public class DbUtilsController {
 		scriptService = ScriptService.get(dbUtilsResolver);
 		unavailableController = new ScriptTableController(false, scriptService, log);
 		availableController = new ScriptTableController(true, scriptService, log);
-		refreshAll(null);
+		if(dbUtilsResolver.isIncrementalTabEnabled()) {
+			refreshScripts(null);
+		}
 	}
 
 	/**
@@ -85,7 +87,7 @@ public class DbUtilsController {
 	 *
 	 * @param event
 	 */
-	public void refreshAll(ActionEvent event) {
+	public void refreshScripts(ActionEvent event) {
 		log.clearLog();
 		log.info("Refreshing scripts");
 		var scripts = scriptService.updateScripts();
