@@ -1,14 +1,4 @@
-<!--
-Dear developer!     
-
-When you create your very valuable documentation, please be aware that this Readme.md is not only published on github. This documentation is also processed automatically and published on our website. For this to work, the two headings "Demo" and "Setup" must not be changed
--->
-
 # DB-Utils
-
-<!--
-The explanations under "MY-RRODUCT-NAME" are displayed  e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-description   
--->
 
 Db-Utils is a collection of tools to help with typical database-tasks in your project.
 It comes with support for automatic, incremental SQL updates of database tables, export
