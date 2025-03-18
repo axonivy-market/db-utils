@@ -230,7 +230,7 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	}
 
 	protected boolean getBoolean(String name, boolean def) {
-		String value = getVar(name);
+		var value = getVar(name);
 		return value == null ? def : BooleanUtils.toBoolean(value);
 	}
 

@@ -134,7 +134,7 @@ public class ScriptService {
 	 * @throws Exception
 	 */
 	public void runScript(Script script) throws Exception {
-		try (Connection connection = databaseService.getDatabaseConnection()) {
+		try (var connection = databaseService.getDatabaseConnection()) {
 			try {
 				script.setScript(dbUtilsResolver.readScript(script));
 				script.setExecutedAt(Instant.now());

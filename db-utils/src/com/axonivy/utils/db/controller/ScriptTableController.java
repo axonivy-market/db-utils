@@ -181,7 +181,7 @@ public class ScriptTableController {
 	 * @return
 	 */
 	public String format(String text, int max) {
-		String result = StringEscapeUtils.escapeHtml(text);
+		var result = StringEscapeUtils.escapeHtml(text);
 		result = "<pre>%s</pre>".formatted(text);
 		return StringUtils.abbreviateMiddle(result, "...", max);
 	}

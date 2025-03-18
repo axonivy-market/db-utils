@@ -1,7 +1,6 @@
 package com.axonivy.utils.db.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.ResultSet;
@@ -10,7 +9,6 @@ import java.sql.Statement;
 import java.text.MessageFormat;
 import java.util.Comparator;
 import java.util.stream.Stream;
-import java.util.stream.Stream.Builder;
 
 import javax.faces.event.ActionEvent;
 
@@ -28,9 +26,7 @@ import com.axonivy.utils.db.services.DatabaseService;
 import com.axonivy.utils.db.services.LiquibaseService;
 import com.axonivy.utils.db.services.ScriptService;
 
-import ch.ivyteam.ivy.db.Database;
 import ch.ivyteam.ivy.db.DatabaseProperty;
-import ch.ivyteam.ivy.db.IExternalDatabase;
 
 /**
  * Controller for the DbUtils Dialog.
@@ -76,9 +72,9 @@ public class DbUtilsController {
 	public String getDbFootprint() {
 		var url = dbUtilsResolver.getDatabaseName();
 		var user = "";
-		IExternalDatabase database = databaseService.getExternalDatabase();
+		var database = databaseService.getExternalDatabase();
 		if(database != null) {
-			Database dbConfig = database.getConfiguration();
+			var dbConfig = database.getConfiguration();
 			url = dbConfig.url();
 			user = dbConfig.user();
 		}
@@ -166,7 +162,7 @@ public class DbUtilsController {
 		log.clearLog();
 		log.info("Exporting data...");
 		try {
-			InputStream stream = databaseService.exportXls();
+			var stream = databaseService.exportXls();
 			exportedExcel = DefaultStreamedContent.builder()
 					.stream(() -> stream)
 					.contentType("application/vnd.ms-excel")
@@ -188,7 +184,7 @@ public class DbUtilsController {
 		log.clearLog();
 		log.info("Exporting data to zip...");
 		try {
-			InputStream stream = databaseService.exportZip();
+			var stream = databaseService.exportZip();
 			exportedZip = DefaultStreamedContent.builder()
 					.stream(() -> stream)
 					.contentType("application/zip")
@@ -203,7 +199,7 @@ public class DbUtilsController {
 	public void loadExcelData(FileUploadEvent event) {
 		log.clearLog();
 		log.info("Loading excel data: {0} clean: {1}", event.getFile().getFileName(), cleanBeforeExcelImport);
-		try (InputStream inputStream = event.getFile().getInputStream()) {
+		try (var inputStream = event.getFile().getInputStream()) {
 			databaseService.importExcelData(cleanBeforeExcelImport, handleClasspathResourcesInExcelImport, inputStream);
 		} catch (Exception e) {
 			log.error("Exception while loading excel data.", e);
@@ -312,7 +308,7 @@ public class DbUtilsController {
 		try (var stringWriter = new StringWriter();
 				var w = new PrintWriter(stringWriter)) {
 
-			IExternalDatabase db = databaseService.getExternalDatabase();
+			var db = databaseService.getExternalDatabase();
 
 			w.println("Settings:");
 			w.println();
@@ -404,7 +400,7 @@ public class DbUtilsController {
 		var sw = new StringWriter();
 		var md = rs.getMetaData();
 
-		Builder<Object> builder = Stream.builder();
+		var builder = Stream.builder();
 		int cols = md.getColumnCount();
 		for(int c=1; c<=cols; c++) {
 			builder.add(md.getColumnName(c));
@@ -416,7 +412,7 @@ public class DbUtilsController {
 		int count = 0;
 		while(rs.next()) {
 			count++;
-			Builder<Object> rowBuilder = Stream.builder();
+			var rowBuilder = Stream.builder();
 			for(int c=1; c<=cols; c++) {
 				rowBuilder.add(rs.getObject(c));
 			}
