@@ -19,6 +19,13 @@ Db-Utils creates a table to remember, which of these SQL scripts were executed a
 
 Additionally, you can define a `IProcessStartEventBean` to execute needed (not yet executed) SQL scripts automatically in the correct order during the start of your application. This `IProcessStartEventBean` can be created easily by simply extending `AbstractDbUtilsStartEventBean`. Note, that this bean must be defined in the context of your application (or depend on your projectes), since it must have access to the classpath of your projects.
 
+Note, that there is also a second database update mechanism available which is based on [Liquibase](https://liquibase.com).
+
+### Liquibase Incremental Updates
+
+Another database update mechanism is available and based on [Liquibase](https://liquibase.com). All that needs to be done is to define a changelog file in your `DbUtilsResolver` and if you want, implement a StartEvent bean for automatic updates during application start.
+For information about Liquibase please see their official documentation!
+
 ### SQL Queries
 
 Db-Utils offers a simple GUI to execute SQL scripts. Note, that these scripts are executed "as-is" without any checks and under the permissions of the user configured for your database. The GUI displays results in a simple text window. It is designed for quick small lookups or online fixes and does not compare to any real database tool.
@@ -72,6 +79,12 @@ Shortcuts are available to run all scripts which were not yet successfully execu
 
 ![Incremental updates](images/incremental.png)
 
+### Liquibase Incremental Updates
+
+The **Liquibase** tab offers a button to start the Liquibase update. Errors will be shown on the page.
+
+![Liquibase Aktualisierungen](images/liquibase.png)
+
 ### SQL Statements
 
 The **SQL Statements** tab can be used to execute simple SQL statements against the database. Results are shown in the message area.
@@ -122,9 +135,9 @@ In the Demo project, you will find examples for a simple setup (HSQLDB part) and
 
 The DbUtilsResolver is used to keep all configuration information for one of the databases defined in your project (e.g. name, resource paths, DBUtilsScript table definition…). It is essential, that this class is implemented in a project which either defines or has a dependency to a project defining your database and script resources. It can be implemented by extending the `AbstractDbUtilsResolver` class provided by DB-Utils. Implementations for Microsoft SQL Server (`MSSQL2005DbUtilsResolver`) and HSQLDB (`HSQLDbUtilsResolver`) are provided directly by DB-Utils.
 
-### Provide DbUtilsStartEventBean
+### Provide DbUtilsStartEventBean and/or LiquibaseStartEventBean
 
-The `DbUtilsStartEventBean` is used as the Java class in an event process start. It should extend `AbstractDbUtilsStartEventBean` which is provided by DB-Utils and implement a default constructor which must set the projects `DbUtilsResolver`.
+The `DbUtilsStartEventBean` and/or `LiquibaseStartEventBean` is used as the Java class in an event process start. It should extend `AbstractDbUtilsStartEventBean` which is provided by DB-Utils and implement a default constructor which must set the projects `DbUtilsResolver`.
 
 ### Create Db-Utils GUI process start
 
