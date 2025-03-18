@@ -11,4 +11,14 @@ public class DbUtilsResolver extends HSQLDbUtilsResolver {
 	public static DbUtilsResolver get() {
 		return INSTANCE;
 	}
+
+	@Override
+	public String getDatabaseName() {
+		return "dbutilstest";
+	}
+
+	@Override
+	public String getScriptTableName() {
+		return "SCRIPTS";
+	}
 }
