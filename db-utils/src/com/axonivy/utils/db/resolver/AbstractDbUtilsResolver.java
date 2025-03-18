@@ -82,6 +82,11 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	}
 
 	@Override
+	public boolean isLiquibaseTabEnabled() {
+		return getBoolean("liquibasetab", true);
+	}
+
+	@Override
 	public boolean isSqlStatementTabEnabled() {
 		return getBoolean("sqlstatementtab", true);
 	}

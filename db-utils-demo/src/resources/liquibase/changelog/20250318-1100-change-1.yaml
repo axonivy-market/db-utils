@@ -1,0 +1,24 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: Axon
+    changes:
+    - createTable:
+        columns:
+        - column:
+            computed: false
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: PK__TEST
+            name: ID
+            type: varchar(32)
+        - column:
+            computed: false
+            name: VERSION
+            type: int
+        - column:
+            computed: false
+            name: NAME
+            type: varchar(25)
+        tableName: TEST

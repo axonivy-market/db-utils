@@ -25,11 +25,15 @@ import org.primefaces.model.StreamedContent;
 
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
 import com.axonivy.utils.db.services.DatabaseService;
+import com.axonivy.utils.db.services.LiquibaseService;
 import com.axonivy.utils.db.services.ScriptService;
 
 import ch.ivyteam.ivy.db.Database;
 import ch.ivyteam.ivy.db.DatabaseProperty;
 import ch.ivyteam.ivy.db.IExternalDatabase;
+import liquibase.Liquibase;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.resource.ClassLoaderResourceAccessor;
 
 /**
  * Controller for the DbUtils Dialog.
@@ -39,6 +43,7 @@ public class DbUtilsController {
 	private JsfLogger log = new JsfLogger();
 	private DbUtilsResolver dbUtilsResolver;
 	private DatabaseService databaseService;
+	private LiquibaseService liquibaseService;
 	private ScriptService scriptService;
 	private ScriptTableController availableController;
 	private ScriptTableController unavailableController;
@@ -57,6 +62,7 @@ public class DbUtilsController {
 	public DbUtilsController(DbUtilsResolver dbUtilsResolver) {
 		this.dbUtilsResolver = dbUtilsResolver;
 		databaseService = DatabaseService.get(dbUtilsResolver);
+		liquibaseService = LiquibaseService.get(dbUtilsResolver);
 		scriptService = ScriptService.get(dbUtilsResolver);
 		unavailableController = new ScriptTableController(false, scriptService, log);
 		availableController = new ScriptTableController(true, scriptService, log);
@@ -131,10 +137,37 @@ public class DbUtilsController {
 				var statement = connection.createStatement()) {
 			statement.execute(sqlStatement);
 			logResult(statement);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error("Exception while executing statement.", e);
 		}
 	}
+
+	/**
+	 * Execute a Liquibase Update.
+	 *
+	 * @param event
+	 */
+	public void executeLiquibaseUpdate(ActionEvent event) {
+		log.clearLog();
+		log.info("Executing Liquibase Update");
+		log.info("");
+
+		liquibaseService.execute(() -> {
+			return liquibaseService.execute(getDbUtilsResolver().getClass(), () -> {
+				try (var connection = databaseService.getDatabaseConnection();
+						var liqCon = new JdbcConnection(connection);
+						var liquibase = new Liquibase("resources/liquibase/changelog.yaml", new ClassLoaderResourceAccessor(), liqCon);
+						) {
+					liquibase.update("");
+
+				} catch (Exception e) {
+					log.error("Exception while executing Liquibase update.", e);
+				}
+				return null;
+			});
+		});
+	}
+
 	/**
 	 * Export all tables to Excel
 	 *

@@ -50,6 +50,13 @@ public interface DbUtilsResolver {
 	boolean isIncrementalTabEnabled();
 
 	/**
+	 * Is the Liquibase tab enabled?
+	 *
+	 * @return
+	 */
+	boolean isLiquibaseTabEnabled();
+
+	/**
 	 * Is the Sql Statement Tab enabled?
 	 *
 	 * @return
