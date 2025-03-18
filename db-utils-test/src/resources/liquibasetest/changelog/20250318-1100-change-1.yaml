@@ -20,5 +20,5 @@ databaseChangeLog:
         - column:
             computed: false
             name: NAME
-            type: varchar(25)
+            type: varchar(10)
         tableName: TEST1

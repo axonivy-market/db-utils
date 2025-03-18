@@ -70,6 +70,14 @@ public class LiquibaseService {
 	}
 
 	/**
+	 * Perform Liquibase update.
+	 * 
+	 */
+	public void update() {
+		update("");
+	}
+
+	/**
 	 * Execute a function in the classloader context of Liquibase.
 	 * 
 	 * @param <R>

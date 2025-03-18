@@ -44,4 +44,14 @@ public class BaseDAO {
 			throw new RuntimeException("Error during statement.", e);
 		}
 	}
+
+	public boolean tableExists(String name) {
+		var tableExists = statement(c -> {
+			var meta = c.getMetaData();
+			var resultSet = meta.getTables(null, null, name.toUpperCase(), new String[] {"TABLE"});
+			return resultSet.next();
+		});
+
+		return tableExists;
+	}
 }
