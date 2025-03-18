@@ -1,5 +1,7 @@
 package com.axonivy.utils.db.services;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -158,6 +160,20 @@ public class ScriptService {
 					LOG.error("Error while saving script result", e);
 				}
 			}
+		}
+	}
+
+	/**
+	 * Run a single script.
+	 * 
+	 * @param stream
+	 * @throws Exception
+	 */
+	public void runScript(InputStream stream) throws Exception {
+		try (var connection = databaseService.getDatabaseConnection()) {
+			var scriptRunner = createScriptRunner(connection);
+			scriptRunner.runScript(new InputStreamReader(stream));
+			connection.commit();
 		}
 	}
 
