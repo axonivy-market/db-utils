@@ -28,6 +28,13 @@ Db-Utils erstellt eine Tabelle, in der gespeichert wird, welche dieser SQL-Skrip
 
 Zusätzlich kannst du ein `IProcessStartEventBean` definieren, um bei Start deiner Anwendung die benötigten (noch nicht ausgeführten) SQL-Skripte automatisch in der richtigen Reihenfolge auszuführen. Dieses `IProcessStartEventBean` kann einfach erstellt werden, indem du die `AbstractDbUtilsStartEventBean` erweiterst. Beachte, dass dieses Bean im Kontext deiner Anwendung (oder projektabhängig) definiert werden muss, da es Zugriff auf den Classpath deiner Projekte haben muss.
 
+Beachte, dass es noch einen weiteren Datenabk Update Mechanismus gibt, der auf [Liquibase](https://liquibase.com) basiert.
+
+### Liquibase Incrementelle Updates
+
+Ein weiterer Datenbank Update Mechanismus basiert auf [Liquibase](https://liquibase.com). Um ihn zu nutzen, muss ein sog. changelog im `DbUtilsResolver` definiert werden. Falls gewünscht, kann auch eine StartEvent bean implementiert werden um das Update beim Applikationsstart automatisch durchzuführen
+Für weitere Informationen zu Liquibase bitte die offizielle Dokumentation beachten!
+
 ### SQL-Abfragen
 
 Db-Utils bietet eine einfache GUI zum Ausführen von SQL-Skripten. Beachte, dass diese Skripte "wie sie sind" ohne Überprüfung ausgeführt werden und mit den Berechtigungen des für deine Datenbank konfigurierten Benutzers. Die GUI zeigt die Ergebnisse in einem einfachen Textfenster an. Sie ist für schnelle kleine Abfragen oder Online-Korrekturen gedacht und kann mit einem echten Datenbanktool nicht verglichen werden.
@@ -78,6 +85,12 @@ Es stehen Verknüpfungen zur Verfügung, um alle Skripte auszuführen, die noch 
 
 ![Inkrementelle Aktualisierungen](images/incremental.png)
 
+### Liquibase Inkrementelle Updates
+
+Die Registerkarte **Liquibase** bietet nur einen Button, um das Liquibase update anzustoßen. Sollte es zu Fehlern kommen, werden diese angeziegt.
+
+![Liquibase Aktualisierungen](images/liquibase.png)
+
 ### SQL-Anweisungen
 
 Auf der Registerkarte **SQL Statements** können Sie einfache SQL-Anweisungen für die Datenbank ausführen. Die Ergebnisse werden im Nachrichtenbereich angezeigt.
@@ -126,9 +139,9 @@ Im Demoprojekt findest du Beispiele für eine einfache Einrichtung (HSQLDB-Teil)
 
 Der DbUtilsResolver wird verwendet, um alle Konfigurationsinformationen für eine der in deinem Projekt definierten Datenbanken zu verwalten (z. B. Name, Ressourcenpfade, DBUtilsScript-Tabellendefinition usw.). Es ist wichtig, dass diese Klasse in einem Projekt implementiert wird, das entweder deine Datenbank und Skriptressourcen definiert oder eine Abhängigkeit zu einem solchen Projekt hat. Sie kann durch Erweitern der von DB-Utils bereitgestellten Klasse `AbstractDbUtilsResolver` implementiert werden. Implementierungen für Microsoft SQL Server (`MSSQL2005DbUtilsResolver`) und HSQLDB (`HSQLDbUtilsResolver`) werden direkt von DB-Utils bereitgestellt.
 
-### DbUtilsStartEventBean bereitstellen
+### DbUtilsStartEventBean und/oder LiquibaseStartEventBean bereitstellen
 
-Das `DbUtilsStartEventBean` wird als Java-Klasse in einem Event-Prozess-Start verwendet. Es sollte die von DB-Utils bereitgestellte Klasse `AbstractDbUtilsStartEventBean` erweitern und einen Standardkonstruktor implementieren, der den projektspezifischen `DbUtilsResolver` setzt.
+Das `DbUtilsStartEventBean` und/oder `LiquibaseStartEventBean` wird als Java-Klasse in einem Event-Prozess-Start verwendet. Es sollte die von DB-Utils bereitgestellte Klasse `AbstractDbUtilsStartEventBean` erweitern und einen Standardkonstruktor implementieren, der den projektspezifischen `DbUtilsResolver` setzt.
 
 ### Db-Utils GUI Prozessstart erstellen
 
