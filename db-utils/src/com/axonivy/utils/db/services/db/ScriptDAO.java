@@ -214,11 +214,7 @@ public class ScriptDAO extends BaseDAO {
 	}
 
 	protected boolean scriptTableExists() {
-		var tableExists = statement(c -> {
-			var meta = c.getMetaData();
-			var resultSet = meta.getTables(null, null, dbUtilsResolver.getScriptTableName().toUpperCase(), new String[] {"TABLE"});
-			return resultSet.next();
-		});
+		var tableExists = tableExists(dbUtilsResolver.getScriptTableName());
 
 		if (tableExists) {
 			LOG.debug("Table {0} exists.", dbUtilsResolver.getScriptTableName());

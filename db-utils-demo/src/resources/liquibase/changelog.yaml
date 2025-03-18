@@ -1,3 +1,6 @@
 databaseChangeLog:
   - include:
       file: resources/liquibase/changelog/20250318-1100-change-1.yaml
+  - include:
+      file: resources/liquibase/changelog/20250318-1130-change-2.yaml
+      
