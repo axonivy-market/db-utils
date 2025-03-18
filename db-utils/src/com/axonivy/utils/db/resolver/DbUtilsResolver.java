@@ -36,6 +36,13 @@ public interface DbUtilsResolver {
 	String getDataUrl();
 
 	/**
+	 * Path of the Liquibase changelog file in classpath.
+	 * 
+	 * @return
+	 */
+	String getLiquibaseChangelog();
+
+	/**
 	 * Is auto-update at start enabled?
 	 *
 	 * @return
