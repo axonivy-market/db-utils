@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipOutputStream;
 
@@ -22,7 +21,6 @@ import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITableIterator;
 import org.dbunit.dataset.excel.XlsDataSet;
 import org.dbunit.dataset.excel.XlsDataSetBlob;
 import org.dbunit.dataset.excel.XlsDataSetWriter;
@@ -114,21 +112,21 @@ public class DatabaseService {
 	 * @throws SQLException
 	 */
 	public AutoCloseableConnection getDbUnitConnection() throws DatabaseUnitException, SQLException {
-		IExternalDatabase db = getExternalDatabase();
+		var db = getExternalDatabase();
 
-		Connection connection = db.getConnection();
+		var connection = db.getConnection();
 		connection.setAutoCommit(true);
 
-		DatabaseConnection databaseConnection = new DatabaseConnection(connection);
+		var databaseConnection = new DatabaseConnection(connection);
 
-		DatabaseConfig config = databaseConnection.getConfig();
+		var config = databaseConnection.getConfig();
 		config.setProperty(DatabaseConfig.FEATURE_QUALIFIED_TABLE_NAMES, false);
 		config.setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
 
-		Matcher matcher = JDBC_URL_PATTERN.matcher(connection.getMetaData().getURL());
+		var matcher = JDBC_URL_PATTERN.matcher(connection.getMetaData().getURL());
 
 		if(matcher.matches()) {
-			Class<?> clazz = DATATYPE_FACTORY.get(matcher.group(1));
+			var clazz = DATATYPE_FACTORY.get(matcher.group(1));
 			if(clazz != null) {
 				LOG.info("Setting data type factory to {0}", clazz);
 				try {
@@ -149,15 +147,15 @@ public class DatabaseService {
 	 * @throws Exception
 	 */
 	public InputStream exportXls() throws Exception {
-		ByteArrayInputStream iStream = new ByteArrayInputStream(new byte[0]);
-		try (AutoCloseableConnection databaseConnection = getDbUnitConnection()) {
+		var iStream = new ByteArrayInputStream(new byte[0]);
+		try (var databaseConnection = getDbUnitConnection()) {
 
-			IDataSet dataSet = databaseConnection.get().createDataSet();
+			var dataSet = databaseConnection.get().createDataSet();
 
 			dataSet = new FilteredDataSet(new ExcludeTableFilter(dbUtilsResolver.getExportExcludeTableNames()), dataSet);
 			dataSet = new FilteredDataSet(new DatabaseSequenceFilter(databaseConnection.get()), dataSet);
 
-			ByteArrayOutputStream oStream = new ByteArrayOutputStream();
+			var oStream = new ByteArrayOutputStream();
 			new XlsDataSetWriter().write(dataSet, oStream);
 
 			iStream = new ByteArrayInputStream(oStream.toByteArray());
@@ -172,8 +170,8 @@ public class DatabaseService {
 	 * @throws Exception
 	 */
 	public InputStream exportZip() throws Exception {
-		ByteArrayInputStream iStream = new ByteArrayInputStream(new byte[0]);
-		try (AutoCloseableConnection databaseConnection = getDbUnitConnection()) {
+		var iStream = new ByteArrayInputStream(new byte[0]);
+		try (var databaseConnection = getDbUnitConnection()) {
 
 			var dataSet = databaseConnection.get().createDataSet();
 
@@ -203,9 +201,9 @@ public class DatabaseService {
 	 */
 	public IDataSet columnFilteredDataSet(IDataSet dataSet, String...excludeColumns) throws DataSetException {
 
-		DefaultDataSet filtered = new DefaultDataSet(dataSet.isCaseSensitiveTableNames());
+		var filtered = new DefaultDataSet(dataSet.isCaseSensitiveTableNames());
 
-		ITableIterator tableIt = dataSet.iterator();
+		var tableIt = dataSet.iterator();
 		while (tableIt.next()) {
 			filtered.addTable(DefaultColumnFilter.excludedColumnsTable(tableIt.getTable(), excludeColumns));
 		}
@@ -220,8 +218,8 @@ public class DatabaseService {
 	 * @throws Exception
 	 */
 	public void importData(boolean clean, IDataSet dataSet) throws Exception {
-		try(AutoCloseableConnection databaseConnection = getDbUnitConnection()) {
-			DatabaseOperation dbOp = clean ? DatabaseOperation.CLEAN_INSERT : DatabaseOperation.INSERT;
+		try(var databaseConnection = getDbUnitConnection()) {
+			var dbOp = clean ? DatabaseOperation.CLEAN_INSERT : DatabaseOperation.INSERT;
 
 			dbOp.execute(databaseConnection.get(), dataSet);
 			databaseConnection.get().getConnection().commit();
@@ -236,7 +234,7 @@ public class DatabaseService {
 	 * @throws Exception
 	 */
 	public void deleteData(IDataSet dataSet) throws Exception {
-		try(AutoCloseableConnection databaseConnection = getDbUnitConnection()) {
+		try(var databaseConnection = getDbUnitConnection()) {
 			DatabaseOperation.DELETE_ALL.execute(databaseConnection.get(), dataSet);
 			databaseConnection.get().getConnection().commit();
 		}
@@ -261,7 +259,7 @@ public class DatabaseService {
 	 * @throws Exception
 	 */
 	public void deleteAllData(String resourcePath) throws Exception {
-		try (InputStream stream = getClass().getResourceAsStream(resourcePath)) {
+		try (var stream = getClass().getResourceAsStream(resourcePath)) {
 			deleteData(new XlsDataSet(stream));
 		}
 	}

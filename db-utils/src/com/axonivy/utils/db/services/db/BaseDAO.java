@@ -38,7 +38,7 @@ public class BaseDAO {
 	}
 
 	public <R> R statement(SQLFunction<Connection, R> function) {
-		try (Connection connection = databaseService.getDatabaseConnection()) {
+		try (var connection = databaseService.getDatabaseConnection()) {
 			return function.apply(connection);
 		} catch (Exception e) {
 			throw new RuntimeException("Error during statement.", e);
