@@ -17,6 +17,8 @@ Variables:
           scriptsurl: "classpath:/resources/sql/incremental"
           # URL to find blob data files (supported are classpath: URLs)
           dataurl: "classpath:/resources/data"
+          # resource path of liquibase changelog file
+          liquibasechangelog: "/resources/liquibase/changelog.yaml"
           # should the update scripts be automatically updated and executed at application start?
           autoupdate: true
           # should the tab to run incremental scripts be shown?

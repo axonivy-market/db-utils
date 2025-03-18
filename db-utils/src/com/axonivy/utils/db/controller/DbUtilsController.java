@@ -31,9 +31,6 @@ import com.axonivy.utils.db.services.ScriptService;
 import ch.ivyteam.ivy.db.Database;
 import ch.ivyteam.ivy.db.DatabaseProperty;
 import ch.ivyteam.ivy.db.IExternalDatabase;
-import liquibase.Liquibase;
-import liquibase.database.jvm.JdbcConnection;
-import liquibase.resource.ClassLoaderResourceAccessor;
 
 /**
  * Controller for the DbUtils Dialog.
@@ -152,20 +149,11 @@ public class DbUtilsController {
 		log.info("Executing Liquibase Update");
 		log.info("");
 
-		liquibaseService.execute(() -> {
-			return liquibaseService.execute(getDbUtilsResolver().getClass(), () -> {
-				try (var connection = databaseService.getDatabaseConnection();
-						var liqCon = new JdbcConnection(connection);
-						var liquibase = new Liquibase("resources/liquibase/changelog.yaml", new ClassLoaderResourceAccessor(), liqCon);
-						) {
-					liquibase.update("");
-
-				} catch (Exception e) {
-					log.error("Exception while executing Liquibase update.", e);
-				}
-				return null;
-			});
-		});
+		try {
+			liquibaseService.update("");
+		} catch (Exception e) {
+			log.error("Exception while executing liquibase update.", e);
+		}
 	}
 
 	/**

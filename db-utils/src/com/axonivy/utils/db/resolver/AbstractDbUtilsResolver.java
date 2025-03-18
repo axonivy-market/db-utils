@@ -72,6 +72,11 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	}
 
 	@Override
+	public String getLiquibaseChangelog() {
+		return getVar("liquibasechangelog");
+	}
+
+	@Override
 	public boolean isAutoupdateEnabled() {
 		return getBoolean("autoupdate", true);
 	}

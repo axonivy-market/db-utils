@@ -10,7 +10,10 @@ import org.apache.logging.log4j.message.MessageFormatMessageFactory;
 
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
 
+import liquibase.Liquibase;
+import liquibase.database.jvm.JdbcConnection;
 import liquibase.logging.core.JavaLogService;
+import liquibase.resource.ClassLoaderResourceAccessor;
 
 /**
  * The Liquibase service.
@@ -40,6 +43,30 @@ public class LiquibaseService {
 			INSTANCES.put(dbUtilsResolver, liquibaseService);
 		}
 		return liquibaseService;
+	}
+
+
+	/**
+	 * Perform Liquibase update.
+	 * 
+	 * @param contexts
+	 */
+	public void update(String contexts) {
+		var changelog = dbUtilsResolver.getLiquibaseChangelog();
+		execute(() -> {
+			return execute(dbUtilsResolver.getClass(), () -> {
+				try (var connection = databaseService.getDatabaseConnection();
+						var liqCon = new JdbcConnection(connection);
+						var liquibase = new Liquibase(changelog, new ClassLoaderResourceAccessor(), liqCon);
+						) {
+					liquibase.update("");
+
+				} catch (Exception e) {
+					throw new RuntimeException("Exception while executing Liquibase update for changelog '%s'.".formatted(changelog), e);
+				}
+				return null;
+			});
+		});
 	}
 
 	/**
