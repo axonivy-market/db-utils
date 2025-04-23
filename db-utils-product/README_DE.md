@@ -4,7 +4,7 @@ Db-Utils ist eine Sammlung von Werkzeugen, die bei typischen Datenbankaufgaben i
 Es unterstützt automatische, inkrementelle SQL-Updates von Datenbanktabellen, den Export und Import von Daten
 sowie ein einfaches Datenbankabfragefenster. 
 
-Aktuell gibe es Unterstützung für Microsoft SQL und HSQLDB out-of-the-box,
+Aktuell gibt es Unterstützung für Microsoft SQL und HSQLDB out-of-the-box,
 aber es ist nicht schwer, die Komponente für andere Datenbanktypen zu erweitern.
 
 ## Konzepte
@@ -14,11 +14,11 @@ wann immer du ein Deployment durchführst. Zusätzlich können Daten aus deinen 
 in Excel- oder Zip-Dateien exportiert oder importiert werden, und einfache Abfragen können direkt
 über ein Db-Utils-GUI in deiner Anwendung ausgeführt werden.
 
-Durch die Definition eines Resolvers, der dein Projekt-Setup bereitstellt, sowie einigen Einstellungen in globalen Variablen und möglicherweise einem Prozessstart-Event-Bean, kannst du alle Funktionen von DB-Utils nutzen.
+Durch die Definition eines Resolvers, der dein Projekt-Setup bereitstellt, sowie einiger Einstellungen in globalen Variablen und möglicherweise einem Prozessstart-Event-Bean, kannst du alle Funktionen von DB-Utils nutzen.
 
 ### Inkrementelle Updates
 
-Mit Db-Utils kannst Du eine Liste inkrementeller SQL-Skripte sowie deren Ausführungsstatus zusammen mit deinem Projekt und der zugehörigen Datenbank verwalten. Wenn Db-Utils zum ersten Mal ausgeführt wird (entweder über die GUI oder automatisch beim Start deiner Anwendung), wird eine Tabelle erstellt, um diese Liste zu verwalten. Der Tabellenname lässt sich in deinem `DbUtilsResolver` anpassen, wobei der Standardname `DbUtilsScripts` lautet. Die SQL-Skripte können manuell über die Db-Utils-GUI oder automatisch bei jedem Start deiner Anwendung ausgeführt werden. Sie können entweder in einem Dateisystemordner oder in einem Ressourcenverzeichnis (Classpath) gespeichert werden – letzteres ist die bevorzugte Methode.
+Mit Db-Utils kannst du eine Liste inkrementeller SQL-Skripte sowie deren Ausführungsstatus zusammen mit deinem Projekt und der zugehörigen Datenbank verwalten. Wenn Db-Utils zum ersten Mal ausgeführt wird (entweder über die GUI oder automatisch beim Start deiner Anwendung), wird eine Tabelle erstellt, um diese Liste zu verwalten. Der Tabellenname lässt sich in deinem `DbUtilsResolver` anpassen, wobei der Standardname `DbUtilsScripts` lautet. Die SQL-Skripte können manuell über die Db-Utils-GUI oder automatisch bei jedem Start deiner Anwendung ausgeführt werden. Sie können entweder in einem Dateisystemordner oder in einem Ressourcenverzeichnis (Classpath) gespeichert werden – letzteres ist die bevorzugte Methode.
 
 Es wird empfohlen, die inkrementellen Dateien deines Projekts im Classpath deines Projekts abzulegen, zum Beispiel in einem Unterordner des `src`-Verzeichnisses (z.B. `src/resources/sql/incremental`). Außerdem solltest du ein einheitliches Namensschema für deine Skripte verwenden, wie z.B. 
 
@@ -28,7 +28,7 @@ Db-Utils erstellt eine Tabelle, in der gespeichert wird, welche dieser SQL-Skrip
 
 Zusätzlich kannst du ein `IProcessStartEventBean` definieren, um bei Start deiner Anwendung die benötigten (noch nicht ausgeführten) SQL-Skripte automatisch in der richtigen Reihenfolge auszuführen. Dieses `IProcessStartEventBean` kann einfach erstellt werden, indem du die `AbstractDbUtilsStartEventBean` erweiterst. Beachte, dass dieses Bean im Kontext deiner Anwendung (oder projektabhängig) definiert werden muss, da es Zugriff auf den Classpath deiner Projekte haben muss.
 
-Beachte, dass es noch einen weiteren Datenabk Update Mechanismus gibt, der auf [Liquibase](https://liquibase.com) basiert.
+Beachte, dass es noch einen weiteren Datenbank Update Mechanismus gibt, der auf [Liquibase](https://liquibase.com) basiert.
 
 ### Liquibase Incrementelle Updates
 
@@ -87,7 +87,7 @@ Es stehen Verknüpfungen zur Verfügung, um alle Skripte auszuführen, die noch 
 
 ### Liquibase Inkrementelle Updates
 
-Die Registerkarte **Liquibase** bietet nur einen Button, um das Liquibase update anzustoßen. Sollte es zu Fehlern kommen, werden diese angeziegt.
+Die Registerkarte **Liquibase** bietet nur einen Button, um das Liquibase update anzustoßen. Sollte es zu Fehlern kommen, werden diese angezeigt.
 
 ![Liquibase Aktualisierungen](images/liquibase.png)
 
@@ -105,7 +105,7 @@ Die Demo-Db-Utils-Skripte erstellen drei Demo-Tabellen und füllen sie mit Daten
 
 ```
 delete from logo;
-delete from hero;;
+delete from hero;
 delete from brand;
 ```
 
