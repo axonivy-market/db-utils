@@ -10,7 +10,7 @@
   </parent>
   <groupId>com.axonivy.utils.db</groupId>
   <artifactId>db-utils</artifactId>
-  <version>12.0.4-SNAPSHOT</version>
+  <version>13.1.1-SNAPSHOT</version>
   <packaging>iar</packaging>
   <properties>
     <project.build.plugin.version>12.0.0</project.build.plugin.version>
@@ -19,22 +19,22 @@
     <dependency>
       <groupId>org.dbunit</groupId>
       <artifactId>dbunit</artifactId>
-      <version>2.7.3</version>
+      <version>3.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <version>3.5.6</version>
+      <version>3.5.19</version>
     </dependency>
     <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
-      <version>4.31.1</version>
+      <version>4.33.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
-      <version>2.20.0</version>
+      <version>3.0.0-beta2</version>
     </dependency>
     <dependency>
       <groupId>com.axonivy.ivy.api</groupId>
