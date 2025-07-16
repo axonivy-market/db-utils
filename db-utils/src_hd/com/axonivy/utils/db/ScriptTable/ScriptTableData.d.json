@@ -5,7 +5,6 @@
   "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "ctrl",
-    "type" : "com.axonivy.utils.db.controller.ScriptTableController",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "com.axonivy.utils.db.controller.ScriptTableController"
   } ]
 }
