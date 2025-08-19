@@ -43,7 +43,7 @@
         "dialog" : "com.axonivy.utils.db.DbUtils:start(com.axonivy.utils.db.resolver.DbUtilsResolver)",
         "call" : {
           "map" : {
-            "param.dbUtilsResolver" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsResolver.get()"
+            "param.dbUtilsResolver" : "com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsResolver.getInstance()"
           }
         }
       },

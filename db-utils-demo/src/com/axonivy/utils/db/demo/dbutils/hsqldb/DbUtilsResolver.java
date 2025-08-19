@@ -8,7 +8,7 @@ import com.axonivy.utils.db.resolver.HSQLDbUtilsResolver;
 public class DbUtilsResolver extends HSQLDbUtilsResolver {
 	private static final DbUtilsResolver INSTANCE = new DbUtilsResolver();
 
-	public static DbUtilsResolver get() {
+	public static DbUtilsResolver getInstance() {
 		return INSTANCE;
 	}
 }
