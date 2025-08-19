@@ -1,6 +1,8 @@
 package com.axonivy.utils.db.demo.dbutils.hsqldb;
 
 import com.axonivy.utils.db.resolver.HSQLDbUtilsResolver;
+import org.dbunit.dataset.Column;
+
 
 /**
  * DbUtils resolver class for HSQLDB.
