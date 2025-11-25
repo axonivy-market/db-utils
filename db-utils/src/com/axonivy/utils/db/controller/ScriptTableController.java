@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import com.axonivy.utils.db.controller.DbUtilsController.JsfLogger;
 import com.axonivy.utils.db.services.ScriptService;
@@ -181,7 +181,7 @@ public class ScriptTableController {
 	 * @return
 	 */
 	public String format(String text, int max) {
-		var result = StringEscapeUtils.escapeHtml(text);
+		var result = StringEscapeUtils.escapeHtml4(text);
 		result = "<pre>%s</pre>".formatted(text);
 		return StringUtils.abbreviateMiddle(result, "...", max);
 	}
