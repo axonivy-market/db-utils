@@ -238,7 +238,7 @@ Einstellungen, die von Db-Utils verwendet werden.
 
 ![Einstellungen](images/settings.png)
 
-## Einrichtung
+## Setup
 <!--
 The entries under the heading "Setup" are filled in this tab, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-setup. 
 -->
