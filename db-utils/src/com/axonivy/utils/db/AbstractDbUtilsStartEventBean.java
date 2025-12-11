@@ -1,6 +1,5 @@
 package com.axonivy.utils.db;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
 import com.axonivy.utils.db.services.ScriptService;
@@ -64,7 +63,7 @@ public abstract class AbstractDbUtilsStartEventBean extends AbstractProcessStart
 	}
 
 	@Override
-	public void start(IProgressMonitor monitor) throws ServiceException {
+	public void start() throws ServiceException {
 		log().info("Starting Db Utils for database ''{0}''.", getDbUtilsResolver().getDatabaseName());
 
 		try {
@@ -81,12 +80,12 @@ public abstract class AbstractDbUtilsStartEventBean extends AbstractProcessStart
 
 		log().info("Finished Db Utils for database {0}.", getDbUtilsResolver().getDatabaseName());
 
-		super.start(monitor);
+		super.start();
 	}
 
 	@Override
-	public void stop(IProgressMonitor monitor) throws ServiceException {
-		super.stop(monitor);
+	public void stop() throws ServiceException {
+		super.stop();
 		log().info("Stopped");
 	}
 
