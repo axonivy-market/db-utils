@@ -1,9 +1,9 @@
 package com.axonivy.utils.db.services.records;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import com.axonivy.utils.db.services.enums.PathType;
-import com.google.common.base.Objects;
 
 /**
  * A type and a path.
@@ -29,11 +29,11 @@ public record TypedPath(String type, String path) {
 	}
 
 	public boolean hasType(String type) {
-		return Objects.equal(this.type, type);
+		return Objects.equals(this.type, type);
 	}
 
 	public boolean hasType(PathType type) {
-		return Objects.equal(this.type, type.getType());
+		return Objects.equals(this.type, type.getType());
 	}
 
 	public String url() {
