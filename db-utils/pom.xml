@@ -36,6 +36,10 @@
       <artifactId>ivy-api</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.axonivy.ivy.spi</groupId>
+      <artifactId>ivy-process-extension-spi</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.axonivy.ivy.api</groupId>
       <artifactId>ivy-poi-api</artifactId>
       <scope>provided</scope>
