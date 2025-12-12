@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -26,7 +27,6 @@ import com.axonivy.utils.db.services.db.Script;
 import com.axonivy.utils.db.services.db.ScriptDAO;
 import com.axonivy.utils.db.services.enums.Status;
 import com.axonivy.utils.db.services.records.AvailableScripts;
-import com.google.common.base.Objects;
 
 /**
  * Service to work with DB SQL scripts.
@@ -236,7 +236,7 @@ public class ScriptService {
 	 */
 	public void refresh(Script script) {
 		var current = dbUtilsResolver.readScript(script);
-		if(!Objects.equal(script.getScript(), current)) {
+		if(!Objects.equals(script.getScript(), current)) {
 			script.setScript(current);
 			if(script.getStatus() != Status.DISABLED) {
 				script.setStatus(Status.NONE);
