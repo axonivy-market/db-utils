@@ -41,6 +41,10 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>com.axonivy.ivy.spi</groupId>
+      <artifactId>ivy-process-extension-spi</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <scope>provided</scope>

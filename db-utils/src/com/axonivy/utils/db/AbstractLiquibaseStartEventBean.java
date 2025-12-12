@@ -1,7 +1,5 @@
 package com.axonivy.utils.db;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
 import com.axonivy.utils.db.services.LiquibaseService;
 
@@ -63,7 +61,7 @@ public abstract class AbstractLiquibaseStartEventBean extends AbstractProcessSta
 	}
 
 	@Override
-	public void start(IProgressMonitor monitor) throws ServiceException {
+	public void start() throws ServiceException {
 		log().info("Starting Liquibase for database ''{0}''.", getDbUtilsResolver().getDatabaseName());
 
 		try {
@@ -78,13 +76,10 @@ public abstract class AbstractLiquibaseStartEventBean extends AbstractProcessSta
 		}
 
 		log().info("Finished Liquibase for database {0}.", getDbUtilsResolver().getDatabaseName());
-
-		super.start(monitor);
 	}
 
 	@Override
-	public void stop(IProgressMonitor monitor) throws ServiceException {
-		super.stop(monitor);
+	public void stop() throws ServiceException {
 		log().info("Stopped");
 	}
 
