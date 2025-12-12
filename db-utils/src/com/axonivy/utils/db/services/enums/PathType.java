@@ -1,10 +1,9 @@
 package com.axonivy.utils.db.services.enums;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import com.google.common.base.Functions;
 
 /**
  * Type of a path.
@@ -15,7 +14,7 @@ public enum PathType {
 	UNKNOWN("");
 
 	private static final Map<String, PathType> NAME_MAP =
-			Stream.of(values()).collect(Collectors.toMap(PathType::getType, Functions.identity()));
+			Stream.of(values()).collect(Collectors.toMap(PathType::getType, Function.identity()));
 
 	private String type;
 
