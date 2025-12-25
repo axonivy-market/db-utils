@@ -6,7 +6,7 @@
     <groupId>com.axonivy.ivy.api</groupId>
     <artifactId>ivy-project-parent</artifactId>
     <version>13.2.0</version>
-    <relativePath></relativePath>
+    <relativePath />
   </parent>
   <groupId>com.axonivy.utils.db</groupId>
   <artifactId>db-utils-test</artifactId>
