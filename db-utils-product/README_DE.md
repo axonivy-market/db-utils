@@ -1,107 +1,219 @@
 # DB-Utils
 
-Db-Utils ist eine Sammlung von Werkzeugen, die bei typischen Datenbankaufgaben in deinem Projekt helfen.
-Es unterstützt automatische, inkrementelle SQL-Updates von Datenbanktabellen, den Export und Import von Daten
-sowie ein einfaches Datenbankabfragefenster. 
-
-Aktuell gibt es Unterstützung für Microsoft SQL und HSQLDB out-of-the-box,
-aber es ist nicht schwer, die Komponente für andere Datenbanktypen zu erweitern.
+Db-Utils ist eine Sammlung von Tools, die Ihnen bei typischen Datenbankaufgaben
+in Ihrem Projekt helfen. Es bietet Unterstützung für automatische, inkrementelle
+SQL-Aktualisierungen von Datenbanktabellen, den Export und Import von Daten
+sowie ein einfaches Datenbankabfragefenster. Unterstützung für Microsoft SQL und
+HSQLDB ist standardmäßig enthalten, aber die Komponente lässt sich leicht für
+andere Datenbanktypen erweitern.
 
 ## Konzepte
 
-Die wichtigste Funktion von DB-Utils ist wahrscheinlich das automatische Update deiner Datenbank,
-wann immer du ein Deployment durchführst. Zusätzlich können Daten aus deinen Datenbanken einfach
-in Excel- oder Zip-Dateien exportiert oder importiert werden, und einfache Abfragen können direkt
-über ein Db-Utils-GUI in deiner Anwendung ausgeführt werden.
-
-Durch die Definition eines Resolvers, der dein Projekt-Setup bereitstellt, sowie einiger Einstellungen in globalen Variablen und möglicherweise einem Prozessstart-Event-Bean, kannst du alle Funktionen von DB-Utils nutzen.
+Die wichtigste Funktion von DB-Utils ist wahrscheinlich die automatische
+Aktualisierung Ihrer Datenbank bei jeder Bereitstellung. Darüber hinaus können
+Daten aus Ihren Datenbanken einfach in Excel- oder Zip-Dateien exportiert oder
+importiert werden, und einfache Abfragen können direkt über eine DB-Utils-GUI
+innerhalb Ihrer Anwendung ausgeführt werden. Durch die Definition eines
+Resolvers für Ihre Projektkonfiguration, einiger Einstellungen in globalen
+Variablen und möglicherweise eines Prozessstart-Ereignis-Beans können Sie alle
+Funktionen von DB-Utils nutzen.
 
 ### Inkrementelle Updates
 
-Mit Db-Utils kannst du eine Liste inkrementeller SQL-Skripte sowie deren Ausführungsstatus zusammen mit deinem Projekt und der zugehörigen Datenbank verwalten. Wenn Db-Utils zum ersten Mal ausgeführt wird (entweder über die GUI oder automatisch beim Start deiner Anwendung), wird eine Tabelle erstellt, um diese Liste zu verwalten. Der Tabellenname lässt sich in deinem `DbUtilsResolver` anpassen, wobei der Standardname `DbUtilsScripts` lautet. Die SQL-Skripte können manuell über die Db-Utils-GUI oder automatisch bei jedem Start deiner Anwendung ausgeführt werden. Sie können entweder in einem Dateisystemordner oder in einem Ressourcenverzeichnis (Classpath) gespeichert werden – letzteres ist die bevorzugte Methode.
-
-Es wird empfohlen, die inkrementellen Dateien deines Projekts im Classpath deines Projekts abzulegen, zum Beispiel in einem Unterordner des `src`-Verzeichnisses (z.B. `src/resources/sql/incremental`). Außerdem solltest du ein einheitliches Namensschema für deine Skripte verwenden, wie z.B. 
+Db-Utils verwaltet eine Liste inkrementeller SQL-Skripte und deren
+Ausführungsstatus zusammen mit Ihrem Projekt und der Datenbank Ihres Projekts.
+Wenn Db-Utils zum ersten Mal ausgeführt wird (entweder über die GUI oder
+automatisch beim Programmstart), erstellt es eine Tabelle, um diese Liste zu
+verwalten. Der Tabellenname kann in Ihrer `DbUtilsResolver` überschrieben
+werden, aber der Standardname lautet `DbUtilsScripts`. Dateien können manuell
+über die Db-Utils-GUI oder automatisch bei jedem Start Ihrer Anwendung
+ausgeführt werden. Die SQL-Skripte können in einem Dateisystemordner oder in
+einem Ressourcenverzeichnis (classpath) gespeichert werden (was die bevorzugte
+Methode ist). Gemäß einer Konvention werden SQL-Skripte in alphabetischer
+Reihenfolge ihrer Dateinamen sortiert, angezeigt und ausgeführt. Es wird
+empfohlen, die inkrementellen Dateien des Projekts im Klassenpfad Ihres Projekts
+abzulegen, z. B. in einem Unterordner des Ordners „ `src` ” Ihres Projekts (z.
+B. „ `src/resources/sql/incremental` ”) und bei der Benennung Ihrer Skripte
+einem gemeinsamen Muster zu folgen, z. B.
 
 `YYYYMMDD-HHMM-Ticket-Short-Description.sql`
 
-Db-Utils erstellt eine Tabelle, in der gespeichert wird, welche dieser SQL-Skripte ausgeführt wurden, und bietet eine grafische Benutzeroberfläche, in der die Liste der Skripte zusammen mit ihrem Status angezeigt wird. In dieser GUI können Skripte ausgeführt, übersprungen und allgemein verwaltet werden.
+Db-Utils erstellt eine Tabelle, um zu speichern, welche dieser SQL-Skripte
+ausgeführt wurden, und bietet eine GUI, um die Liste der Skripte zusammen mit
+ihrem Status anzuzeigen. Skripte können in dieser GUI ausgeführt, übersprungen
+und allgemein verwaltet werden.
 
-Zusätzlich kannst du ein `IProcessStartEventBean` definieren, um bei Start deiner Anwendung die benötigten (noch nicht ausgeführten) SQL-Skripte automatisch in der richtigen Reihenfolge auszuführen. Dieses `IProcessStartEventBean` kann einfach erstellt werden, indem du die `AbstractDbUtilsStartEventBean` erweiterst. Beachte, dass dieses Bean im Kontext deiner Anwendung (oder projektabhängig) definiert werden muss, da es Zugriff auf den Classpath deiner Projekte haben muss.
+Zusätzlich können Sie eine `IProcessStartEventBean` definieren, um benötigte
+(noch nicht ausgeführte) SQL-Skripte beim Start Ihrer Anwendung automatisch in
+der richtigen Reihenfolge auszuführen. Diese `IProcessStartEventBean` kann
+einfach durch Erweiterung von `AbstractDbUtilsStartEventBean` erstellt werden.
+Beachten Sie, dass diese Bean im Kontext Ihrer Anwendung (oder abhängig von
+Ihren Projekten) definiert werden muss, da sie Zugriff auf den Klassenpfad Ihrer
+Projekte haben muss.
 
-Beachte, dass es noch einen weiteren Datenbank Update Mechanismus gibt, der auf [Liquibase](https://liquibase.com) basiert.
+Beachten Sie, dass es auch einen zweiten Datenbank-Aktualisierungsmechanismus
+gibt, der auf [Liquibase](https://liquibase.com) basiert.
 
-### Liquibase Incrementelle Updates
+### Inkrementelle Updates mit Liquibase
 
-Ein weiterer Datenbank Update Mechanismus basiert auf [Liquibase](https://liquibase.com). Um ihn zu nutzen, muss ein sog. changelog im `DbUtilsResolver` definiert werden. Falls gewünscht, kann auch eine StartEvent bean implementiert werden um das Update beim Applikationsstart automatisch durchzuführen
-Für weitere Informationen zu Liquibase bitte die offizielle Dokumentation beachten!
+Es steht ein weiterer Mechanismus zur Datenbankaktualisierung zur Verfügung, der
+auf [Liquibase](https://liquibase.com) basiert. Dazu müssen Sie lediglich eine
+Änderungsprotokolldatei in Ihrer `DbUtilsResolver` definieren und, falls
+gewünscht, eine StartEvent-Bean für automatische Aktualisierungen beim Start der
+Anwendung implementieren. Weitere Informationen zu Liquibase finden Sie in der
+offiziellen Dokumentation!
 
 ### SQL-Abfragen
 
-Db-Utils bietet eine einfache GUI zum Ausführen von SQL-Skripten. Beachte, dass diese Skripte "wie sie sind" ohne Überprüfung ausgeführt werden und mit den Berechtigungen des für deine Datenbank konfigurierten Benutzers. Die GUI zeigt die Ergebnisse in einem einfachen Textfenster an. Sie ist für schnelle kleine Abfragen oder Online-Korrekturen gedacht und kann mit einem echten Datenbanktool nicht verglichen werden.
+Db-Utils bietet eine einfache GUI zur Ausführung von SQL-Skripten. Beachten Sie,
+dass diese Skripte ohne jegliche Überprüfung und unter den Berechtigungen des
+für Ihre Datenbank konfigurierten Benutzers „unverändert“ ausgeführt werden. Die
+GUI zeigt die Ergebnisse in einem einfachen Textfenster an. Sie ist für schnelle
+kleine Suchvorgänge oder Online-Korrekturen konzipiert und nicht mit einem
+echten Datenbank-Tool vergleichbar.
 
 ### Excel-Export und -Import
 
-Db-Utils bietet eine Export- und Importfunktion für Excel-Dateien und sogar binäre BLOBS. Diese Funktion wird von [DbUnit](https://www.dbunit.org/) bereitgestellt.
+Db-Utils bietet eine Export- und Importfunktion für Excel-Dateien und sogar
+binäre BLOBS. Diese Funktion wird von [DbUnit](https://www.dbunit.org/)
+implementiert.
 
-**Der Export von Daten** kann auf zwei Arten durchgeführt werden:
-* *Excel-Export*: Exportiert eine Excel-Datei mit einem Blatt pro Tabelle.
-* *ZIP-Export*: Exportiert eine Excel-Datei mit einem Blatt pro Tabelle, zusätzlich werden alle Spalten, die ein binäres großes Objekt (BLOB) darstellen, in eine eigene Datei exportiert. Die Excel-Datei und alle exportierten Dateien werden in einer ZIP-Datei gespeichert. In der ZIP-Datei werden die BLOB-Spaltendateien in Unterordnern mit dem Namensschema `lob/<TABELLE>/<SPALTE>/file.ext` abgelegt.
+**Der Export von Daten** en kann auf zwei Arten erfolgen:
+* *Excel-* exportieren Exportieren Sie eine Excel-Datei mit einem Blatt pro
+  Tabelle.
+* *ZIP-Export* Exportieren Sie eine Excel-Datei mit einem Blatt pro Tabelle,
+  aber exportieren Sie zusätzlich alle Spalten, die ein binäres Großobjekt
+  (BLOB) darstellen, in eine eigene Datei. Die Excel-Datei und alle exportierten
+  Dateien werden in einer ZIP-Datei gespeichert. In der ZIP-Datei werden die
+  BLOB-Spaltendateien in Unterordnern mit der Namenskonvention
+  `lob//<column>/file.ext` abgelegt.</column><table></table>
 
-**Der Import von Daten** kann mit oder ohne vorherige Bereinigung der Datenbank erfolgen. Beachte, dass dies eine potenziell gefährliche Operation ist, da das Löschen von Einträgen nicht rückgängig gemacht werden kann. Der Datenimport sollte vermutlich nur während Tests verwendet werden, um die Datenbank in einen definierten Testzustand zu versetzen, oder für die Erstkonfiguration der Projekt-Datenbank auf einem neuen Rechner.
-* *Excel laden*: Lädt eine Excel-Datei im gleichen Format, das der Export erzeugt.
-* *Excel laden und Classpath-Blobs handhaben*: Derzeit kann eine zuvor exportierte ZIP-Datei nicht importiert werden, aber es gibt eine Lösung, die sich in der Projektentwicklung als nützlich erwiesen hat. Der Import lädt eine Excel-Datei im gleichen Format wie der ZIP-Export, verarbeitet jedoch Classpath-Referenzen in den Excel-Spalten. Wenn eine Spalte eine Classpath-Referenz (`classpath:/path`) enthält, wird die Datei in den für DB-Utils definierten Datenressourcen gesucht und als Blob eingefügt. Es wird empfohlen, die BLOB-Dateien in einem Unterordner des `src`-Ordners deines Projekts abzulegen (z.B. `src/data`). Dabei wird angenommen, dass du nur wenige sich selten ändernde BLOB-Testdateien in deinem Projekt hast und keine ZIP-Dateien für jede Spaltenänderung in der importierten Excel-Datei während der Entwicklung erstellen möchtest.
+**Der Import von Daten** kann mit oder ohne vorherige Bereinigung der Datenbank
+erfolgen. Beachten Sie, dass dies ein potenziell gefährlicher Vorgang ist, da
+das Löschen von Einträgen nicht rückgängig gemacht werden kann. Der Import von
+Daten sollte wahrscheinlich nur während Tests verwendet werden, um eine
+Datenbank in einen definierten Testzustand zu versetzen, oder für die
+Ersteinrichtung Ihrer Projektdatenbank auf einem neuen Rechner.
+* *Laden Sie die Excel-* Laden Sie eine Excel-Datei im gleichen Format, wie es
+  der Export erstellt.
+* *Laden Sie Excel und verarbeiten Sie Classpath-Blobs* Derzeit kann eine zuvor
+  exportierte ZIP-Datei nicht importiert werden, aber es wird eine Lösung
+  angeboten, die sich bei der Projektentwicklung als nützlich erwiesen hat. Der
+  Import lädt eine Excel-Datei im gleichen Format wie der Export ZIP,
+  verarbeitet jedoch Classpath-Referenzen in Excel-Spalten. Wenn eine Spalte
+  eine Classpath-Referenz enthält (`classpath:/path`), wird die Datei in den für
+  DB-Utils definierten Datenressourcen gesucht und als Blob eingefügt. Es wird
+  empfohlen, die BLOB-Dateien in einem Unterordner des src-Ordners Ihres
+  Projekts abzulegen (z. B. `src/data`). Dabei wird davon ausgegangen, dass Sie
+  nur wenige, sich selten ändernde BLOB-Testdateien in Ihrem Projekt zum Testen
+  haben und nicht für jede Spaltenänderung in der importierten Excel-Datei
+  während der Entwicklung ZIP-Dateien erstellen möchten.
 
-Um ein Beispiel für in deinem Projekt gespeicherte Ressourcen zu sehen, schaue dir bitte den `src/resources`-Ordner des Demo-Projekts an und vergleiche die Einstellungen mit den globalen Variablen (oder dem `DbUtilsResolver` für den Microsoft SQL Server-Teil).
+Um ein Beispiel für die in Ihrem Projekt gespeicherten Ressourcen zu sehen,
+sehen Sie sich bitte das Demo-Projekt `src/resources` an und vergleichen Sie es
+mit den Einstellungen in den globalen Variablen (oder `DbUtilsResolver` für den
+Microsoft SQL Server-Teil).
 
-Beachte, dass beim Import die Blätter in deiner Excel-Datei in der richtigen Reihenfolge sein müssen, um keine Einschränkungen zu verletzen. Um die richtige Reihenfolge zu erhalten, ist es am besten, die Datenbank zuerst zu exportieren. Der Export erstellt eine Excel-Datei mit der richtigen Blattreihenfolge.
+Beachten Sie, dass die Blätter in Ihrer Excel-Datei für den Import in der
+richtigen Reihenfolge sein müssen, damit keine Einschränkungen verletzt werden.
+Um die richtige Reihenfolge zu erhalten, exportieren Sie am besten zuerst die
+Datenbank. Durch den Export wird eine Excel-Datei mit der richtigen
+Blattreihenfolge erstellt.
 
-Beachte, dass Excel Einschränkungen hinsichtlich der maximalen Größe von Spalten und Blättern hat. Diese Funktion kann für Tests oder für die initiale Datenbankeinrichtung nützlich sein, sollte jedoch nicht für Datenbanksicherungen oder ähnliche „ernste“ Datenbankaufgaben verwendet werden.
+Beachten Sie, dass Excel Beschränkungen hinsichtlich der maximalen Größe von
+Spalten und Blättern hat. Diese Funktion kann für Tests oder die anfängliche
+Einrichtung der Datenbank hilfreich sein, sollte jedoch nicht für
+Datenbank-Backups und ähnliche „wichtige” Datenbankaufgaben verwendet werden.
 
 ### Einstellungen
 
-Die Einstellungsseite zeigt einige grundlegende Datenbankeinstellungen, um herauszufinden, welche Datenbank verwendet wird. Sie kann später noch erweitert werden.
+Die Einstellungsseite zeigt einige grundlegende Datenbank-Einstellungen, um
+herauszufinden, welche Datenbank verwendet wird. Sie kann später erweitert
+werden.
 
 ### Unterstützung für mehrere Datenbanken
 
-Mehrere Datenbanken werden unterstützt. Jede Datenbank benötigt einen eigenen Resolver und eine eigene Prozessstart-Event-Bean. Natürlich kann der Standardmechanismus zum Abrufen der Konfiguration aus globalen Variablen nur für eine Datenbank verwendet werden. Wenn Sie mehrere Resolver bereitstellen, implementieren Sie auch den Umgang mit verschiedenen Konfigurationen (durch Verwendung von Konstanten, globalen Variablen...).
+Es werden mehrere Datenbanken unterstützt. Jede Datenbank benötigt einen eigenen
+Resolver und ein eigenes Prozessstart-Ereignis-Bean. Der Standardmechanismus zum
+Abrufen der Konfiguration aus globalen Variablen kann natürlich nur für eine
+Datenbank verwendet werden. Wenn Sie mehrere Resolver bereitstellen,
+implementieren Sie auch die Verarbeitung unterschiedlicher Konfigurationen
+(mithilfe von Konstanten, globalen Variablen usw.).
 
 ## Demo
+<!--
+We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-demo  
+-->
 
-**Hinweis: Das Demo-Projekt muss entpackt werden, damit es im Axon Ivy Designer ausgeführt werden kann.
+**Hinweis: Das Demo-Projekt muss entpackt werden, damit es im Axon Ivy Designer
+ausgeführt werden kann.**
 
-![Entpacken der Demo](images/unpack.png)
+![Demo entpacken](images/unpack.png)
 
-Die Demo zeigt, wie Sie Db-Utils in Ihr Projekt integrieren können. Sie enthält die einfachste mögliche Konfiguration für eine HSQLDB und eine etwas aufwändigere Konfiguration für eine Microsoft SQL Server Datenbank. Der HSQLDB-Teil ist ohne zusätzliche Konfiguration sofort einsatzbereit. Für den Microsoft SQL Server-Teil müssen Sie Zugriff auf eine Microsoft SQL Server-Datenbank haben und deren Anmeldeinformationen konfigurieren. Beachten Sie, dass Db-Utils bedingungslos SQL-Anweisungen gegen diese Datenbank ausführen wird!
+Die Demo zeigt, wie Sie Db-Utils in Ihr Projekt integrieren können. Sie enthält
+die einfachstmögliche Konfiguration für eine HSQLDB und eine etwas
+ausführlichere Konfiguration für eine Microsoft SQL Server-Datenbank. Der
+HSQLDB-Teil läuft ohne zusätzliche Konfiguration sofort. Für den Microsoft SQL
+Server-Teil benötigen Sie Zugriff auf eine Microsoft SQL Server-Datenbank und
+müssen deren Anmeldedaten konfigurieren. Beachten Sie, dass Db-Utils
+SQL-Anweisungen für diese Datenbank bedingungslos ausführt!
 
 ### Db-Utils GUI
 
-Der größte Teil der Demo kann in der Db-Utils GUI betrachtet werden. Die GUI hat Registerkarten für verschiedene Operationen und einen gemeinsamen Nachrichtenbereich zur Anzeige der Ergebnisse. Um die GUI zu benutzen, verwenden Sie den Benutzer `dbadmin` oder erstellen Sie einen Benutzer mit der Rolle `DbUtilsAdministrator`.
+Der Großteil der Demo kann in der Db-Utils-GUI angesehen werden. Die GUI verfügt
+über Registerkarten für verschiedene Vorgänge und einen gemeinsamen
+Meldungsbereich zur Anzeige der Ergebnisse. Um die GUI zu verwenden, verwenden
+Sie den Benutzer „ `” dbadmin` oder erstellen Sie einen Benutzer mit der Rolle „
+`” DbUtilsAdministrator`.
 
 ### Inkrementelle Updates
 
-Die Registerkarte **Incremental Updates** zeigt eine Übersicht der verfügbaren SQL-Skripte und eine Übersicht der Skripte, die einmal vorhanden waren, aber nicht mehr als Ressourcen verfügbar sind. Für jedes Skript werden das Ausführungsdatum, Fehler und ein Status angezeigt. Skripte können manuell ausgeführt, aktualisiert, deaktiviert, ignoriert oder gelöscht werden (nur für nicht verfügbare Skripte verfügbar).
+Die Registerkarte „ **Incremental Updates“ (Inkrementelle Updates für
+SQL-Skripte) „** “ (Verfügbare Skripte) zeigt eine Übersicht über die
+verfügbaren SQL-Skripte und eine Übersicht über Skripte, die einmal vorhanden
+waren, aber nicht mehr als Ressourcen verfügbar sind. Für jedes Skript werden
+das Ausführungsdatum, Fehler und ein Status angezeigt. Skripte können manuell
+ausgeführt, aktualisiert, deaktiviert, ignoriert oder gelöscht werden (nur für
+nicht verfügbare Skripte verfügbar).
 
-Es stehen Verknüpfungen zur Verfügung, um alle Skripte auszuführen, die noch nicht erfolgreich ausgeführt wurden, und um im Falle von Fehlern die Fortsetzung zu erzwingen.
+Es stehen Shortcuts zur Verfügung, um alle Skripte auszuführen, die noch nicht
+erfolgreich ausgeführt wurden, und sogar um im Falle von Fehlern die Fortsetzung
+zu erzwingen.
 
-![Inkrementelle Aktualisierungen](images/incremental.png)
+![Inkrementelle Updates](images/incremental.png)
 
-### Liquibase Inkrementelle Updates
+### Inkrementelle Updates mit Liquibase
 
-Die Registerkarte **Liquibase** bietet nur einen Button, um das Liquibase update anzustoßen. Sollte es zu Fehlern kommen, werden diese angezeigt.
+Die Registerkarte „ **“ (Liquibase-** ) bietet eine Schaltfläche zum Starten der
+Liquibase-Aktualisierung. Fehler werden auf der Seite angezeigt.
 
-![Liquibase Aktualisierungen](images/liquibase.png)
+![Liquibase-Aktualisierungen](images/liquibase.png)
 
 ### SQL-Anweisungen
 
-Auf der Registerkarte **SQL Statements** können Sie einfache SQL-Anweisungen für die Datenbank ausführen. Die Ergebnisse werden im Nachrichtenbereich angezeigt.
+Die Registerkarte „ **e SQL-Anweisungen“ (** ) kann verwendet werden, um
+einfache SQL-Anweisungen für die Datenbank auszuführen. Die Ergebnisse werden im
+Meldungsbereich angezeigt.
 
 ![SQL-Anweisungen](images/sql.png)
 
 ### Excel-Export/Import
 
-Die Registerkarte **Excel Export/Import** dient zum Exportieren der gesamten Datenbank in eine Excel- oder ZIP-Datei oder zum Importieren der gesamten Datenbank (oder von Teilen davon) aus einer Excel-Datei. Beim Importieren können Sie auswählen, dass die Datenbank vor dem Import bereinigt werden soll. Hinweis: Diese Bereinigung bereinigt alle Tabellen, die in der importierten Excel-Datei erwähnt werden, bedingungslos. Es ist möglich, inkrementell zu importieren, wenn Sie keine Datenbankbeschränkungen verletzen.
+Die Registerkarte „ **“ (Excel-Export/Import) unter „** “
+(Datenbank-Einstellungen) dient dazu, die gesamte Datenbank in eine Excel- oder
+ZIP-Datei zu exportieren oder die gesamte Datenbank (oder Teile davon) aus einer
+Excel-Datei zu importieren. Beim Importieren können Sie auswählen, ob die
+Datenbank vor dem Import bereinigt werden soll. Hinweis: Bei dieser Bereinigung
+werden alle in der importierten Excel-Datei genannten Tabellen bedingungslos
+bereinigt. Es ist möglich, inkrementell zu importieren, sofern Sie keine
+Datenbankbeschränkungen verletzen.
 
-Die Demo-Db-Utils-Skripte erstellen drei Demo-Tabellen und füllen sie mit Daten. Um die Export/Import-Funktionalität auszuprobieren, können Sie die vorhandenen Daten in eine Excel-Datei exportieren, dann auf die Registerkarte SQL-Anweisungen gehen und alle Daten in den drei Demo-Tabellen mit den unten gezeigten Anweisungen löschen und anschließend die vorherige Excel-Datei wieder importieren. Danach sollten die Daten wieder vorhanden sein.
+Die Demo-Skripte von Db-Utils erstellen drei Demo-Tabellen und füllen diese mit
+Daten. Um die Export-/Importfunktion auszuprobieren, können Sie die vorhandenen
+Daten in eine Excel-Datei exportieren, dann zur Registerkarte „SQL-Anweisungen”
+gehen und alle Daten in den drei Demo-Tabellen mit den unten angezeigten
+Anweisungen löschen und anschließend die vorherige Excel-Datei erneut
+importieren. Danach sollten die Daten wieder vorhanden sein.
 
 ```
 delete from logo;
@@ -109,61 +221,95 @@ delete from hero;
 delete from brand;
 ```
 
-Zwei Excel-Dateien für Tests sind vorhanden.
+Zum Testen sind zwei Excel-Dateien enthalten.
 
-* `export-with-blobs.xls` Eine Excel-Datei, die Daten für alle Tabellen und Binärdaten eines Blobs direkt enthält
-* `export-with-blobs-from-classpath.xls` Eine Excel-Datei, die Daten für alle Tabellen enthält, aber Binärdaten aus den Projektressourcen (Klassenpfad) referenziert
+* `export-with-blobs.xls` Eine Excel-Datei, die Daten für alle Tabellen und
+  Binärdaten eines Blobs direkt enthält.
+* `export-with-blobs-from-classpath.xls` Eine Excel-Datei, die Daten für alle
+  Tabellen enthält, aber auf Binärdaten aus den Projektressourcen (classpath)
+  verweist.
 
 ![Excel-Export und -Import](images/eximport.png)
 
+### Einstellungen
 
-### Settings
-
-Die Registerkarte **Settings** zeigt die aktuellen Einstellungen, die von Db-Utils verwendet werden.
+Die Einstellungen für „ **“ Die Registerkarte „** “ zeigt die aktuellen
+Einstellungen, die von Db-Utils verwendet werden.
 
 ![Einstellungen](images/settings.png)
 
 ## Setup
+<!--
+The entries under the heading "Setup" are filled in this tab, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-setup. 
+-->
 
-Um Db-Utils in dein Projekt zu integrieren und zu verwenden, musst du (für jede Datenbank, die du unterstützen möchtest)
-* eine projektlokale `DBUtilsResolver`-Klasse bereitstellen
-* eine projektlokale `DbUtilsStartEventBean`-Klasse bereitstellen
-* einen Startprozess erstellen, der die Db-Utils GUI aufruft
-* einen Programmstart erstellen, der das `DbUtilsStartEventBean` verwendet
-* die Konfiguration überprüfen
-* die Sicherheit überprüfen
+Um DB-Utils in Ihr Projekt zu integrieren und zu verwenden, müssen Sie (für jede
+Datenbank, die Sie unterstützen möchten)
+* Stellen Sie eine Projekt-Local `-DBUtilsResolver-` -Klasse bereit.
+* Stellen Sie eine Projekt-Local `-Klasse „DbUtilsStartEventBean” und eine
+  Klasse „` ” bereit.
+* Erstellen Sie einen Startprozess, der die DB-Utils-GUI aufruft.
+* Erstellen Sie ein Programm, das mit „ `” DbUtilsStartEventBean startet.`
+* Überprüfen Sie die Konfiguration.
+* Sicherheit überprüfen
 
-Im Demoprojekt findest du Beispiele für eine einfache Einrichtung (HSQLDB-Teil) und eine etwas komplexere, angepasste Einrichtung (Microsoft SQL Server-Teil). Bitte vergleiche die folgende Beschreibung mit diesen Beispielen.
+Im Demo-Projekt finden Sie Beispiele für eine einfache Einrichtung (HSQLDB-Teil)
+und eine etwas komplexere, angepasste Einrichtung (Microsoft SQL Server-Teil).
+Bitte vergleichen Sie die folgende Beschreibung mit diesen Beispielen.
 
-### Bereitstellung von `DbUtilsResolver`
+### Stellen Sie `DbUtilsResolver bereit.`
 
-Der DbUtilsResolver wird verwendet, um alle Konfigurationsinformationen für eine der in deinem Projekt definierten Datenbanken zu verwalten (z. B. Name, Ressourcenpfade, DBUtilsScript-Tabellendefinition usw.). Es ist wichtig, dass diese Klasse in einem Projekt implementiert wird, das entweder deine Datenbank und Skriptressourcen definiert oder eine Abhängigkeit zu einem solchen Projekt hat. Sie kann durch Erweitern der von DB-Utils bereitgestellten Klasse `AbstractDbUtilsResolver` implementiert werden. Implementierungen für Microsoft SQL Server (`MSSQL2005DbUtilsResolver`) und HSQLDB (`HSQLDbUtilsResolver`) werden direkt von DB-Utils bereitgestellt.
+Der DbUtilsResolver wird verwendet, um alle Konfigurationsinformationen für eine
+der in Ihrem Projekt definierten Datenbanken zu speichern (z. B. Name,
+Ressourcenpfade, DBUtilsScript-Tabellendefinition ...). Es ist wichtig, dass
+diese Klasse in einem Projekt implementiert wird, das entweder Ihre Datenbank-
+und Skriptressourcen definiert oder eine Abhängigkeit zu einem Projekt hat, das
+diese definiert. Sie kann durch Erweiterung der von DB-Utils bereitgestellten
+Klassen „ `“, „AbstractDbUtilsResolver“ und „` “ implementiert werden.
+Implementierungen für Microsoft SQL Server (`MSSQL2005DbUtilsResolver`) und
+HSQLDB (`HSQLDbUtilsResolver`) werden direkt von DB-Utils bereitgestellt.
 
-### DbUtilsStartEventBean und/oder LiquibaseStartEventBean bereitstellen
+### Stellen Sie DbUtilsStartEventBean und/oder LiquibaseStartEventBean bereit.
 
-Das `DbUtilsStartEventBean` und/oder `LiquibaseStartEventBean` wird als Java-Klasse in einem Event-Prozess-Start verwendet. Es sollte die von DB-Utils bereitgestellte Klasse `AbstractDbUtilsStartEventBean` erweitern und einen Standardkonstruktor implementieren, der den projektspezifischen `DbUtilsResolver` setzt.
+Die `DbUtilsStartEventBean` und/oder `LiquibaseStartEventBean` werden als
+Java-Klasse beim Start eines Ereignisprozesses verwendet. Sie sollten
+`AbstractDbUtilsStartEventBean` erweitern, das von DB-Utils bereitgestellt wird,
+und einen Standardkonstruktor implementieren, der die Projekte `DbUtilsResolver`
+festlegen muss.
 
-### Db-Utils GUI Prozessstart erstellen
+### Db-Utils-GUI-Prozess starten
 
-Erstelle einen Startprozess, der die Db-Utils GUI (und den projektspezifischen `DbUtilsResolver`) verwendet, die vom Db-Utils-Projekt bereitgestellt wird (siehe unten). Beachte, dass dieser Start durch eine autorisierte Rolle des Projekts gesichert werden sollte!
+Erstellen Sie einen Startprozess, der die Db-Utils-GUI (und die Projekte
+`DbUtilsResolver`) verwendet, die vom Db-Utils-Projekt bereitgestellt werden
+(siehe unten). Beachten Sie, dass Sie diesen Start durch eine autorisierte Rolle
+des Projekts sichern sollten!
 
-![GUI Integration](images/gui.png)
+![GUI-Integration](images/gui.png)
 
-### Programmstart erstellen
+### Programm erstellen Start
 
-Erstelle einen Programmstart, der das projektspezifische `DbUtilsStartEventBean` verwendet (siehe unten).
+Erstellen Sie einen Programmstart, der die Projekte „ `” und
+„DbUtilsStartEventBean”` (siehe unten) verwendet.
 
 ![Process Start Event Bean](images/starteventbean.png)
 
 ### Konfiguration
 
-Klassen, die `AbstractDbUtilsResolver` erweitern, können über globale Variablen konfiguriert werden. Die wichtigsten globalen Variablen (Einstellungen) sind:
+Klassen, die `erweitern, AbstractDbUtilsResolver` können über globale Variablen
+konfiguriert werden. Die wichtigsten globalen Variablen (Einstellungen) sind:
 * Name der Datenbank, wie in der Ivy-Datenbankkonfiguration definiert.
-* Die Skript-URL, um inkrementelle SQL-Skripte zu finden. Diese Skripte können im Dateisystem liegen, aber eine bequemere Methode ist es, sie als Ressource in dein Projekt zu legen, indem du das Classpath-Schema in der URL verwendest. Auf diese Weise werden sie automatisch bereitgestellt und sind immer auf dem neuesten Stand mit deinem Projekt.
-* Die Daten-URL, die für andere Daten verwendet wird, z. B. für Binärdateien, die in Excel-BLOB-Imports verwendet werden können.
-* Zusätzliche Einstellungen, um automatische Updates zu konfigurieren und GUI-Registerkarten ein- oder auszuschalten.
+* Die Skript-URL zum Auffinden inkrementeller SQL-Skripte. Diese Skripte können
+  sich im Dateisystem befinden, aber es ist praktischer, sie als Ressource in
+  Ihr Projekt einzufügen, indem Sie das Classpath-Schema in der URL verwenden.
+  Auf diese Weise werden sie automatisch bereitgestellt und sind immer auf dem
+  neuesten Stand Ihres Projekts.
+* Die Daten-URL wird für andere Daten verwendet, z. B. für Binärdateien, die in
+  Excel-BLOB-Importen verwendet werden können.
+* Zusätzliche Einstellungen zum Konfigurieren automatischer Updates und zum
+  Aktivieren oder Deaktivieren von GUI-Registerkarten
 
-Bitte prüfe das Demoprojekt, um den verwendeten Classpath-Mechanismus für SQL-Skripte und Blob-Dateien besser zu verstehen.
+Bitte sehen Sie sich das Demo-Projekt an, um den für SQL-Skripte und
+Blob-Dateien verwendeten Klassenpfadmechanismus besser zu verstehen.
 
 ```
 @variables.yaml@
@@ -171,11 +317,21 @@ Bitte prüfe das Demoprojekt, um den verwendeten Classpath-Mechanismus für SQL-
 
 ### Sicherheit
 
-Db-Utils kann verwendet werden, um beliebige SQL-Skripte ohne weitere Prüfungen direkt auf die konfigurierte Datenbank mit den Berechtigungen des konfigurierten Benutzers auszuführen. Es ist daher wichtig, den Db-Utils-GUI-Start mit einer erhöhten Rolle in deinem Projekt (`DbUtilsAdmin` oder ähnlich) zu sichern. Außerdem ist es möglich, jede Registerkarte (Funktionalität) in der Db-Utils GUI per Konfiguration zu deaktivieren.
+Db-Utils kann verwendet werden, um beliebige SQL-Skripte ohne weitere
+Überprüfungen direkt in der konfigurierten Datenbank mit den Berechtigungen des
+konfigurierten Benutzers auszuführen. Daher ist es wichtig, den Start der
+Db-Utils-GUI mit einer erhöhten Rolle in Ihrem Projekt zu sichern
+(`DbUtilsAdmin` oder ähnliches). Zusätzlich ist es möglich, jede Registerkarte
+(Funktionalität) in der Db-Utils-GUI durch Konfiguration zu deaktivieren.
 
-Um die automatische Update-Funktion von Db-Utils zu verwenden, benötigt der konfigurierte Datenbankbenutzer höchstwahrscheinlich erweiterte Datenbankberechtigungen (z. B. zum Ändern von Tabellendefinitionen), die du möglicherweise nicht in deiner Anwendung haben möchtest.
+Um die automatische Update-Funktion von Db-Utils nutzen zu können, benötigt der
+konfigurierte Datenbankbenutzer höchstwahrscheinlich erweiterte
+Datenbankberechtigungen (z. B. zum Ändern von Tabellendefinitionen), die Sie
+möglicherweise nicht in Ihrer Anwendung haben möchten.
 
-In diesem Fall könnte es eine Idee sein, ein separates Projekt (z. B. ein Tools-Projekt) zu erstellen, das von deinen Projekten abhängt und alle Db-Utils-spezifischen Implementierungen und eine spezielle, erweiterte Datenbankkonfiguration in diesem separaten Projekt unterbringt.
-
+In diesem Fall könnte es eine Idee sein, je nach Ihren Projekten ein separates
+Projekt (z. B. ein Tools-Projekt) zu erstellen und alle Db-Utils-spezifischen
+Implementierungen sowie eine spezielle, erweiterte Datenbankkonfiguration in
+diesem separaten Projekt unterzubringen.
 
 
