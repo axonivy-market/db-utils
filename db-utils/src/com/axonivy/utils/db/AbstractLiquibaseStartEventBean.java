@@ -7,7 +7,6 @@ import com.axonivy.utils.db.services.LiquibaseService;
 
 import ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean;
 import ch.ivyteam.ivy.process.eventstart.IProcessStartEventBeanRuntime;
-import ch.ivyteam.ivy.process.extension.ProgramConfig;
 import ch.ivyteam.ivy.service.ServiceException;
 import ch.ivyteam.log.Logger;
 
@@ -56,10 +55,10 @@ public abstract class AbstractLiquibaseStartEventBean extends AbstractProcessSta
 	}
 
 	@Override
-	public void initialize(IProcessStartEventBeanRuntime eventRuntime, ProgramConfig configuration) {
+	public void initialize(IProcessStartEventBeanRuntime eventRuntime, String configuration) {
 		super.initialize(eventRuntime, configuration);
 		log().debug("Initializing with configuration: {0}", configuration);
-		eventRuntime.poll().disable();
+		eventRuntime.setPollTimeInterval(0);
 	}
 
 	@Override
