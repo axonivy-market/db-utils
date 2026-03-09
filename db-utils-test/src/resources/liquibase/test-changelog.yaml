@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: db-utils-test
+      changes:
+        - createTable:
+            tableName: LIQUIBASE_TEST
+            columns:
+              - column:
+                  name: ID
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: VARCHAR(100)
+        - insert:
+            tableName: LIQUIBASE_TEST
+            columns:
+              - column:
+                  name: ID
+                  valueNumeric: 1
+              - column:
+                  name: NAME
+                  value: seeded-by-liquibase
