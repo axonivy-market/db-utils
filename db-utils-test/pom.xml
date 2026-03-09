@@ -15,6 +15,12 @@
 			<artifactId>db-utils</artifactId>
 			<version>${project.version}</version>
 			<type>iar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.platform</groupId>
+					<artifactId>junit-platform-suite-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.axonivy.ivy.test</groupId>
