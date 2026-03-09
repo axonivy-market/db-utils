@@ -149,20 +149,15 @@
       "type" : "ProgramStart",
       "name" : "Liquibase Autostart HSQLDB",
       "config" : {
-        "javaClass" : "com.axonivy.utils.db.demo.dbutils.hsqldb.LiquibaseStartEventBean",
-        "link" : "eventLink3.ivp"
+        "outLink" : "eventLink3.ivp",
+        "outerBean" : "com.axonivy.utils.db.demo.dbutils.hsqldb.LiquibaseStartEventBean"
       },
-      "tags" : [
-        "demo"
-      ],
       "visual" : {
         "at" : { "x" : 128, "y" : 240 },
         "labelOffset" : { "x" : 13, "y" : 33 },
         "color" : "Start Event"
       },
-      "connect" : [
-        { "id" : "f19", "to" : "f18" }
-      ]
+      "connect" : { "id" : "f19", "to" : "f18" }
     }, {
       "id" : "f18",
       "type" : "TaskEnd",
@@ -174,20 +169,15 @@
       "type" : "ProgramStart",
       "name" : "Liquibase Autostart MSSQL",
       "config" : {
-        "javaClass" : "com.axonivy.utils.db.demo.dbutils.mssql.LiquibaseStartEventBean",
-        "link" : "eventLink4.ivp"
+        "outLink" : "eventLink4.ivp",
+        "outerBean" : "com.axonivy.utils.db.demo.dbutils.mssql.LiquibaseStartEventBean"
       },
-      "tags" : [
-        "demo"
-      ],
       "visual" : {
         "at" : { "x" : 128, "y" : 432 },
         "labelOffset" : { "x" : 13, "y" : 33 },
         "color" : "Start Event"
       },
-      "connect" : [
-        { "id" : "f22", "to" : "f21" }
-      ]
+      "connect" : { "id" : "f22", "to" : "f21" }
     }, {
       "id" : "f21",
       "type" : "TaskEnd",
