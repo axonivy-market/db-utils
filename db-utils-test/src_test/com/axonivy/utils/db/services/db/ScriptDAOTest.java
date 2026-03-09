@@ -3,6 +3,7 @@ package com.axonivy.utils.db.services.db;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -16,6 +17,14 @@ import ch.ivyteam.ivy.environment.IvyTest;
 @IvyTest
 @TestMethodOrder(OrderAnnotation.class)
 public class ScriptDAOTest extends TestBase {
+
+	@BeforeEach
+	public void resetScriptTable() {
+		var dao = ScriptDAO.get(DbUtilsResolver.get());
+		if (dao.scriptTableExists()) {
+			dao.dropScriptTable();
+		}
+	}
 
 	@Test
 	@Order(1)
