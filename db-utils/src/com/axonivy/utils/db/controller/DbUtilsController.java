@@ -27,8 +27,6 @@ import com.axonivy.utils.db.services.DatabaseService;
 import com.axonivy.utils.db.services.LiquibaseService;
 import com.axonivy.utils.db.services.ScriptService;
 
-import ch.ivyteam.ivy.db.DatabaseProperty;
-
 /**
  * Controller for the DbUtils Dialog.
  */
