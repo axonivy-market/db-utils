@@ -71,6 +71,11 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	}
 
 	@Override
+	public String getLiquibaseChangelog() {
+		return getVar("liquibasechangelog");
+	}
+
+	@Override
 	public boolean isAutoupdateEnabled() {
 		return getBoolean("autoupdate", true);
 	}
@@ -78,6 +83,11 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	@Override
 	public boolean isIncrementalTabEnabled() {
 		return getBoolean("incrementaltab", true);
+	}
+
+	@Override
+	public boolean isLiquibaseTabEnabled() {
+		return getBoolean("liquibasetab", true);
 	}
 
 	@Override
@@ -219,7 +229,7 @@ public abstract class AbstractDbUtilsResolver implements DbUtilsResolver {
 	}
 
 	protected boolean getBoolean(String name, boolean def) {
-		String value = getVar(name);
+		var value = getVar(name);
 		return value == null ? def : BooleanUtils.toBoolean(value);
 	}
 

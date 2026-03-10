@@ -38,10 +38,20 @@ public class BaseDAO {
 	}
 
 	public <R> R statement(SQLFunction<Connection, R> function) {
-		try (Connection connection = databaseService.getDatabaseConnection()) {
+		try (var connection = databaseService.getDatabaseConnection()) {
 			return function.apply(connection);
 		} catch (Exception e) {
 			throw new RuntimeException("Error during statement.", e);
 		}
+	}
+
+	public boolean tableExists(String name) {
+		var tableExists = statement(c -> {
+			var meta = c.getMetaData();
+			var resultSet = meta.getTables(null, null, name.toUpperCase(), new String[] {"TABLE"});
+			return resultSet.next();
+		});
+
+		return tableExists;
 	}
 }

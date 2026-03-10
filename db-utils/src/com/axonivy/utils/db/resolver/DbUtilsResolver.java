@@ -36,6 +36,13 @@ public interface DbUtilsResolver {
 	String getDataUrl();
 
 	/**
+	 * Path of the Liquibase changelog file in classpath.
+	 * 
+	 * @return
+	 */
+	String getLiquibaseChangelog();
+
+	/**
 	 * Is auto-update at start enabled?
 	 *
 	 * @return
@@ -48,6 +55,13 @@ public interface DbUtilsResolver {
 	 * @return
 	 */
 	boolean isIncrementalTabEnabled();
+
+	/**
+	 * Is the Liquibase tab enabled?
+	 *
+	 * @return
+	 */
+	boolean isLiquibaseTabEnabled();
 
 	/**
 	 * Is the Sql Statement Tab enabled?

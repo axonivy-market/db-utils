@@ -1,7 +1,6 @@
 package com.axonivy.utils.db.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.ResultSet;
@@ -11,7 +10,6 @@ import java.text.MessageFormat;
 import java.util.Comparator;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
-import java.util.stream.Stream.Builder;
 
 import javax.faces.event.ActionEvent;
 
@@ -26,10 +24,8 @@ import org.primefaces.model.StreamedContent;
 
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
 import com.axonivy.utils.db.services.DatabaseService;
+import com.axonivy.utils.db.services.LiquibaseService;
 import com.axonivy.utils.db.services.ScriptService;
-
-import ch.ivyteam.ivy.db.Database;
-import ch.ivyteam.ivy.db.IExternalDatabase;
 
 /**
  * Controller for the DbUtils Dialog.
@@ -39,6 +35,7 @@ public class DbUtilsController {
 	private JsfLogger log = new JsfLogger();
 	private DbUtilsResolver dbUtilsResolver;
 	private DatabaseService databaseService;
+	private LiquibaseService liquibaseService;
 	private ScriptService scriptService;
 	private ScriptTableController availableController;
 	private ScriptTableController unavailableController;
@@ -57,6 +54,7 @@ public class DbUtilsController {
 	public DbUtilsController(DbUtilsResolver dbUtilsResolver) {
 		this.dbUtilsResolver = dbUtilsResolver;
 		databaseService = DatabaseService.get(dbUtilsResolver);
+		liquibaseService = LiquibaseService.get(dbUtilsResolver);
 		scriptService = ScriptService.get(dbUtilsResolver);
 		unavailableController = new ScriptTableController(false, scriptService, log);
 		availableController = new ScriptTableController(true, scriptService, log);
@@ -71,9 +69,9 @@ public class DbUtilsController {
 	public String getDbFootprint() {
 		var url = dbUtilsResolver.getDatabaseName();
 		var user = "";
-		IExternalDatabase database = databaseService.getExternalDatabase();
+		var database = databaseService.getExternalDatabase();
 		if(database != null) {
-			Database dbConfig = database.getConfiguration();
+			var dbConfig = database.getConfiguration();
 			url = dbConfig.url();
 			user = dbConfig.user();
 		}
@@ -129,10 +127,28 @@ public class DbUtilsController {
 				var statement = connection.createStatement()) {
 			statement.execute(sqlStatement);
 			logResult(statement);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error("Exception while executing statement.", e);
 		}
 	}
+
+	/**
+	 * Execute a Liquibase Update.
+	 *
+	 * @param event
+	 */
+	public void executeLiquibaseUpdate(ActionEvent event) {
+		log.clearLog();
+		log.info("Executing Liquibase Update");
+		log.info("");
+
+		try {
+			liquibaseService.update("");
+		} catch (Exception e) {
+			log.error("Exception while executing liquibase update.", e);
+		}
+	}
+
 	/**
 	 * Export all tables to Excel
 	 *
@@ -143,7 +159,7 @@ public class DbUtilsController {
 		log.clearLog();
 		log.info("Exporting data...");
 		try {
-			InputStream stream = databaseService.exportXls();
+			var stream = databaseService.exportXls();
 			exportedExcel = DefaultStreamedContent.builder()
 					.stream(() -> stream)
 					.contentType("application/vnd.ms-excel")
@@ -165,7 +181,7 @@ public class DbUtilsController {
 		log.clearLog();
 		log.info("Exporting data to zip...");
 		try {
-			InputStream stream = databaseService.exportZip();
+			var stream = databaseService.exportZip();
 			exportedZip = DefaultStreamedContent.builder()
 					.stream(() -> stream)
 					.contentType("application/zip")
@@ -180,7 +196,7 @@ public class DbUtilsController {
 	public void loadExcelData(FileUploadEvent event) {
 		log.clearLog();
 		log.info("Loading excel data: {0} clean: {1}", event.getFile().getFileName(), cleanBeforeExcelImport);
-		try (InputStream inputStream = event.getFile().getInputStream()) {
+		try (var inputStream = event.getFile().getInputStream()) {
 			databaseService.importExcelData(cleanBeforeExcelImport, handleClasspathResourcesInExcelImport, inputStream);
 		} catch (Exception e) {
 			log.error("Exception while loading excel data.", e);
@@ -289,7 +305,7 @@ public class DbUtilsController {
 		try (var stringWriter = new StringWriter();
 				var w = new PrintWriter(stringWriter)) {
 
-			IExternalDatabase db = databaseService.getExternalDatabase();
+			var db = databaseService.getExternalDatabase();
 
 			w.println("Settings:");
 			w.println();
@@ -381,7 +397,7 @@ public class DbUtilsController {
 		var sw = new StringWriter();
 		var md = rs.getMetaData();
 
-		Builder<Object> builder = Stream.builder();
+		var builder = Stream.builder();
 		int cols = md.getColumnCount();
 		for(int c=1; c<=cols; c++) {
 			builder.add(md.getColumnName(c));
@@ -393,7 +409,7 @@ public class DbUtilsController {
 		int count = 0;
 		while(rs.next()) {
 			count++;
-			Builder<Object> rowBuilder = Stream.builder();
+			var rowBuilder = Stream.builder();
 			for(int c=1; c<=cols; c++) {
 				rowBuilder.add(rs.getObject(c));
 			}
