@@ -17,7 +17,7 @@ Db-Utils works by maintaining a list of incremental SQL scripts and their execut
 
 Db-Utils creates a table to remember, which of these SQL scripts were executed and provides a GUI to display the list of scripts together with their status. Scripts can be executed, skipped and generally maintained in this GUI.
 
-Additionally, you can define a `IProcessStartEventBean` to execute needed (not yet executed) SQL scripts automatically in the correct order during the start of your application. This `IProcessStartEventBean` can be created easily by simply extending `AbstractDbUtilsStartEventBean`. Note, that this bean must be defined in the context of your application (or depend on your projectes), since it must have access to the classpath of your projects.
+Additionally, you can define a `IProcessStartEventBean` to execute needed (not yet executed) SQL scripts automatically in the correct order during the start of your application. This `IProcessStartEventBean` can be created easily by simply extending `AbstractDbUtilsStartEventBean`. Note, that this bean must be defined in the context of your application (or depend on your projects), since it must have access to the classpath of your projects.
 
 Note, that there is also a second database update mechanism available which is based on [Liquibase](https://liquibase.com).
 
@@ -46,7 +46,7 @@ To see an example of resources stored in your project, please examine the demo p
 
 Note, that for importing, the sheets in your Excel must be in the right order to not break any constraints. To get the right order, it is best to export the database first. Export will create an Excel with the right sheet order.
 
-Note, that Excel has restrictions on the maximum size of columns and sheets. This feature can be helpful for testing or for initial database setup but it should not be used for database backups and similary "serious" database tasks.
+Note, that Excel has restrictions on the maximum size of columns and sheets. This feature can be helpful for testing or for initial database setup but it should not be used for database backups and similarly "serious" database tasks.
  
 ### Settings
 
