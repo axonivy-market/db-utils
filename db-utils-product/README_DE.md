@@ -43,13 +43,12 @@ ausgeführt wurden, und bietet eine GUI, um die Liste der Skripte zusammen mit
 ihrem Status anzuzeigen. Skripte können in dieser GUI ausgeführt, übersprungen
 und allgemein verwaltet werden.
 
-Zusätzlich können Sie eine `IProcessStartEventBean` definieren, um benötigte
-(noch nicht ausgeführte) SQL-Skripte beim Start Ihrer Anwendung automatisch in
-der richtigen Reihenfolge auszuführen. Diese `IProcessStartEventBean` kann
-einfach durch Erweiterung von `AbstractDbUtilsStartEventBean` erstellt werden.
-Beachten Sie, dass diese Bean im Kontext Ihrer Anwendung (oder abhängig von
-Ihren Projekten) definiert werden muss, da sie Zugriff auf den Klassenpfad Ihrer
-Projekte haben muss.
+Additionally, you can define a `IProcessStartEventBean` to execute needed (not
+yet executed) SQL scripts automatically in the correct order during the start of
+your application. This `IProcessStartEventBean` can be created easily by simply
+extending `AbstractDbUtilsStartEventBean`. Note, that this bean must be defined
+in the context of your application (or depend on your projects), since it must
+have access to the classpath of your projects.
 
 Beachten Sie, dass es auch einen zweiten Datenbank-Aktualisierungsmechanismus
 gibt, der auf [Liquibase](https://liquibase.com) basiert.
@@ -120,10 +119,9 @@ Um die richtige Reihenfolge zu erhalten, exportieren Sie am besten zuerst die
 Datenbank. Durch den Export wird eine Excel-Datei mit der richtigen
 Blattreihenfolge erstellt.
 
-Beachten Sie, dass Excel Beschränkungen hinsichtlich der maximalen Größe von
-Spalten und Blättern hat. Diese Funktion kann für Tests oder die anfängliche
-Einrichtung der Datenbank hilfreich sein, sollte jedoch nicht für
-Datenbank-Backups und ähnliche „wichtige” Datenbankaufgaben verwendet werden.
+Note, that Excel has restrictions on the maximum size of columns and sheets.
+This feature can be helpful for testing or for initial database setup but it
+should not be used for database backups and similarly "serious" database tasks.
 
 ### Einstellungen
 
