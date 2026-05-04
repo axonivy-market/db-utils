@@ -5,6 +5,14 @@ It comes with support for automatic, incremental SQL updates of database tables,
 and import of data and a simple database query window. Support for Microsoft SQL and HSQLDB is
 provided out of the box, but it is easy to extend the component for other database types.
 
+### Key features
+
+* Automatic, incremental database updates with execution tracking.
+* Liquibase-compatible updates for teams using changelogs.
+* Export and import databases to Excel/ZIP, including binary file support.
+* Compact SQL console for quick queries and small fixes.
+* Easy integration into projects; supports multiple database types.
+
 ## Concepts
 
 The most important feature of DB-Utils is probably the automatic update of your database whenever you deploy. Additionally, data from your databases can be easily exported or imported into Excel or Zip files and simple queries can be executed directly from a Db-Utils GUI within your application. By defining a resolver to provide your project setup, some settings in global variables and potentially a process start event bean, you can make use of all features of DB-Utils.
@@ -116,6 +124,24 @@ The **Settings** tab shows the current settings used by Db-Utils.
 
 ![Settings](images/settings.png)
 
+### Demo Workflows (step-by-step)
+
+1. HSQLDB demo
+	- Unpack and open the demo project in the Axon Ivy Designer.
+	- Start the request `DbUtils HSQLDB` (signature: `hsqlDbUtils`) or use the `DbUtils Autostart HSQLDB` program start.
+	- The request calls the `DbUtils` dialog with `com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsResolver.get()` as resolver parameter.
+	- Explore tabs: Incremental Updates, Liquibase, SQL Statements, Excel Export/Import.
+
+2. MSSQL demo
+	- Configure MSSQL credentials in the demo's resolver.
+	- Start the request `DbUtils MSSQL` (signature: `dbUtilsMSSQL`) or enable `DbUtils Autostart MSSQL`.
+	- The request calls the `DbUtils` dialog with `com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsResolver.get()` as resolver parameter.
+	- Use the Liquibase and Incremental Updates tabs to apply example changes.
+
+3. Common demo notes
+	- Demo processes include program starts for automatic execution (autostart beans) and request starts for interactive dialogs.
+	- Demo permission: use role `DbUtilsAdministrator` to access demo GUI entries.
+
 ## Setup
 <!--
 The entries under the heading "Setup" are filled in this tab, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-setup. 
@@ -171,6 +197,64 @@ Db-Utils can be used to execute arbitrary SQL scripts without further checks dir
 
 To use the automatic update feature of Db-Utils, the configured database user will most likely need extended database permissions (e.g. to change table definitions) that you might not want to have in your application.
 
-In this case it could be an idea, to create a separate project (e.g. a tools project) depending on your projects and put all Db-Utils specific implementation and a special, elevated database configuration in this separate project.
+	In this case it could be an idea, to create a separate project (e.g. a tools project) depending on your projects and put all Db-Utils specific implementation and a special, elevated database configuration in this separate project.
+
+## Artifacts
+
+The product includes the following Maven artifacts (version taken from the root `pom.xml`: `13.2.1-SNAPSHOT`):
+
+1. `com.axonivy.utils.db:db-utils-demo:13.2.1-SNAPSHOT` (type: `iar`) — Demo IAR used for installer/import.
+
+```xml
+<dependency>
+	<groupId>com.axonivy.utils.db</groupId>
+	<artifactId>db-utils-demo</artifactId>
+	<version>13.2.1-SNAPSHOT</version>
+	<type>iar</type>
+</dependency>
+```
+
+2. `com.axonivy.utils.db:db-utils:13.2.1-SNAPSHOT` (type: `iar`) — Core product IAR.
+
+```xml
+<dependency>
+	<groupId>com.axonivy.utils.db</groupId>
+	<artifactId>db-utils</artifactId>
+	<version>13.2.1-SNAPSHOT</version>
+	<type>iar</type>
+</dependency>
+```
+
+## Components
+
+The product exposes a set of UI components (XHTML) and supporting pages used by the Db-Utils GUI:
+
+* `DbUtils.xhtml` — Main GUI with tabs for operations.
+* `IncrementalUpdates.xhtml` — View and manage incremental SQL scripts.
+* `Liquibase.xhtml` — Liquibase integration UI.
+* `SqlStatement.xhtml` — Compact SQL console for ad-hoc statements.
+* `ExcelExportImport.xhtml` — Excel / ZIP export and import UI (with blob handling).
+* `Settings.xhtml` — Database settings and configuration.
+* `ScriptTable/ScriptTable.xhtml` — Script table and maintenance view.
+
+### Callable sub-processes
+
+The main module provides these dialog entry points (callable starts):
+
+* `start(DbUtilsResolver)` — `com.axonivy.utils.db.DbUtils.DbUtilsProcess` (dialog start). Creates a `DbUtilsController` using the provided `DbUtilsResolver`.
+* `start(ScriptTableController)` — `com.axonivy.utils.db.ScriptTable.ScriptTableProcess` (dialog start). Used by the script table UI and accepts a `ScriptTableController` parameter.
+
+### Form components (xhtml)
+
+Key form components found in `src_hd`:
+
+* `DbUtils.xhtml` — Main dialog shell, hosts tabs and controller wiring.
+* `IncrementalUpdates.xhtml` — UI for listing and executing incremental SQL scripts.
+* `Liquibase.xhtml` — Liquibase integration view and controls.
+* `SqlStatement.xhtml` — SQL console for executing ad-hoc statements.
+* `ExcelExportImport.xhtml` — Export/import flows and blob handling options.
+* `Settings.xhtml` — Settings page to inspect DB configuration.
+* `ScriptTable/ScriptTable.xhtml` — Script maintenance and table view.
+
 
 

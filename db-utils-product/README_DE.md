@@ -1,11 +1,14 @@
 # DB-Utils
 
-Db-Utils ist eine Sammlung von Tools, die Ihnen bei typischen Datenbankaufgaben
-in Ihrem Projekt helfen. Es bietet Unterstützung für automatische, inkrementelle
-SQL-Aktualisierungen von Datenbanktabellen, den Export und Import von Daten
-sowie ein einfaches Datenbankabfragefenster. Unterstützung für Microsoft SQL und
-HSQLDB ist standardmäßig enthalten, aber die Komponente lässt sich leicht für
-andere Datenbanktypen erweitern.
+Db-Utils ist eine Sammlung von Werkzeugen, die bei typischen Datenbankaufgaben in Ihrem Projekt unterstützen. Es bietet automatische, inkrementelle SQL-Aktualisierungen von Datenbanktabellen, den Export und Import von Daten sowie eine einfache Datenbankabfrageoberfläche. Unterstützung für Microsoft SQL und HSQLDB ist standardmäßig enthalten; Erweiterungen für weitere Datenbanktypen sind leicht möglich.
+
+### Key features
+
+* Automatische, inkrementelle Datenbankaktualisierungen mit Ausführungs-Tracking.
+* Liquibase-kompatible Updates für Teams, die Changelogs verwenden.
+* Export und Import von Datenbanken als Excel/ZIP, einschließlich Unterstützung für Binärdateien.
+* Kompakte SQL-Konsole für schnelle Abfragen und kleine Korrekturen.
+* Einfache Integration in Projekte; unterstützt mehrere Datenbanktypen.
 
 ## Konzepte
 
