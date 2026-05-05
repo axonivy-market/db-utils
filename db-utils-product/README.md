@@ -199,23 +199,6 @@ Db-Utils can be used to execute arbitrary SQL scripts without further checks dir
 
 To use the automatic update feature of Db-Utils, the configured database user will most likely need extended database permissions (e.g. to change table definitions) that you might not want to have in your application.
 
-	In this case it could be an idea, to create a separate project (e.g. a tools project) depending on your projects and put all Db-Utils specific implementation and a special, elevated database configuration in this separate project.
-
-## Artifacts
-
-The product includes the following Maven artifacts (version taken from the root `pom.xml`: `13.2.1-SNAPSHOT`):
-
-1. `com.axonivy.utils.db:db-utils-demo:13.2.1-SNAPSHOT` (type: `iar`) — Demo IAR used for installer/import.
-
-```xml
-<dependency>
-	<groupId>com.axonivy.utils.db</groupId>
-	<artifactId>db-utils-demo</artifactId>
-	<version>13.2.1-SNAPSHOT</version>
-	<type>iar</type>
-</dependency>
-```
-
 In this case it could be an idea, to create a separate project (e.g. a tools project) depending on your projects and put all Db-Utils specific implementation and a special, elevated database configuration in this separate project.
 
 ## Components
