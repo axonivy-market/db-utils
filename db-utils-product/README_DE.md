@@ -1,14 +1,21 @@
-# DB-Utils
+﻿# DB-Utils
 
-Db-Utils ist eine Sammlung von Werkzeugen, die bei typischen Datenbankaufgaben in Ihrem Projekt unterstützen. Es bietet automatische, inkrementelle SQL-Aktualisierungen von Datenbanktabellen, den Export und Import von Daten sowie eine einfache Datenbankabfrageoberfläche. Unterstützung für Microsoft SQL und HSQLDB ist standardmäßig enthalten; Erweiterungen für weitere Datenbanktypen sind leicht möglich.
+Db-Utils ist eine Sammlung von Tools, die Ihnen bei typischen Datenbankaufgaben
+in Ihrem Projekt helfen. Es bietet Unterstützung für automatische, inkrementelle
+SQL-Aktualisierungen von Datenbanktabellen, den Export und Import von Daten
+sowie ein einfaches Datenbankabfragefenster. Unterstützung für Microsoft SQL und
+HSQLDB ist standardmäßig enthalten, aber die Komponente lässt sich leicht für
+andere Datenbanktypen erweitern.
 
-### Key features
+### Wichtigste Funktionen
 
-* Automatische, inkrementelle Datenbankaktualisierungen mit Ausführungs-Tracking.
-* Liquibase-kompatible Updates für Teams, die Changelogs verwenden.
-* Export und Import von Datenbanken als Excel/ZIP, einschließlich Unterstützung für Binärdateien.
-* Kompakte SQL-Konsole für schnelle Abfragen und kleine Korrekturen.
-* Einfache Integration in Projekte; unterstützt mehrere Datenbanktypen.
+- **Automatische inkrementelle SQL-Script-Ausführung** — Wende Datenbankschema-Updates während der Anwendungsbereitstellung oder beim Start automatisch an
+- **Liquibase-Unterstützung** — Nutze Liquibase-Changelogs für fortgeschrittene Datenbankversionierung und -verwaltung
+- **Excel und ZIP Export/Import** — Exportiere Datenbanken in Excel oder ZIP-Dateien mit BLOB-Unterstützung, und importiere Daten zum Testen und Initialisieren
+- **SQL-Query-Ausführung** — Führe Ad-hoc-SQL-Anweisungen direkt aus der GUI heraus für schnelle Abfragen und Datenbank-Wartung aus
+- **Multi-Datenbankunterstützung** — HSQLDB, Microsoft SQL Server und DB2 sind standardmäßig vorhanden; einfach auf andere Datenbanktypen erweiterbar
+- **Integrierte GUI** — Eingebaute Weboberfläche mit Registerkarten für inkrementelle Updates, Liquibase-Verwaltung, SQL-Abfragen, Excel Export/Import und Einstellungen
+- **Sichere Zugriffskontrolle** — Rollenbasierte Berechtigungsverwaltung stellt sicher, dass nur autorisierte Administratoren sensible Datenbankoperationen durchführen können
 
 ## Konzepte
 

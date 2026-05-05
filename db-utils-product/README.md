@@ -7,11 +7,13 @@ provided out of the box, but it is easy to extend the component for other databa
 
 ### Key features
 
-* Automatic, incremental database updates with execution tracking.
-* Liquibase-compatible updates for teams using changelogs.
-* Export and import databases to Excel/ZIP, including binary file support.
-* Compact SQL console for quick queries and small fixes.
-* Easy integration into projects; supports multiple database types.
+- **Automatic incremental SQL script execution** — automatically apply database schema updates during application deployment or startup
+- **Liquibase support** — use Liquibase changelogs for advanced database versioning and management
+- **Excel and ZIP export/import** — export databases to Excel or ZIP files with BLOB support, and import data for testing and initialization
+- **SQL query execution** — execute ad-hoc SQL statements directly from the GUI for quick lookups and database maintenance
+- **Multi-database support** — HSQLDB, Microsoft SQL Server, and DB2 are provided out-of-the-box; easily extend for other database types
+- **Integrated GUI** — built-in web interface with tabs for incremental updates, Liquibase management, SQL queries, Excel export/import, and settings
+- **Secure access control** — role-based permission management ensures only authorized administrators can perform sensitive database operations
 
 ## Concepts
 
@@ -214,47 +216,37 @@ The product includes the following Maven artifacts (version taken from the root 
 </dependency>
 ```
 
-2. `com.axonivy.utils.db:db-utils:13.2.1-SNAPSHOT` (type: `iar`) — Core product IAR.
-
-```xml
-<dependency>
-	<groupId>com.axonivy.utils.db</groupId>
-	<artifactId>db-utils</artifactId>
-	<version>13.2.1-SNAPSHOT</version>
-	<type>iar</type>
-</dependency>
-```
+In this case it could be an idea, to create a separate project (e.g. a tools project) depending on your projects and put all Db-Utils specific implementation and a special, elevated database configuration in this separate project.
 
 ## Components
 
-The product exposes a set of UI components (XHTML) and supporting pages used by the Db-Utils GUI:
+### Form Components
 
-* `DbUtils.xhtml` — Main GUI with tabs for operations.
-* `IncrementalUpdates.xhtml` — View and manage incremental SQL scripts.
-* `Liquibase.xhtml` — Liquibase integration UI.
-* `SqlStatement.xhtml` — Compact SQL console for ad-hoc statements.
-* `ExcelExportImport.xhtml` — Excel / ZIP export and import UI (with blob handling).
-* `Settings.xhtml` — Database settings and configuration.
-* `ScriptTable/ScriptTable.xhtml` — Script table and maintenance view.
+#### DbUtils Dialog
+The main DB-Utils management dialog with multiple tabs for different database operations:
+- **Incremental Updates** — View, execute, skip, disable, and manage SQL migration scripts
+- **Liquibase Updates** — Execute Liquibase changelog updates
+- **SQL Statements** — Execute custom SQL queries against the database
+- **Excel Export/Import** — Export database to Excel/ZIP files or import data from Excel
+- **Settings** — Display and manage DB-Utils configuration
 
-### Callable sub-processes
+### Maven Dependencies
 
-The main module provides these dialog entry points (callable starts):
+1. **db-utils**
+   ```xml
+   <dependency>
+       <groupId>com.axonivy.utils.db</groupId>
+       <artifactId>db-utils</artifactId>
+       <type>iar</type>
+   </dependency>
+   ```
 
-* `start(DbUtilsResolver)` — `com.axonivy.utils.db.DbUtils.DbUtilsProcess` (dialog start). Creates a `DbUtilsController` using the provided `DbUtilsResolver`.
-* `start(ScriptTableController)` — `com.axonivy.utils.db.ScriptTable.ScriptTableProcess` (dialog start). Used by the script table UI and accepts a `ScriptTableController` parameter.
-
-### Form components (xhtml)
-
-Key form components found in `src_hd`:
-
-* `DbUtils.xhtml` — Main dialog shell, hosts tabs and controller wiring.
-* `IncrementalUpdates.xhtml` — UI for listing and executing incremental SQL scripts.
-* `Liquibase.xhtml` — Liquibase integration view and controls.
-* `SqlStatement.xhtml` — SQL console for executing ad-hoc statements.
-* `ExcelExportImport.xhtml` — Export/import flows and blob handling options.
-* `Settings.xhtml` — Settings page to inspect DB configuration.
-* `ScriptTable/ScriptTable.xhtml` — Script maintenance and table view.
-
-
+2. **db-utils-demo**
+   ```xml
+   <dependency>
+       <groupId>com.axonivy.utils.db</groupId>
+       <artifactId>db-utils-demo</artifactId>
+       <type>iar</type>
+   </dependency>
+   ```
 
