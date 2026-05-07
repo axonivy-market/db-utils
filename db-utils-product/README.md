@@ -1,19 +1,15 @@
 # DB-Utils
 
-Db-Utils is a collection of tools to help with typical database-tasks in your project.
-It comes with support for automatic, incremental SQL updates of database tables, export
-and import of data and a simple database query window. Support for Microsoft SQL and HSQLDB is
-provided out of the box, but it is easy to extend the component for other database types.
+Db-Utils is a collection of tools to help with typical database tasks in your Axon Ivy project. It provides safe, guided UI flows to run incremental SQL scripts, perform migrations, and import/export data so teams can manage project databases reliably.
 
 ### Key features
 
-- **Automatic incremental SQL script execution** — automatically apply database schema updates during application deployment or startup
-- **Liquibase support** — use Liquibase changelogs for advanced database versioning and management
-- **Excel and ZIP export/import** — export databases to Excel or ZIP files with BLOB support, and import data for testing and initialization
-- **SQL query execution** — execute ad-hoc SQL statements directly from the GUI for quick lookups and database maintenance
-- **Multi-database support** — HSQLDB, Microsoft SQL Server, and DB2 are provided out-of-the-box; easily extend for other database types
-- **Integrated GUI** — built-in web interface with tabs for incremental updates, Liquibase management, SQL queries, Excel export/import, and settings
-- **Secure access control** — role-based permission management ensures only authorized administrators can perform sensitive database operations
+- Execute and manage database scripts directly from an easy-to-use interface.
+- Apply reliable, versioned database migrations with Liquibase integration.
+- Run ad-hoc SQL queries and preview results without leaving the UI.
+- Import and export data via Excel for fast bulk updates.
+- Perform incremental updates through guided workflows to reduce risk.
+- Centralize database settings and controls for consistent team usage.
 
 ## Concepts
 
@@ -57,137 +53,129 @@ To see an example of resources stored in your project, please examine the demo p
 Note, that for importing, the sheets in your Excel must be in the right order to not break any constraints. To get the right order, it is best to export the database first. Export will create an Excel with the right sheet order.
 
 Note, that Excel has restrictions on the maximum size of columns and sheets. This feature can be helpful for testing or for initial database setup but it should not be used for database backups and similarly "serious" database tasks.
- 
-### Settings
-
-The settings page shows some basic database settings to find out, which database is in use. It might later be extended.
-
-### Support for multiple databases
-
-Multiple databases are supported. Every database would need its own resolver, and its own process start event bean. Of course, the default mechanism to get configuration from global variables can only be used for one database. If you provide multiple resolvers, also implement handling of different configurations (by using constants, global variables…).
 
 ## Demo
-<!--
-We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-demo  
--->
-
-**Note: The Demo project must be unpacked to run in the Axon Ivy Designer.**
 
 ![Unpack the Demo](images/unpack.png)
 
-The Demo shows how to integrate Db-Utils in your project. It contains the simplest possible configuration for an HSQLDB and a little bit more elaborated configuration for a Microsoft SQL Server database. The HSQLDB part will run out of the box without additional configuration. For the Microsoft SQL Server part you need to have access to a Microsoft SQL Server database and configure its credentials. Note, that Db-Utils will unconditionally execute SQL statements against this database!
+The demo shows how to integrate Db-Utils in your project and provides ready-to-run examples for HSQLDB and Microsoft SQL Server.
+
+### DbUtils HSQLDB
+How to launch
+- Start the request named "DbUtils HSQLDB" from the application's request/start page.
+
+What you see & steps
+1. The DbUtils administration window opens, preconfigured for the HSQLDB demo instance.
+2. The main view gives an overview of the demo database and presents controls for common DB tasks.
+3. When you pick an operation you will be asked to confirm; the UI then shows progress and a clear success/error message.
+
+Actions you can perform
+- Inspect tables and sample data.
+- Run database updates or migrations.
+- Apply or revert provided demo data changes.
+- Execute ad‑hoc SQL or maintenance tasks (if offered) and refresh the results/log output.
+
+Who can run it
+- Starting this demo requires the DbUtilsAdministrator role.
+
+Notes
+- The demo also includes background autostart entries (DbUtils Autostart HSQLDB and Liquibase Autostart HSQLDB) that may run on application start to prepare or update the demo database automatically.
+
+---
+
+### DbUtils MSSQL
+How to launch
+- Start the request named "DbUtils MSSQL" from the application's request/start page.
+
+What you see & steps
+1. The same DbUtils administration window opens, preconfigured for the MSSQL demo instance.
+2. The main view shows MSSQL-specific connections and the same set of DB operation controls.
+3. Select an action, confirm when prompted, and watch progress plus a final status message.
+
+Actions you can perform
+- Inspect tables and sample data.
+- Execute database updates or migrations.
+- Manage demo data (apply/revert sample changes).
+- Run ad‑hoc SQL or built-in maintenance operations and review results/logs.
+
+Who can run it
+- Starting this demo requires the DbUtilsAdministrator role.
+
+Notes
+- The demo includes autostart entries (DbUtils Autostart MSSQL and Liquibase Autostart MSSQL) that may run on application start to prepare or update the MSSQL demo database.
+
+General
+- Both requests open the same DbUtils dialog, but each is preconfigured for its target database (HSQLDB or MSSQL), so the UI you see and the available operations will be appropriate for the chosen demo.
 
 ### Db-Utils GUI
+
+![Application graphical user interface (main dashboard)](images/gui.png)
 
 Most of the Demo can be seen in the Db-Utils GUI. The GUI has tabs for different operations and a common message area to show results. To use the GUI use the `dbadmin` user or create a user having the role `DbUtilsAdministrator`.
 
 ### Incremental Updates
 
-The **Incremental Updates** tab show an overview of available SQL scripts and an overview of scripts which once have been there but are no longer available as resources. For every script the execution date, errors and a status are shown. Scripts can be manually executed, refreshed, disabled, ignored or deleted (only available for unavailable scripts).
+The **Incremental Updates** tab shows an overview of available SQL scripts and a list of scripts that are no longer available as resources. For each script the execution date, errors and a status are shown. Scripts can be manually executed, refreshed, disabled, ignored or deleted.
 
-Shortcuts are available to run all scripts which were not yet successfully executed and even to force continuing in case of errors.
-
-![Incremental updates](images/incremental.png)
+![Incremental import progress and diff view](images/incremental.png)
 
 ### Liquibase Incremental Updates
 
 The **Liquibase** tab offers a button to start the Liquibase update. Errors will be shown on the page.
 
-![Liquibase Aktualisierungen](images/liquibase.png)
+![Liquibase changelog example and migration overview](images/liquibase.png)
 
 ### SQL Statements
 
 The **SQL Statements** tab can be used to execute simple SQL statements against the database. Results are shown in the message area.
 
-![SQL Statements](images/sql.png)
+![SQL editor or example SQL script used by db-utils](images/sql.png)
 
 ### Excel Export/Import
 
 The **Excel Export/Import** tab is used to export the whole database to an Excel or ZIP file or to import the whole database (or parts) from an Excel file. When importing, you can select to clean the database before importing. Note: this cleanup will clean all tables mentioned in the imported Excel unconditionally. It is possible to import incremental, if you do not break any database constraints.
 
-The demo Db-Utils scripts create three demo tables and populate them with data. To try out the export/import functionality, you can export the existing data into an excel file, then go to the SQL Statements tab and delete all data in the three demo tables with the statements shown below and then import the previous Excel again. After that, the data should be there again.
-
-```
-delete from logo;
-delete from hero;
-delete from brand;
-```
-
-Two Excel files are included for testing.
-
-* `export-with-blobs.xls` An Excel file containing data for all tables and binary data of a blob directly
-* `export-with-blobs-from-classpath.xls` An Excel file containing data for all tables but referencing binary data from the projects resources (classpath)
-
-![Excel Export and Import](images/eximport.png)
+![Export/import dialog showing import results](images/eximport.png)
 
 ### Settings
 
 The **Settings** tab shows the current settings used by Db-Utils.
 
-![Settings](images/settings.png)
-
-### Demo Workflows (step-by-step)
-
-1. HSQLDB demo
-	- Unpack and open the demo project in the Axon Ivy Designer.
-	- Start the request `DbUtils HSQLDB` (signature: `hsqlDbUtils`) or use the `DbUtils Autostart HSQLDB` program start.
-	- The request calls the `DbUtils` dialog with `com.axonivy.utils.db.demo.dbutils.hsqldb.DbUtilsResolver.get()` as resolver parameter.
-	- Explore tabs: Incremental Updates, Liquibase, SQL Statements, Excel Export/Import.
-
-2. MSSQL demo
-	- Configure MSSQL credentials in the demo's resolver.
-	- Start the request `DbUtils MSSQL` (signature: `dbUtilsMSSQL`) or enable `DbUtils Autostart MSSQL`.
-	- The request calls the `DbUtils` dialog with `com.axonivy.utils.db.demo.dbutils.mssql.DbUtilsResolver.get()` as resolver parameter.
-	- Use the Liquibase and Incremental Updates tabs to apply example changes.
-
-3. Common demo notes
-	- Demo processes include program starts for automatic execution (autostart beans) and request starts for interactive dialogs.
-	- Demo permission: use role `DbUtilsAdministrator` to access demo GUI entries.
+![Settings dialog showing available configuration options](images/settings.png)
 
 ## Setup
-<!--
-The entries under the heading "Setup" are filled in this tab, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-setup. 
--->
 
 To integrate and use DB-Utils in your project, you must (for every database you want to support)
-* provide a project local `DBUtilsResolver` class
-* provide a project local `DbUtilsStartEventBean` class
-* create a start process which calls the DB-Utils GUI
-* create a program start using the `DbUtilsStartEventBean`
-* check configuration
-* check security
-
-In the Demo project, you will find examples for a simple setup (HSQLDB part) and a slightly more complex, adapted setup (Microsoft SQL Server part). Please compare the following description to these examples.
+- provide a project local `DbUtilsResolver` class
+- provide a project local `DbUtilsStartEventBean` class
+- create a start process which calls the DB-Utils GUI
+- create a program start using the `DbUtilsStartEventBean`
+- check configuration
+- check security
 
 ### Provide `DbUtilsResolver`
 
-The DbUtilsResolver is used to keep all configuration information for one of the databases defined in your project (e.g. name, resource paths, DBUtilsScript table definition…). It is essential, that this class is implemented in a project which either defines or has a dependency to a project defining your database and script resources. It can be implemented by extending the `AbstractDbUtilsResolver` class provided by DB-Utils. Implementations for Microsoft SQL Server (`MSSQL2005DbUtilsResolver`) and HSQLDB (`HSQLDbUtilsResolver`) are provided directly by DB-Utils.
+The `DbUtilsResolver` keeps configuration information for a database (name, resource paths, changelog, scripts, etc.). You can extend `AbstractDbUtilsResolver` or provide your own implementation.
 
 ### Provide DbUtilsStartEventBean and/or LiquibaseStartEventBean
 
-The `DbUtilsStartEventBean` and/or `LiquibaseStartEventBean` is used as the Java class in an event process start. It should extend `AbstractDbUtilsStartEventBean` which is provided by DB-Utils and implement a default constructor which must set the projects `DbUtilsResolver`.
+The `DbUtilsStartEventBean` and/or `LiquibaseStartEventBean` can be used to run automatic updates on application start by extending `AbstractDbUtilsStartEventBean` and providing a project resolver.
 
 ### Create Db-Utils GUI process start
 
-Create a start process which uses the Db-Utils GUI (and the projects `DbUtilsResolver`) provided by the Db-Utils project (see below). Note, that you should secure this start by an authorized role of the project!
+Create a start process which uses the Db-Utils GUI (and the project's `DbUtilsResolver`). Secure this start with an elevated role in your project.
 
 ![GUI Integration](images/gui.png)
 
 ### Create Program Start
 
-Create a program start which uses the projects `DbUtilsStartEventBean` (see below).
+Create a program start which uses the project's `DbUtilsStartEventBean`.
 
-![Process Start Event Bean](images/starteventbean.png)
+![StartEventBean configuration diagram or code snippet](images/starteventbean.png)
 
 ### Configuration
 
-Classes extending `AbstractDbUtilsResolver` can be configured by global variables. The most important global variables (settings) are:
-* Name of database as defined in the Ivy database configuration.
-* The Script URL to find incremental SQL scripts. These scripts can be in the file-system, but a more convenient way is to put them into your project as a resource, by using the classpath scheme in the URL. In this way, they will automatically be deployed and always up-to-date with your project.
-* The Data URL used for other data, e.g. for binary files which can be used in Excel BLOB imports.
-* Additional Settings to configure automatic updates and enable or disable GUI tabs
-
-Please examine the Demo project to better understand the classpath mechanism used for SQL scripts and Blob files.
+Classes extending `AbstractDbUtilsResolver` can be configured by global variables. The most important settings include database name, scripts URL, data URL (for BLOBs), and feature toggles for tabs and autoupdate.
 
 ```
 @variables.yaml@
@@ -195,41 +183,106 @@ Please examine the Demo project to better understand the classpath mechanism use
 
 ### Security
 
-Db-Utils can be used to execute arbitrary SQL scripts without further checks directly to the configured database with permissions of the configured user. It is therefore important to secure the Db-Utils GUI start with an elevated role in your project (`DbUtilsAdmin` or similar). Additionally it is possible to switch off any tab (functionality) in Db-Utils GUI by configuration.
-
-To use the automatic update feature of Db-Utils, the configured database user will most likely need extended database permissions (e.g. to change table definitions) that you might not want to have in your application.
-
-In this case it could be an idea, to create a separate project (e.g. a tools project) depending on your projects and put all Db-Utils specific implementation and a special, elevated database configuration in this separate project.
+Db-Utils can execute SQL directly against the configured database. Secure the Db-Utils UI with an administrative role (for example `DbUtilsAdministrator`) and avoid exposing powerful credentials in production.
 
 ## Components
 
-### Form Components
+### Exposed CALLABLE_SUB processes
 
-#### DbUtils Dialog
-The main DB-Utils management dialog with multiple tabs for different database operations:
-- **Incremental Updates** — View, execute, skip, disable, and manage SQL migration scripts
-- **Liquibase Updates** — Execute Liquibase changelog updates
-- **SQL Statements** — Execute custom SQL queries against the database
-- **Excel Export/Import** — Export database to Excel/ZIP files or import data from Excel
-- **Settings** — Display and manage DB-Utils configuration
+No CALLABLE_SUB process files found.
 
-### Maven Dependencies
+### Form components
 
-1. **db-utils**
-   ```xml
-   <dependency>
-       <groupId>com.axonivy.utils.db</groupId>
-       <artifactId>db-utils</artifactId>
-       <type>iar</type>
-   </dependency>
-   ```
+#### dialogs
 
-2. **db-utils-demo**
-   ```xml
-   <dependency>
-       <groupId>com.axonivy.utils.db</groupId>
-       <artifactId>db-utils-demo</artifactId>
-       <type>iar</type>
-   </dependency>
-   ```
+#### DbUtilsData
 
+- **Name Space**: com.axonivy.utils.db.DbUtils
+- **Paths**:
+  - xhtml: db-utils/src_hd/com/axonivy/utils/db/DbUtils/SqlStatement.xhtml
+- **Component type**: HTML_DIALOG
+- **Parameter**:
+  - ctrl (com.axonivy.utils.db.controller.DbUtilsController)
+
+#### DbUtilsData
+
+- **Name Space**: com.axonivy.utils.db.DbUtils
+- **Paths**:
+  - xhtml: db-utils/src_hd/com/axonivy/utils/db/DbUtils/Settings.xhtml
+- **Component type**: HTML_DIALOG
+- **Parameter**:
+  - ctrl (com.axonivy.utils.db.controller.DbUtilsController)
+
+#### DbUtilsData
+
+- **Name Space**: com.axonivy.utils.db.DbUtils
+- **Paths**:
+  - xhtml: db-utils/src_hd/com/axonivy/utils/db/DbUtils/DbUtils.xhtml
+- **Component type**: HTML_DIALOG
+- **Parameter**:
+  - ctrl (com.axonivy.utils.db.controller.DbUtilsController)
+
+#### DbUtilsData
+
+- **Name Space**: com.axonivy.utils.db.DbUtils
+- **Paths**:
+  - xhtml: db-utils/src_hd/com/axonivy/utils/db/DbUtils/IncrementalUpdates.xhtml
+- **Component type**: HTML_DIALOG
+- **Parameter**:
+  - ctrl (com.axonivy.utils.db.controller.DbUtilsController)
+
+#### DbUtilsData
+
+- **Name Space**: com.axonivy.utils.db.DbUtils
+- **Paths**:
+  - xhtml: db-utils/src_hd/com/axonivy/utils/db/DbUtils/ExcelExportImport.xhtml
+- **Component type**: HTML_DIALOG
+- **Parameter**:
+  - ctrl (com.axonivy.utils.db.controller.DbUtilsController)
+
+#### DbUtilsData
+
+- **Name Space**: com.axonivy.utils.db.DbUtils
+- **Paths**:
+  - xhtml: db-utils/src_hd/com/axonivy/utils/db/DbUtils/Liquibase.xhtml
+- **Component type**: HTML_DIALOG
+- **Parameter**:
+  - ctrl (com.axonivy.utils.db.controller.DbUtilsController)
+
+#### components
+
+#### ScriptTableData
+
+- **Name Space**: com.axonivy.utils.db.ScriptTable
+- **Paths**:
+  - xhtml: db-utils/src_hd/com/axonivy/utils/db/ScriptTable/ScriptTable.xhtml
+- **Component type**: HTML_DIALOG
+- **Parameter**:
+  - ctrl (com.axonivy.utils.db.controller.ScriptTableController)
+
+---
+
+### Open API resources
+
+- No public OpenAPI specs are available for this product
+
+### Maven artifacts
+
+1. db-utils
+
+```xml
+<dependency>
+  <groupId>com.axonivy.utils.db</groupId>
+  <artifactId>db-utils</artifactId>
+  <type>iar</type>
+</dependency>
+```
+2. db-utils-demo
+
+```xml
+<dependency>
+  <groupId>com.axonivy.utils.db</groupId>
+  <artifactId>db-utils-demo</artifactId>
+  <type>iar</type>
+</dependency>
+```
