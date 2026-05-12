@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.axonivy.utils.db</groupId>
   <artifactId>db-utils</artifactId>
-  <version>13.2.1-SNAPSHOT</version>
+  <version>13.2.0-SNAPSHOT</version>
   <packaging>iar</packaging>
   <properties>
     <ivy.engine.version>13.2.0</ivy.engine.version>
@@ -18,7 +18,7 @@
     <dependency>
       <groupId>org.dbunit</groupId>
       <artifactId>dbunit</artifactId>
-      <version>3.0.0</version>
+      <version>3.1.0</version>
     </dependency>
     <dependency>
       <groupId>org.mybatis</groupId>
@@ -28,7 +28,7 @@
     <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
-      <version>5.0.1</version>
+      <version>5.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
