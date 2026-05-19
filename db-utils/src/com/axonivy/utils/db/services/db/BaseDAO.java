@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
 import com.axonivy.utils.db.services.DatabaseService;
 
+import ch.ivyteam.ivy.environment.Ivy;
+
 public class BaseDAO {
 	protected DbUtilsResolver dbUtilsResolver;
 	protected DatabaseService databaseService;
@@ -46,7 +48,11 @@ public class BaseDAO {
 	}
 
 	public boolean tableExists(String name) {
+	  
 		var tableExists = statement(c -> {
+		  Ivy.log().warn(c);
+		  Ivy.log().warn("Schema = " + c.getSchema());
+      Ivy.log().warn("User   = " + c.getMetaData().getUserName());
 			var meta = c.getMetaData();
 			var resultSet = meta.getTables(null, null, name.toUpperCase(), new String[] {"TABLE"});
 			return resultSet.next();
