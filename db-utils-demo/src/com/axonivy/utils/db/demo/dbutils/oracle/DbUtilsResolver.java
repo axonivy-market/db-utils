@@ -19,6 +19,6 @@ public class DbUtilsResolver extends OracleDBUtilsResolver {
 
   @Override
   public String getScriptsUrl() {
-    return "classpath:/resources/sql/incremental/mssql";
+    return "classpath:/resources/sql/incremental/oracle";
   }
 }
