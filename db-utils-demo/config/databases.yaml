@@ -11,7 +11,7 @@ Databases:
     UserName: comicworld
     Password: ${decrypt:/ONFjKtA0h6caXsEaRP29A==}
   comicworld_oracle:
-    Url: jdbc:oracle:thin:@//localhost:1521/orclpdb.aavn.local
+    Url: 'jdbc:oracle:thin:@localhost:1521:'
     Driver: oracle.jdbc.OracleDriver
-    UserName: phuctvt
-    Password: ${decrypt:}
+    UserName: octopus
+    Password: ${decrypt:GXQLdFzBw9MKFNuADV/W5g==}

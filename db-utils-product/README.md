@@ -184,7 +184,6 @@ Don't forget to change the database configuration in `Ivy designer`
 
 Click `start` button in `Ivy designer` to run the demo project, then you can see the Oracle database in `Db-Utils GUI` and execute the incremental SQL scripts.
 
-
 ![Oracle sql developer3](images/oracle_sql_developer3.png)
 
 
