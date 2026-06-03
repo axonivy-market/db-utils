@@ -164,6 +164,29 @@ Please examine the Demo project to better understand the classpath mechanism use
 ```
 @variables.yaml@
 ```
+### Setup and demonstration of Oracle database
+
+To run a demonstration of the Oracle database support, you need to have access to an Oracle database and configure its by running the docker-compose.yml file in the `db-utils-demo/src/resources/oracleDocker` folder. This will create an Oracle database in a Docker container and set up a user with the name `octopus` and the password `123456`. The database will be accessible on port 1521 of your machine. You can do it by running some commands below in order to access Oracle database.
+
+- `docker compose up -d`
+- `docker exec -it oracle19c bash`
+- `sqlplus octopus/123456@FREEPDB1`
+
+![Oracle commands](images/oracle_setup1.png)
+
+After that you can use your tools that supported for Oracle database to access and view the dataset. For example: sqlDeveloper, ....
+
+![Oracle sql developer](images/oracle_sql_developer.png)
+
+Don't forget to change the database configuration in `Ivy designer`
+
+![Oracle sql developer2](images/oracle_sql_developer2.png)
+
+Click `start` button in `Ivy designer` to run the demo project, then you can see the Oracle database in `Db-Utils GUI` and execute the incremental SQL scripts.
+
+
+![Oracle sql developer3](images/oracle_sql_developer3.png)
+
 
 ### Security
 
