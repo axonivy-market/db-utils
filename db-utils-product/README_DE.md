@@ -169,6 +169,31 @@ Bitte prüfe das Demoprojekt, um den verwendeten Classpath-Mechanismus für SQL-
 @variables.yaml@
 ```
 
+### Einrichtung und Demonstration der Oracle-Datenbank
+
+Um eine Demonstration der Oracle-Datenbankunterstützung auszuführen, benötigst du Zugriff auf eine Oracle-Datenbank und musst sie konfigurieren, indem du die Datei `docker-compose.yml` im Ordner `db-utils-demo/docker` startest. Dadurch wird eine Oracle-Datenbank in einem Docker-Container erstellt und ein Benutzer mit dem Namen `octopus` und dem Passwort `123456` eingerichtet. Die Datenbank ist auf Port 1521 deines Rechners erreichbar. Du kannst dafür die folgenden Befehle ausführen, um auf die Oracle-Datenbank zuzugreifen.
+
+- Um die in der Datei `docker-compose.yml` definierten Container zu starten.  
+  `docker compose up -d`
+- Um eine interaktive Linux-Shell innerhalb des laufenden Containers zu öffnen.  
+  `docker exec -it oracle19c bash`
+- Nach Ausführung des zweiten Befehls verwenden wir diesen Befehl, um eine Verbindung zur Oracle-Datenbank herzustellen.  
+  `sqlplus octopus/123456@FREEPDB1`
+
+![Oracle-Befehle](images/oracle_setup1.png)
+
+Danach kannst du ein Tool mit Oracle-Unterstützung verwenden, um auf die Daten zuzugreifen und sie anzuzeigen, zum Beispiel SQL Developer.
+
+![Anmeldung bei Oracle SQL Developer](images/oracle_sql_developer.png)
+
+Vergiss nicht, die Datenbankkonfiguration im `AxonIvy Designer` zu ändern.
+
+![Konfiguration von Oracle SQL Developer im Axonivy Designer](images/oracle_sql_developer2.png)
+
+Klicke im `AxonIvy Designer` auf den Button `start`, um das Demo-Projekt zu starten. Danach siehst du die Oracle-Datenbank in der `Db-Utils GUI` und kannst die inkrementellen SQL-Skripte ausführen.
+
+![Oracle SQL Developer hat alle Tabellen angezeigt](images/oracle_sql_developer3.png)
+
 ### Sicherheit
 
 Db-Utils kann verwendet werden, um beliebige SQL-Skripte ohne weitere Prüfungen direkt auf die konfigurierte Datenbank mit den Berechtigungen des konfigurierten Benutzers auszuführen. Es ist daher wichtig, den Db-Utils-GUI-Start mit einer erhöhten Rolle in deinem Projekt (`DbUtilsAdmin` oder ähnlich) zu sichern. Außerdem ist es möglich, jede Registerkarte (Funktionalität) in der Db-Utils GUI per Konfiguration zu deaktivieren.

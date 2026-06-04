@@ -10,3 +10,8 @@ Databases:
     Driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
     UserName: comicworld
     Password: ${decrypt:/ONFjKtA0h6caXsEaRP29A==}
+  comicworld_oracle:
+    Url: 'jdbc:oracle:thin:@localhost:1521:'
+    Driver: oracle.jdbc.OracleDriver
+    UserName: octopus
+    Password: ${decrypt:GXQLdFzBw9MKFNuADV/W5g==}
