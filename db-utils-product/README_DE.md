@@ -173,9 +173,12 @@ Bitte prüfe das Demoprojekt, um den verwendeten Classpath-Mechanismus für SQL-
 
 Um eine Demonstration der Oracle-Datenbankunterstützung auszuführen, benötigst du Zugriff auf eine Oracle-Datenbank und musst sie konfigurieren, indem du die Datei `docker-compose.yml` im Ordner `db-utils-demo/docker` startest. Dadurch wird eine Oracle-Datenbank in einem Docker-Container erstellt und ein Benutzer mit dem Namen `octopus` und dem Passwort `123456` eingerichtet. Die Datenbank ist auf Port 1521 deines Rechners erreichbar. Du kannst dafür die folgenden Befehle ausführen, um auf die Oracle-Datenbank zuzugreifen.
 
-- Um die in der Datei `docker-compose.yml` definierten Container zu starten. `docker compose up -d`
-- Um eine interaktive Linux-Shell innerhalb des laufenden Containers zu öffnen. `docker exec -it oracle19c bash`
-- Nach Ausführung des zweiten Befehls verwenden wir diesen Befehl, um eine Verbindung zur Oracle-Datenbank herzustellen. `sqlplus octopus/123456@FREEPDB1`
+- Um die in der Datei `docker-compose.yml` definierten Container zu starten.  
+  `docker compose up -d`
+- Um eine interaktive Linux-Shell innerhalb des laufenden Containers zu öffnen.  
+  `docker exec -it oracle19c bash`
+- Nach Ausführung des zweiten Befehls verwenden wir diesen Befehl, um eine Verbindung zur Oracle-Datenbank herzustellen.  
+  `sqlplus octopus/123456@FREEPDB1`
 
 ![Oracle-Befehle](images/oracle_setup1.png)
 
