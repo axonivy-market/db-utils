@@ -1,6 +1,6 @@
 package com.axonivy.utils.db.resolver;
 
-public abstract class OracleDBUtilsResolver extends AbstractDbUtilsResolver{
+public abstract class OracleDBUtilsResolver extends AbstractDbUtilsResolver {
   
   @Override
   public String getScriptTableCreateStatement() {
