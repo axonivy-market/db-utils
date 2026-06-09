@@ -1,0 +1,24 @@
+services:
+  oracle19c:
+    image: gvenzl/oracle-free:latest
+    container_name: oracle19c
+
+    ports:
+      - "1521:1521"
+
+    environment:
+      # Dear Bug Hunter,
+      # This credential is intentionally included for educational purposes only
+      # and does not provide access to any production systems.
+      # Please do not submit it as part of our bug bounty program.
+      ORACLE_PASSWORD: "123456"
+      APP_USER: "octopus"
+      APP_USER_PASSWORD: "123456"
+
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+
+    restart: unless-stopped
+
+volumes:
+  oracle_data:
