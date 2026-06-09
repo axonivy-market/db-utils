@@ -215,6 +215,103 @@
       "visual" : {
         "at" : { "x" : 384, "y" : 432 }
       }
+    }, {
+      "id" : "f23",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 384, "y" : 696 }
+      }
+    }, {
+      "id" : "f24",
+      "type" : "RequestStart",
+      "name" : "dbUtilsOracle.ivp",
+      "config" : {
+        "signature" : "dbUtilsOracle",
+        "request" : {
+          "name" : "DbUtils Oracle"
+        },
+        "permission" : {
+          "anonymous" : false,
+          "role" : "DbUtilsAdministrator"
+        }
+      },
+      "tags" : [
+        "demo"
+      ],
+      "visual" : {
+        "at" : { "x" : 128, "y" : 696 }
+      },
+      "connect" : [
+        { "id" : "f26", "to" : "f25" }
+      ]
+    }, {
+      "id" : "f25",
+      "type" : "DialogCall",
+      "name" : "DbUtils",
+      "config" : {
+        "dialog" : "com.axonivy.utils.db.DbUtils:start(com.axonivy.utils.db.resolver.DbUtilsResolver)",
+        "call" : {
+          "map" : {
+            "param.dbUtilsResolver" : "com.axonivy.utils.db.demo.dbutils.oracle.DbUtilsResolver.get()"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 272, "y" : 696 }
+      },
+      "connect" : [
+        { "id" : "f27", "to" : "f23" }
+      ]
+    }, {
+      "id" : "f28",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 384, "y" : 584 }
+      }
+    }, {
+      "id" : "f29",
+      "type" : "ProgramStart",
+      "name" : "DbUtils Autostart Oracle",
+      "config" : {
+        "javaClass" : "com.axonivy.utils.db.demo.dbutils.oracle.DbUtilsStartEventBean",
+        "link" : "eventLink5.ivp"
+      },
+      "tags" : [
+        "demo"
+      ],
+      "visual" : {
+        "at" : { "x" : 128, "y" : 584 },
+        "labelOffset" : { "x" : 13, "y" : 33 },
+        "color" : "Start Event"
+      },
+      "connect" : [
+        { "id" : "f32", "to" : "f28" }
+      ]
+    }, {
+      "id" : "f30",
+      "type" : "ProgramStart",
+      "name" : "Liquibase Autostart Oracle",
+      "config" : {
+        "javaClass" : "com.axonivy.utils.db.demo.dbutils.oracle.LiquibaseStartEventBean",
+        "link" : "eventLink6.ivp"
+      },
+      "tags" : [
+        "demo"
+      ],
+      "visual" : {
+        "at" : { "x" : 128, "y" : 640 },
+        "labelOffset" : { "x" : 13, "y" : 33 },
+        "color" : "Start Event"
+      },
+      "connect" : [
+        { "id" : "f33", "to" : "f31" }
+      ]
+    }, {
+      "id" : "f31",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 384, "y" : 640 }
+      }
     } ],
   "layout" : {
     "lanes" : [ {
@@ -226,6 +323,9 @@
         "name" : "MSSQL",
         "size" : 192,
         "color" : "MSSQL"
+      }, {
+        "name" : "Oracle",
+        "size" : 216
       } ],
     "colors" : {
       "Start Event" : "#00608a",
