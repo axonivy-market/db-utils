@@ -20,5 +20,4 @@ jobs:
     uses: axonivy-market/github-workflows/.github/workflows/release-dev.yml@v6
     with:
       dryRun: ${{ inputs.dryRun }}
-      javaVersion: 21
     secrets: inherit
