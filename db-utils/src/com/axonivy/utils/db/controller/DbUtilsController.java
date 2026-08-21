@@ -10,7 +10,7 @@ import java.text.MessageFormat;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-import javax.faces.event.ActionEvent;
+import jakarta.faces.event.ActionEvent;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.Level;

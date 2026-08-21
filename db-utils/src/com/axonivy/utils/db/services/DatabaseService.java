@@ -33,7 +33,7 @@ import org.dbunit.operation.DatabaseOperation;
 
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
 
-import ch.ivyteam.ivy.application.IApplication;
+import ch.ivyteam.ivy.application.app.Application;
 import ch.ivyteam.ivy.db.IExternalDatabase;
 import ch.ivyteam.ivy.db.IExternalDatabaseManager;
 
@@ -85,7 +85,7 @@ public class DatabaseService {
 	 */
 	public IExternalDatabase getExternalDatabase() {
 		return IExternalDatabaseManager.instance()
-				.getExternalDatabaseApplicationContext(IApplication.current())
+				.getExternalDatabaseApplicationContext(Application.current())
 				.getExternalDatabase(dbUtilsResolver.getDatabaseName());
 	}
 
