@@ -19,7 +19,7 @@
     <dependency>
       <groupId>org.dbunit</groupId>
       <artifactId>dbunit</artifactId>
-      <version>3.1.0</version>
+      <version>3.5.1</version>
     </dependency>
     <dependency>
       <groupId>org.mybatis</groupId>
@@ -29,7 +29,7 @@
     <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
-      <version>5.0.3</version>
+      <version>5.0.4</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
