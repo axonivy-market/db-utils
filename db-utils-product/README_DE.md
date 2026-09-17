@@ -43,13 +43,12 @@ ausgeführt wurden, und bietet eine GUI, um die Liste der Skripte zusammen mit
 ihrem Status anzuzeigen. Skripte können in dieser GUI ausgeführt, übersprungen
 und allgemein verwaltet werden.
 
-Zusätzlich können Sie eine `IProcessStartEventBean` definieren, um benötigte
-(noch nicht ausgeführte) SQL-Skripte beim Start Ihrer Anwendung automatisch in
-der richtigen Reihenfolge auszuführen. Diese `IProcessStartEventBean` kann
-einfach durch Erweiterung von `AbstractDbUtilsStartEventBean` erstellt werden.
-Beachten Sie, dass diese Bean im Kontext Ihrer Anwendung (oder abhängig von
-Ihren Projekten) definiert werden muss, da sie Zugriff auf den Klassenpfad Ihrer
-Projekte haben muss.
+Additionally, you can define a `IProcessStartEventBean` to execute needed (not
+yet executed) SQL scripts automatically in the correct order during the start of
+your application. This `IProcessStartEventBean` can be created easily by simply
+extending `AbstractDbUtilsStartEventBean`. Note, that this bean must be defined
+in the context of your application (or depend on your projects), since it must
+have access to the classpath of your projects.
 
 Beachten Sie, dass es auch einen zweiten Datenbank-Aktualisierungsmechanismus
 gibt, der auf [Liquibase](https://liquibase.com) basiert.
@@ -120,10 +119,9 @@ Um die richtige Reihenfolge zu erhalten, exportieren Sie am besten zuerst die
 Datenbank. Durch den Export wird eine Excel-Datei mit der richtigen
 Blattreihenfolge erstellt.
 
-Beachten Sie, dass Excel Beschränkungen hinsichtlich der maximalen Größe von
-Spalten und Blättern hat. Diese Funktion kann für Tests oder die anfängliche
-Einrichtung der Datenbank hilfreich sein, sollte jedoch nicht für
-Datenbank-Backups und ähnliche „wichtige” Datenbankaufgaben verwendet werden.
+Note, that Excel has restrictions on the maximum size of columns and sheets.
+This feature can be helpful for testing or for initial database setup but it
+should not be used for database backups and similarly "serious" database tasks.
 
 ### Einstellungen
 
@@ -314,31 +312,42 @@ Blob-Dateien verwendeten Klassenpfadmechanismus besser zu verstehen.
 ```
 @variables.yaml@
 ```
+### Setup and demonstration of Oracle database
 
-### Einrichtung und Demonstration der Oracle-Datenbank
+To run a demonstration of the Oracle database support, you need to have access
+to an Oracle database and configure its by running the docker-compose.yml file
+in the `db-utils-demo/docker` folder. This will create an Oracle database in a
+Docker container and set up a user with the name `octopus` and the password
+`123456`. The database will be accessible on port 1521 of your machine. You can
+do it by running some commands below in order to access Oracle database.
 
-Um eine Demonstration der Oracle-Datenbankunterstützung auszuführen, benötigst du Zugriff auf eine Oracle-Datenbank und musst sie konfigurieren, indem du die Datei `docker-compose.yml` im Ordner `db-utils-demo/docker` startest. Dadurch wird eine Oracle-Datenbank in einem Docker-Container erstellt und ein Benutzer mit dem Namen `octopus` und dem Passwort `123456` eingerichtet. Die Datenbank ist auf Port 1521 deines Rechners erreichbar. Du kannst dafür die folgenden Befehle ausführen, um auf die Oracle-Datenbank zuzugreifen.
-
-- Um die in der Datei `docker-compose.yml` definierten Container zu starten.  
+- To starts the containers defined in docker-compose.yml file.\
   `docker compose up -d`
-- Um eine interaktive Linux-Shell innerhalb des laufenden Containers zu öffnen.  
+- To opens an interactive Linux shell inside the running container.\
   `docker exec -it oracle19c bash`
-- Nach Ausführung des zweiten Befehls verwenden wir diesen Befehl, um eine Verbindung zur Oracle-Datenbank herzustellen.  
+- After running 2nd command, we use this command to connect to the Oracle
+  database.\
   `sqlplus octopus/123456@FREEPDB1`
 
-![Oracle-Befehle](images/oracle_setup1.png)
+![Oracle commands](images/oracle_setup1.png)
 
-Danach kannst du ein Tool mit Oracle-Unterstützung verwenden, um auf die Daten zuzugreifen und sie anzuzeigen, zum Beispiel SQL Developer.
+After that, you can use your tools that support the Oracle database to access
+and view the dataset. For example: sqlDeveloper
 
-![Anmeldung bei Oracle SQL Developer](images/oracle_sql_developer.png)
+![Oracle sql developer login](images/oracle_sql_developer_login.png)
 
-Vergiss nicht, die Datenbankkonfiguration im `AxonIvy Designer` zu ändern.
+Don't forget to change the database configuration in `AxonIvy Designer`
 
-![Konfiguration von Oracle SQL Developer im Axonivy Designer](images/oracle_sql_developer2.png)
+![Oracle sql developer config in axonivy
+designer](images/oracle_sql_config_in_axonivy_designer.png)
 
-Klicke im `AxonIvy Designer` auf den Button `start`, um das Demo-Projekt zu starten. Danach siehst du die Oracle-Datenbank in der `Db-Utils GUI` und kannst die inkrementellen SQL-Skripte ausführen.
+Click `start` button in `AxonIvy Designer` to run the demo project, then you can
+see the Oracle database in `Db-Utils GUI` and execute the incremental SQL
+scripts.
 
-![Oracle SQL Developer hat alle Tabellen angezeigt](images/oracle_sql_developer3.png)
+![Oracle sql developer showed all
+tables](images/oracle_sql_developer_showed_all_tables.png)
+
 
 ### Sicherheit
 
