@@ -44,12 +44,12 @@ ihrem Status anzuzeigen. Skripte können in dieser GUI ausgeführt, übersprunge
 und allgemein verwaltet werden.
 
 Zusätzlich können Sie eine `IProcessStartEventBean` definieren, um benötigte
-(noch nicht ausgeführte) SQL-Skripte beim Start Ihrer Anwendung automatisch in
-der richtigen Reihenfolge auszuführen. Diese `IProcessStartEventBean` kann
-einfach durch Erweiterung von `AbstractDbUtilsStartEventBean` erstellt werden.
-Beachten Sie, dass diese Bean im Kontext Ihrer Anwendung (oder abhängig von
-Ihren Projekten) definiert werden muss, da sie Zugriff auf den Klassenpfad Ihrer
-Projekte haben muss.
+(noch nicht ausgeführte) SQL-Skripte automatisch in der richtigen Reihenfolge
+während des Starts Ihrer Anwendung auszuführen. Diese `IProcessStartEventBean`
+kann einfach durch einfache Erweiterung `AbstractDbUtilsStartEventBean` erstellt
+werden. Beachten Sie, dass diese Bohne im Rahmen Ihrer Bewerbung definiert
+werden muss (oder von Ihren Projekten abhängig), da sie Zugang zum Klassenpfad
+Ihrer Projekte haben muss.
 
 Beachten Sie, dass es auch einen zweiten Datenbank-Aktualisierungsmechanismus
 gibt, der auf [Liquibase](https://liquibase.com) basiert.
@@ -120,10 +120,10 @@ Um die richtige Reihenfolge zu erhalten, exportieren Sie am besten zuerst die
 Datenbank. Durch den Export wird eine Excel-Datei mit der richtigen
 Blattreihenfolge erstellt.
 
-Beachten Sie, dass Excel Beschränkungen hinsichtlich der maximalen Größe von
-Spalten und Blättern hat. Diese Funktion kann für Tests oder die anfängliche
-Einrichtung der Datenbank hilfreich sein, sollte jedoch nicht für
-Datenbank-Backups und ähnliche „wichtige” Datenbankaufgaben verwendet werden.
+Beachten Sie, dass Excel Einschränkungen auf die maximale Größe von Spalten und
+Blättern hat. Diese Funktion kann für das Testen oder für das initiale
+Datenbank-Setup hilfreich sein, sollte aber nicht für Datenbank-Backups und
+ähnlich "serious" Datenbank-Aufgaben verwendet werden.
 
 ### Einstellungen
 
@@ -216,9 +216,9 @@ Anweisungen löschen und anschließend die vorherige Excel-Datei erneut
 importieren. Danach sollten die Daten wieder vorhanden sein.
 
 ```
-delete from logo;
-delete from hero;
-delete from brand;
+löschen von logo;
+löschen von helden;
+löschen von der marke;
 ```
 
 Zum Testen sind zwei Excel-Dateien enthalten.
@@ -314,31 +314,43 @@ Blob-Dateien verwendeten Klassenpfadmechanismus besser zu verstehen.
 ```
 @variables.yaml@
 ```
+### Aufbau und Demonstration der Oracle-Datenbank
 
-### Einrichtung und Demonstration der Oracle-Datenbank
+Um eine Demonstration des Oracle-Datenbank-Supports durchzuführen, müssen Sie
+Zugriff auf eine Oracle-Datenbank haben und diese durch den Betrieb der
+Docking-Verbindung konfigurieren. yml Datei im Ordner `db-utils-demo/docker`.
+Dies wird eine Oracle-Datenbank in einem Docker-Container erstellen und einen
+Benutzer mit dem Namen `octopus` und dem Passwort `123456` einrichten. Die
+Datenbank ist auf dem Port 1521 Ihrer Maschine zugänglich. Sie können es tun,
+indem Sie einige Befehle unten ausführen, um auf Oracle-Datenbank zugreifen.
 
-Um eine Demonstration der Oracle-Datenbankunterstützung auszuführen, benötigst du Zugriff auf eine Oracle-Datenbank und musst sie konfigurieren, indem du die Datei `docker-compose.yml` im Ordner `db-utils-demo/docker` startest. Dadurch wird eine Oracle-Datenbank in einem Docker-Container erstellt und ein Benutzer mit dem Namen `octopus` und dem Passwort `123456` eingerichtet. Die Datenbank ist auf Port 1521 deines Rechners erreichbar. Du kannst dafür die folgenden Befehle ausführen, um auf die Oracle-Datenbank zuzugreifen.
-
-- Um die in der Datei `docker-compose.yml` definierten Container zu starten.  
-  `docker compose up -d`
-- Um eine interaktive Linux-Shell innerhalb des laufenden Containers zu öffnen.  
+- Um die in der Docking-compose.yml-Datei definierten Container zu starten.\
+  `docker komponiert -d`
+- Um eine interaktive Linux Shell innerhalb des laufenden Containers zu öffnen.\
   `docker exec -it oracle19c bash`
-- Nach Ausführung des zweiten Befehls verwenden wir diesen Befehl, um eine Verbindung zur Oracle-Datenbank herzustellen.  
+- Nach dem 2. Befehl verwenden wir diesen Befehl, um mit der Oracle-Datenbank zu
+  verbinden.\
   `sqlplus octopus/123456@FREEPDB1`
 
 ![Oracle-Befehle](images/oracle_setup1.png)
 
-Danach kannst du ein Tool mit Oracle-Unterstützung verwenden, um auf die Daten zuzugreifen und sie anzuzeigen, zum Beispiel SQL Developer.
+Danach können Sie Ihre Tools verwenden, die die Oracle-Datenbank unterstützen,
+um den Datensatz zuzugreifen und anzuzeigen. Zum Beispiel: sqlDeveloper
 
-![Anmeldung bei Oracle SQL Developer](images/oracle_sql_developer.png)
+![Oracle sql developer login](images/oracle_sql_developer_login.png)
 
-Vergiss nicht, die Datenbankkonfiguration im `AxonIvy Designer` zu ändern.
+Vergessen Sie nicht, die Datenbankkonfiguration in `AxonIvy Designer` zu ändern
 
-![Konfiguration von Oracle SQL Developer im Axonivy Designer](images/oracle_sql_developer2.png)
+![Oracle sql Entwickler config in axonivy
+designer](images/oracle_sql_config_in_axonivy_designer.png)
 
-Klicke im `AxonIvy Designer` auf den Button `start`, um das Demo-Projekt zu starten. Danach siehst du die Oracle-Datenbank in der `Db-Utils GUI` und kannst die inkrementellen SQL-Skripte ausführen.
+Klicken Sie auf `start` Schaltfläche in `AxonIvy Designer`, um das Demo-Projekt
+auszuführen, dann können Sie die Oracle-Datenbank in `Db-Utils GUI` sehen und
+die inkrementellen SQL-Skripte ausführen.
 
-![Oracle SQL Developer hat alle Tabellen angezeigt](images/oracle_sql_developer3.png)
+![Oracle sql Entwickler zeigte alle
+Tabellen](images/oracle_sql_developer_showed_all_tables.png)
+
 
 ### Sicherheit
 
