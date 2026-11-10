@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="jakarta.faces.core"
+	xmlns:h="jakarta.faces.html"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="primefaces"
+	xmlns:pe="primefaces.extensions">
+<h:body>
+	<ui:composition>
+		<p:tab title="Settings">
+			<div class="card work">
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<h:panelGroup id="settingsHeadline">
+							<h1>Settings</h1>
+						</h:panelGroup>
+						<p:tooltip for="settingsHeadline" value="Settings for DB Utils."
+							my="left" at="left top" />
+					</div>
+					<div class="col-12 md:col-12 lg:col-12">
+						<p:inputTextarea id="settings" value="#{data.ctrl.settings}"
+							autoResize="true" readonly="true" styleClass="output" />
+					</div>
+				</div>
+			</div>
+		</p:tab>
+	</ui:composition>
+</h:body>
+</html>

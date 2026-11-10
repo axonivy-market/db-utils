@@ -4,10 +4,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.message.MessageFormatMessageFactory;
-
 import com.axonivy.utils.db.resolver.DbUtilsResolver;
 
 import liquibase.Liquibase;
@@ -19,7 +15,6 @@ import liquibase.resource.ClassLoaderResourceAccessor;
  * The Liquibase service.
  */
 public class LiquibaseService {
-	private static final Logger LOG = LogManager.getLogger(new MessageFormatMessageFactory());
 	private static final Map<DbUtilsResolver, LiquibaseService> INSTANCES = new ConcurrentHashMap<>();
 
 	protected DbUtilsResolver dbUtilsResolver;
