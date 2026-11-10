@@ -43,12 +43,13 @@ ausgeführt wurden, und bietet eine GUI, um die Liste der Skripte zusammen mit
 ihrem Status anzuzeigen. Skripte können in dieser GUI ausgeführt, übersprungen
 und allgemein verwaltet werden.
 
-Additionally, you can define a `IProcessStartEventBean` to execute needed (not
-yet executed) SQL scripts automatically in the correct order during the start of
-your application. This `IProcessStartEventBean` can be created easily by simply
-extending `AbstractDbUtilsStartEventBean`. Note, that this bean must be defined
-in the context of your application (or depend on your projects), since it must
-have access to the classpath of your projects.
+Zusätzlich können Sie eine `IProcessStartEventBean` definieren, um benötigte
+(noch nicht ausgeführte) SQL-Skripte automatisch in der richtigen Reihenfolge
+während des Starts Ihrer Anwendung auszuführen. Diese `IProcessStartEventBean`
+kann einfach durch einfache Erweiterung `AbstractDbUtilsStartEventBean` erstellt
+werden. Beachten Sie, dass diese Bohne im Rahmen Ihrer Bewerbung definiert
+werden muss (oder von Ihren Projekten abhängig), da sie Zugang zum Klassenpfad
+Ihrer Projekte haben muss.
 
 Beachten Sie, dass es auch einen zweiten Datenbank-Aktualisierungsmechanismus
 gibt, der auf [Liquibase](https://liquibase.com) basiert.
