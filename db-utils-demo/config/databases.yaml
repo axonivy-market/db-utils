@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/databases.json
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0/config/databases.json
 Databases:
   comicworld_hsqldb:
     Url: jdbc:hsqldb:mem:comicworld
@@ -6,7 +6,7 @@ Databases:
     UserName: comicworld
     Password: ${decrypt:}
   comicworld_mssql:
-    Url: jdbc:sqlserver://localhost:14033;databaseName=comicworld
+    Url: jdbc:sqlserver://localhost:14033;databaseName=comicworld;trustServerCertificate=true
     Driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
     UserName: comicworld
     Password: ${decrypt:/ONFjKtA0h6caXsEaRP29A==}
