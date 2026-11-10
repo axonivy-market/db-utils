@@ -6,7 +6,7 @@ Databases:
     UserName: comicworld
     Password: ${decrypt:}
   comicworld_mssql:
-    Url: jdbc:sqlserver://localhost:14033;databaseName=comicworld
+    Url: jdbc:sqlserver://localhost:14033;databaseName=comicworld;trustServerCertificate=true
     Driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
     UserName: comicworld
     Password: ${decrypt:/ONFjKtA0h6caXsEaRP29A==}

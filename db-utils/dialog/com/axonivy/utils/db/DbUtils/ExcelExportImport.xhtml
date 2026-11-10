@@ -72,7 +72,7 @@
 					<div class="col-12 md:col-6 lg:col-4">
 						<p:fileUpload id="excelUpload" mode="advanced" auto="true"
 							multiple="false" label="Load Excel"
-							uploadLabel="Load an Excel" allowTypes="/(\.|\/)xlsx?$/"
+							uploadLabel="Load an Excel" accept=".xls,.xlsx"
 							listener="#{data.ctrl.loadExcelData}" process="@form"
 							update="@form" />
 					</div>
