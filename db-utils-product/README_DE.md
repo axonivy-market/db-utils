@@ -120,9 +120,10 @@ Um die richtige Reihenfolge zu erhalten, exportieren Sie am besten zuerst die
 Datenbank. Durch den Export wird eine Excel-Datei mit der richtigen
 Blattreihenfolge erstellt.
 
-Note, that Excel has restrictions on the maximum size of columns and sheets.
-This feature can be helpful for testing or for initial database setup but it
-should not be used for database backups and similarly "serious" database tasks.
+Beachten Sie, dass Excel Einschränkungen auf die maximale Größe von Spalten und
+Blättern hat. Diese Funktion kann für das Testen oder für das initiale
+Datenbank-Setup hilfreich sein, sollte aber nicht für Datenbank-Backups und
+ähnlich "serious" Datenbank-Aufgaben verwendet werden.
 
 ### Einstellungen
 
@@ -215,9 +216,9 @@ Anweisungen löschen und anschließend die vorherige Excel-Datei erneut
 importieren. Danach sollten die Daten wieder vorhanden sein.
 
 ```
-delete from logo;
-delete from hero;
-delete from brand;
+löschen von logo;
+löschen von helden;
+löschen von der marke;
 ```
 
 Zum Testen sind zwei Excel-Dateien enthalten.
@@ -313,41 +314,42 @@ Blob-Dateien verwendeten Klassenpfadmechanismus besser zu verstehen.
 ```
 @variables.yaml@
 ```
-### Setup and demonstration of Oracle database
+### Aufbau und Demonstration der Oracle-Datenbank
 
-To run a demonstration of the Oracle database support, you need to have access
-to an Oracle database and configure its by running the docker-compose.yml file
-in the `db-utils-demo/docker` folder. This will create an Oracle database in a
-Docker container and set up a user with the name `octopus` and the password
-`123456`. The database will be accessible on port 1521 of your machine. You can
-do it by running some commands below in order to access Oracle database.
+Um eine Demonstration des Oracle-Datenbank-Supports durchzuführen, müssen Sie
+Zugriff auf eine Oracle-Datenbank haben und diese durch den Betrieb der
+Docking-Verbindung konfigurieren. yml Datei im Ordner `db-utils-demo/docker`.
+Dies wird eine Oracle-Datenbank in einem Docker-Container erstellen und einen
+Benutzer mit dem Namen `octopus` und dem Passwort `123456` einrichten. Die
+Datenbank ist auf dem Port 1521 Ihrer Maschine zugänglich. Sie können es tun,
+indem Sie einige Befehle unten ausführen, um auf Oracle-Datenbank zugreifen.
 
-- To starts the containers defined in docker-compose.yml file.\
-  `docker compose up -d`
-- To opens an interactive Linux shell inside the running container.\
+- Um die in der Docking-compose.yml-Datei definierten Container zu starten.\
+  `docker komponiert -d`
+- Um eine interaktive Linux Shell innerhalb des laufenden Containers zu öffnen.\
   `docker exec -it oracle19c bash`
-- After running 2nd command, we use this command to connect to the Oracle
-  database.\
+- Nach dem 2. Befehl verwenden wir diesen Befehl, um mit der Oracle-Datenbank zu
+  verbinden.\
   `sqlplus octopus/123456@FREEPDB1`
 
-![Oracle commands](images/oracle_setup1.png)
+![Oracle-Befehle](images/oracle_setup1.png)
 
-After that, you can use your tools that support the Oracle database to access
-and view the dataset. For example: sqlDeveloper
+Danach können Sie Ihre Tools verwenden, die die Oracle-Datenbank unterstützen,
+um den Datensatz zuzugreifen und anzuzeigen. Zum Beispiel: sqlDeveloper
 
 ![Oracle sql developer login](images/oracle_sql_developer_login.png)
 
-Don't forget to change the database configuration in `AxonIvy Designer`
+Vergessen Sie nicht, die Datenbankkonfiguration in `AxonIvy Designer` zu ändern
 
-![Oracle sql developer config in axonivy
+![Oracle sql Entwickler config in axonivy
 designer](images/oracle_sql_config_in_axonivy_designer.png)
 
-Click `start` button in `AxonIvy Designer` to run the demo project, then you can
-see the Oracle database in `Db-Utils GUI` and execute the incremental SQL
-scripts.
+Klicken Sie auf `start` Schaltfläche in `AxonIvy Designer`, um das Demo-Projekt
+auszuführen, dann können Sie die Oracle-Datenbank in `Db-Utils GUI` sehen und
+die inkrementellen SQL-Skripte ausführen.
 
-![Oracle sql developer showed all
-tables](images/oracle_sql_developer_showed_all_tables.png)
+![Oracle sql Entwickler zeigte alle
+Tabellen](images/oracle_sql_developer_showed_all_tables.png)
 
 
 ### Sicherheit
